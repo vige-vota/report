@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import './App.css'
 import { TabMenu } from 'primereact/tabmenu'
-import {getVotingPaperById} from './Utilities'
 
 export var config
 
@@ -42,38 +41,9 @@ class App extends Component {
                     </div>
                     <div className="container">
                     	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
-                    		if (config.admin && e.originalEvent.target.className.startsWith('pi')) {
-                    			let currentVotingPaper = getVotingPaperById(e.value)
-                    			this.refs.modalVotingPaper.setState({
-                    				votingPaper: e,
-                    				app: this,
-                    				operation: 'update',
-                    				disjointed: currentVotingPaper.disjointed,
-                    				maxCandidates: currentVotingPaper.maxCandidates,
-                    				color: currentVotingPaper.color,
-                    				cssStyle: currentVotingPaper.cssStyle
-                    			})
-                    			this.refs.modalVotingPaper.open()
-                    		} else if (this.state.visible) {
-                    			if (e.value.label === this.state.confirmButtonLabel)
-                    				this.refs.confirm.open()
-                    				else {
-                    					if (e.value.label === '+') {
-                    						this.refs.modalVotingPaper.setState({
-                    							votingPaper: '',
-                    							app: this,
-                    							operation: 'insert',
-                    							disjointed: false,
-                    							maxCandidates: 0,
-                    							color: '1976D2',
-                    							cssStyle: 'bigger'
-                    						})
-                    						this.refs.modalVotingPaper.open()
-                    					} else 
-                    						this.setState({ activeItem: e.value })
-                    				}
+                    		if (this.state.visible) 
+                    			this.setState({ activeItem: e.value })
                     		}
-                    	}
                     	} />
                     </div>
                 </div>
