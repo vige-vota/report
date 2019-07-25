@@ -67,16 +67,21 @@ body {
     list-style: none;
 }
 
-.center-menu>li {
+.navbar-nav>li {
+    float: left;
     padding: 0px 10px;
 }
 
-.center-menu>li>a:hover {
-    background: #2079d4;
-    color: #eee;
-}
-
-.center-menu>li>a {
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 10px;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
     background: #f5f5f0;
     color: #000;
     border-radius: 15px;
@@ -90,24 +95,14 @@ body {
     font-weight: bold;
 }
 
-.center-menu>li.active>a {
+.navbar-nav>li>a:hover {
     background: #2079d4;
     color: #eee;
 }
 
-.navbar-nav>li {
-    float: left;
-}
-
-.navbar-nav>li>a {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    line-height: 10px;
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.navbar-nav>li.active>a {
+    background: #2079d4;
+    color: #eee;
 }
 
 a {
@@ -120,7 +115,7 @@ li.active {
     font-weight: 600;
 }
 
-ul.navbar-nav.center-menu li a {
+ul.navbar-nav li a {
     min-width: 127px!important;
     font-size: 1.3rem;
 }
