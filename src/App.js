@@ -40,7 +40,17 @@ class App extends Component {
                      	</div>
                     </div>
                     <div className="container">
-                    	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
+                    	<div className="pillsContainer">
+                    		<ul className="nav navbar-nav center-menu">
+                    			<li className=""> <a href="/europee/votanti/20190526/votantiEI">EUROPEE</a></li>
+                    			<li className=" active "> <a href="/regionali/votanti/20190526/votantiRI01000">REGIONALI</a></li>
+                    			<li className=""> <a href="/comunali/votanti/20190526/votantiGI">COMUNALI</a></li>
+                    		</ul>
+                    	</div>  
+                    </div>
+
+                    <div className="container">
+                    	<TabMenu ref='tabMenu' className={this.state.visible ? 'pillsContainer' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
                     		if (this.state.visible) 
                     			this.setState({ activeItem: e.value })
                     		}
