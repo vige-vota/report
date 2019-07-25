@@ -62,9 +62,6 @@ body {
     float: left;
     margin: 0;
     margin: 7.5px -15px;
-}
-
-.nav {
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
@@ -106,9 +103,6 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: 10px;
-}
-
-.nav>li>a {
     position: relative;
     display: block;
     padding: 10px 15px;
@@ -126,7 +120,7 @@ li.active {
     font-weight: 600;
 }
 
-ul.nav.navbar-nav.center-menu li a {
+ul.navbar-nav.center-menu li a {
     min-width: 127px!important;
     font-size: 1.3rem;
 }

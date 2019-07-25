@@ -41,7 +41,7 @@ class App extends Component {
                     </div>
                     <div className="container">
                     	<div className="pillsContainer">
-                    		<ul className="nav navbar-nav center-menu">
+                    		<ul className="navbar-nav center-menu">
                     			<li className=""> <a href="/europee/votanti/20190526/votantiEI">EUROPEE</a></li>
                     			<li className=" active "> <a href="/regionali/votanti/20190526/votantiRI01000">REGIONALI</a></li>
                     			<li className=""> <a href="/comunali/votanti/20190526/votantiGI">COMUNALI</a></li>
