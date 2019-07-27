@@ -1,4 +1,6 @@
 {
     "app.powered": "Sviluppato da ",
-    "app.title": "Affluenza e Risultati"
+    "app.title": "Affluenza e Risultati",
+    "app.region": "Regione",
+    "app.province": "Provincia"
 }

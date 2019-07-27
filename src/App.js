@@ -23,14 +23,14 @@ class App extends Component {
 
     render() {
         return (
-            <div className='App'>
+            <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
                 <div className='content-section implementation'>
-                	<div className="second-row">
-        				<div className="container container-live">
-                     		<div className="box-live">
-                     			<div className="img-responsive inmlive"> </div>
+                	<div className='second-row'>
+        				<div className='container container-live'>
+                     		<div className='box-live'>
+                     			<div className='img-responsive inmlive'> </div>
                      		</div>
-                     		<div className="box-title">
+                     		<div className='box-title'>
                      			<FormattedMessage
                      				id='app.title'
                      				defaultMessage='Affluence and Results'>
@@ -39,7 +39,7 @@ class App extends Component {
                      		</div>
                      	</div>
                     </div>
-                	<TabMenu ref='tabMenu' className={this.state.visible ? 'container' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
+                	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
                 		if (this.state.visible) 
                 			this.setState({ activeItem: e.value })
                 		}
