@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import './App.css'
 import { TabMenu } from 'primereact/tabmenu'
+import 'primeflex/primeflex.css'
+import VoteMap from './VoteMap';
+import Results from './Results';
 
 export var config
 
@@ -44,6 +47,15 @@ class App extends Component {
                 			this.setState({ activeItem: e.value })
                 		}
                 	} />
+                
+                    <div className="my-content p-grid">
+                        <div className="p-col-fixed" style={{ width: '350px'}}>
+                        	<VoteMap />
+                        </div>
+                        <div className="p-col">
+                            <Results />
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -121,3 +121,15 @@ ul.p-tabmenu-nav li a {
     min-width: 127px!important;
     font-size: 1.3rem;
 }
+
+.my-content {
+	position: relative;
+	top: 70px;
+	right: 56%
+}
+
+table {
+	position: relative;
+	left: 75%;
+    bottom: 300px;
+}
