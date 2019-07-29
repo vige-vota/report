@@ -10,6 +10,7 @@ import './VoteMap.css'
 import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
+import 'primeflex/primeflex.css'
 
 const colorScale = scaleLinear()
 .domain([0, 100000000, 13386129701]) // Max is based on China
@@ -119,28 +120,48 @@ class VoteMap extends Component {
 		        	<Button id='btnZoomIn' icon='pi pi-plus' onClick={ this.handleZoomIn } />
 		        	<Button id='btnZoomOut' icon='pi pi-minus' onClick={ this.handleZoomOut } />
 		        </div>
-	        	<div id='select-zoom'>
-					<FormattedMessage id='app.chooseregion'
-						defaultMessage='Choose region...'>
-						{(placeholder) => <AutoComplete className='chooseregion' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
-						placeholder={placeholder} 
-						suggestions={this.state.siteSuggestions} 
-						completeMethod={this.suggestSites.bind(this)} size={19} /> }
-					</FormattedMessage>
-					<FormattedMessage id='app.chooseprovince'
-						defaultMessage='Choose province...'>
-						{(placeholder) => <AutoComplete className='chooseprovince' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
-						placeholder={placeholder} 
-						suggestions={this.state.siteSuggestions} 
-						completeMethod={this.suggestSites.bind(this)} size={19} /> }
-					</FormattedMessage>
-					<FormattedMessage id='app.choosecity'
-						defaultMessage='Choose city...'>
-						{(placeholder) => <AutoComplete className='choosecity' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
-						placeholder={placeholder} 
-						suggestions={this.state.siteSuggestions} 
-						completeMethod={this.suggestSites.bind(this)} size={42} /> }
-					</FormattedMessage>
+	        	<div className='p-grid'>
+	        		<div className='p-col-fixed' style={{ width: '160px' }}>
+	        			<FormattedMessage id='app.region'
+		        			defaultMessage='Region'>
+							{(region) => <label><b>{region}</b></label> }
+						</FormattedMessage>
+	        			<FormattedMessage id='app.chooseregion'
+	        				defaultMessage='Choose region...'>
+							{(placeholder) => <AutoComplete value={this.state.site} onChange={(e) => this.setState({site: e.value})}
+							placeholder={placeholder} 
+							suggestions={this.state.siteSuggestions} 
+							completeMethod={this.suggestSites.bind(this)} size={19} /> }
+							</FormattedMessage>
+					</div>
+					<div className='p-col-2'>
+						<FormattedMessage id='app.province'
+		        			defaultMessage='Province'>
+							{(province) => <label><b>{province}</b></label> }
+						</FormattedMessage>
+		        		<FormattedMessage id='app.chooseprovince'
+		        			defaultMessage='Choose province...'>
+							{(placeholder) => <AutoComplete value={this.state.site} onChange={(e) => this.setState({site: e.value})}
+							placeholder={placeholder} 
+							suggestions={this.state.siteSuggestions} 
+							completeMethod={this.suggestSites.bind(this)} size={19} /> }
+						</FormattedMessage>
+					</div>
+				</div>
+				<div className='p-grid'>
+					<div className='p-col-2'>
+						<FormattedMessage id='app.city'
+		        			defaultMessage='City'>
+							{(city) => <label><b>{city}</b></label> }
+						</FormattedMessage>
+						<FormattedMessage id='app.choosecity'
+							defaultMessage='Choose city...'>
+							{(placeholder) => <AutoComplete value={this.state.site} onChange={(e) => this.setState({site: e.value})}
+							placeholder={placeholder} 
+							suggestions={this.state.siteSuggestions} 
+							completeMethod={this.suggestSites.bind(this)} size={42} /> }
+						</FormattedMessage>
+					</div>
 	        	</div>
 		    </div>
 		)

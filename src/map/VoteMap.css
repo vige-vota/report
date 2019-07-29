@@ -60,13 +60,20 @@
 
 .chooseregion {
 	padding-bottom: 10px;
-	padding-left: 6px;
+	padding-right: 6px;
+	display: grid;
 }
 
 .chooseprovince {
 	padding-bottom: 10px;
+	display: grid;
 }
 
 .choosecity {
 	padding-bottom: 10px;
+	display: grid;
+}
+
+label {
+	font-size: 15px;
 }

@@ -6,5 +6,6 @@
     "app.search": "Cerca ente...",
     "app.chooseregion": "Scegli regione...",
     "app.chooseprovince": "Scegli provincia...",
-    "app.choosecity": "Scegli comune..."
+    "app.choosecity": "Scegli comune...",
+    "app.city": "Comune"
 }

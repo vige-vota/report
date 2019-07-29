@@ -51,11 +51,11 @@ class App extends Component {
                 		}
                 	} />
                 
-                    <div className="my-content p-grid">
-                        <div className="p-col-fixed" style={{ width: '360px', paddingRight: '40px' }}>
+                    <div className='my-content p-grid'>
+                        <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
                         	<VoteMap />
                         </div>
-                        <div className="p-col">
+                        <div className='p-col'>
                             <Results />
                         </div>
                     </div>

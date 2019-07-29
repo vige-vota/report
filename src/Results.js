@@ -13,13 +13,18 @@ export class Results extends Component {
 
     render() {
         return (
-            <DataTable value={config.votingPapers}>
-            	<Column field="id" expander/>
-                <Column field="id" header="Id" />
-                <Column field="name" header="Name" />
-                <Column field="cssStyle" header="CssStyle" />
-                <Column field="color" header="Color" />
-            </DataTable>
+        	<div className='tableContent'>
+        		<div id='headEnti'>
+        			<h3>Regione&nbsp;ABRUZZO</h3>
+        		</div>
+            	<DataTable value={config.votingPapers}>
+            		<Column field='id' expander/>
+            		<Column field='id' header='Id' />
+            		<Column field='name' header='Name' />
+            		<Column field='cssStyle' header='CssStyle' />
+            		<Column field='color' header='Color' />
+            	</DataTable>
+            </div>
         )
     }
 }
