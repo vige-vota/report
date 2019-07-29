@@ -1,4 +1,39 @@
 .rsm-svg {
 	width: 100%;
-	height: 30%;
+	height: 500px;
+}
+
+#bottoni-zoom {
+	position: relative;
+}
+
+#bottoni-zoom button {
+    color: #004080;
+    background: #fff;
+    border-radius: 90%;
+    width: 19px;
+    height: 19px;
+    padding: 1px 0 0 0;
+    box-shadow: 1px 1px 2px #aaa;
+}
+
+#bottoni-zoom button:hover {
+    color: gray;
+}
+
+#btnZoomIn {
+    bottom: 30px;
+}
+
+#btnZoomOut {
+    bottom: 7px;
+}
+
+#btnZoomIn, #btnZoomOut {
+    position: absolute;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    opacity: 1;
+    right: 11px;
 }

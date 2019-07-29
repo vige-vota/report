@@ -14,7 +14,8 @@ export class Results extends Component {
     render() {
         return (
             <DataTable value={config.votingPapers}>
-                <Column field="id" header="Id" expander/>
+            	<Column field="id" expander/>
+                <Column field="id" header="Id" />
                 <Column field="name" header="Name" />
                 <Column field="cssStyle" header="CssStyle" />
                 <Column field="color" header="Color" />
