@@ -6,20 +6,6 @@ body, html {
     font-weight: normal;
 }
 
-body {
-    color: #1c2024;
-    font-size: 1.8rem;
-    min-width: 300px;
-    font-family: Calibri, Arial, sans-serif;
-    color: #47a3da;
-    text-rendering: optimizeLegibility;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
-    background-color: #fff;
-}
-
 .second-row {
     background: #f5f5f0;
     height: 40px;
@@ -56,80 +42,4 @@ body {
     background-image: url(/icona_live.png);
     background-repeat: no-repeat;
     transition: opacity, 0.4s, ease, 0.25s;
-}
-
-.p-tabmenu-nav {
-    float: left;
-    margin: 0;
-    margin: 7.5px -15px;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-	display: block;
-    margin-left: 39px;
-}
-
-.p-tabmenu-nav>li {
-    float: left;
-    padding: 0px 10px;
-}
-
-.p-tabmenu-nav>li>a {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    line-height: 10px;
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    
-    background: #f5f5f0;
-    color: #000;
-    border-radius: 15px;
-    height: 3px;
-    font-size: 1.6rem;
-    margin: 0px 4px;
-    line-height: 0%;
-    text-align: center;
-    min-width: 120px;
-    box-shadow: 3px 4px 5px 1px #ccc;
-    font-weight: bold;
-}
-
-.p-tabmenu-nav>li>a:hover {
-    background: #2079d4;
-    color: #eee;
-}
-
-.p-tabmenu-nav>li.active>a {
-    background: #2079d4;
-    color: #eee;
-}
-
-a {
-    background-color: transparent;
-    color: #f0f0f0;
-    text-decoration: none;
-}
-
-li.active {
-    font-weight: 600;
-}
-
-ul.p-tabmenu-nav li a {
-    min-width: 127px!important;
-    font-size: 1.3rem;
-}
-
-.my-content {
-	position: relative;
-	top: 70px;
-	right: 56%
-}
-
-table {
-	position: relative;
-	left: 75%;
-    bottom: 300px;
 }

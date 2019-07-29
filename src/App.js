@@ -3,8 +3,11 @@ import { FormattedMessage } from 'react-intl'
 import './App.css'
 import { TabMenu } from 'primereact/tabmenu'
 import 'primeflex/primeflex.css'
-import VoteMap from './VoteMap';
+import VoteMap from './map/VoteMap';
 import Results from './Results';
+import 'primereact/resources/themes/nova-light/theme.css'
+import 'primereact/resources/primereact.min.css'
+import 'primeicons/primeicons.css'
 
 export var config
 

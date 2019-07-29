@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { TreeTable } from 'primereact/treetable'
+import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { config } from './App'
+import './Results.css'
 
 export class Results extends Component {
 
@@ -12,12 +13,12 @@ export class Results extends Component {
 
     render() {
         return (
-            <TreeTable value={config.votingPapers}>
-                <Column field="id" header="Id" />
+            <DataTable value={config.votingPapers}>
+                <Column field="id" header="Id" expander/>
                 <Column field="name" header="Name" />
                 <Column field="cssStyle" header="CssStyle" />
                 <Column field="color" header="Color" />
-            </TreeTable>
+            </DataTable>
         )
     }
 }
