@@ -24,6 +24,27 @@ class VoteMap extends Component {
 
 		this.handleZoomIn = this.handleZoomIn.bind(this)
 		this.handleZoomOut = this.handleZoomOut.bind(this)
+		this.handleRefresh = this.handleRefresh.bind(this)
+		this.handleWheel = this.handleWheel.bind(this)
+	}
+		  
+	handleRefresh() {
+		this.setState({
+			zoom: 3,
+		})
+	}
+		  
+	handleWheel(event) {
+	   if (event.deltaY > 0)
+		   if (this.state.zoom > 1)
+				this.setState({
+					zoom: this.state.zoom / 1.1,
+				})
+	   if (event.deltaY < 0)
+		   if (this.state.zoom < 128)
+				this.setState({
+					zoom: this.state.zoom * 1.1,
+				})
 	}
 		  
 	handleZoomIn() {
@@ -52,13 +73,20 @@ class VoteMap extends Component {
 		          					key={ geography.properties['NAME'] }
 		          					geography={ geography }
 		          					projection={ projection }
+		          				 	onWheel = {(e) => this.handleWheel(e)}
 		          					style={{
 		          						default: {
-		          								fill: colorScale(geography.properties.pop_est),
-		          								stroke: "#FFF",
-		          								strokeWidth: 0.5,
-		          								outline: "none"
+		          							fill: colorScale(geography.properties.pop_est),
+		          							stroke: "#FFF",
+		          							strokeWidth: 0.5,
+		          							outline: "none"
 		          						},
+		                                hover: {
+		                                    fill: "#607D8B",
+		                                    stroke: "#607D8B",
+		                                    strokeWidth: 0.75,
+		                                    outline: "none"
+		                                }
 		          					}}
 		          				/>
 		          		))}
@@ -66,8 +94,9 @@ class VoteMap extends Component {
 		          	</ZoomableGroup>
 		        </ComposableMap>
 		        <div id='bottoni-zoom'>
-		        	<Button id='btnZoomIn' icon='pi pi-plus' className='fa fa-plus-circle fa-3x' onClick={ this.handleZoomIn } />
-		        	<Button id='btnZoomOut' icon='pi pi-minus' className='fa fa-minus-circle fa-3x' onClick={ this.handleZoomOut } />
+	        		<Button id='btnRefresh' icon='pi pi-refresh' className='fa fa-3x' onClick={ this.handleRefresh } />
+		        	<Button id='btnZoomIn' icon='pi pi-plus' className='fa fa-3x' onClick={ this.handleZoomIn } />
+		        	<Button id='btnZoomOut' icon='pi pi-minus' className='fa fa-3x' onClick={ this.handleZoomOut } />
 		        </div>
 		    </div>
 		)

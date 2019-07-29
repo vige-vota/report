@@ -5,6 +5,7 @@
 
 #bottoni-zoom {
 	position: relative;
+	bottom: 30px;
 }
 
 #bottoni-zoom button {
@@ -29,7 +30,17 @@
     bottom: 7px;
 }
 
-#btnZoomIn, #btnZoomOut {
+#btnRefresh {
+    bottom: 460px;
+    left: 287px;
+}
+
+#btnResetZoom {
+    margin-bottom: 100px;
+    top: 11px;
+}
+
+#btnResetZoom, #btnZoomIn, #btnZoomOut {
     position: absolute;
     cursor: pointer;
     text-decoration: none;
