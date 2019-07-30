@@ -140,7 +140,7 @@ class VoteMap extends Component {
 		        	<Button id='btnZoomIn' icon='pi pi-plus' onClick={ this.handleZoomIn } />
 		        	<Button id='btnZoomOut' icon='pi pi-minus' onClick={ this.handleZoomOut } />
 		        </div>
-				<div className='p-grid'>
+				{this.props.votingPaper && this.props.votingPaper.type === 'little-nogroup' && <div className='p-grid'>
 					<div className='p-col-2'>
 						<FormattedMessage id='app.circumscription'
 		        			defaultMessage='Circumscription'>
@@ -155,7 +155,7 @@ class VoteMap extends Component {
 							/> }
 						</FormattedMessage>
 					</div>
-	        	</div>
+	        	</div>}
 	        	<div className='p-grid'>
 	        		<div className='p-col-fixed' style={{ width: '160px' }}>
 	        			<FormattedMessage id='app.region'

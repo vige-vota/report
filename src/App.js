@@ -5,6 +5,7 @@ import { TabMenu } from 'primereact/tabmenu'
 import 'primeflex/primeflex.css'
 import VoteMap from './map/VoteMap';
 import Results from './Results';
+import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
@@ -25,6 +26,11 @@ class App extends Component {
         config.votingPapers.map((votingPaper) => 
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
         )
+    }
+
+    componentDidMount() {
+		const tabs = getTabs(this)
+        tabs[0].click()
     }
 
     render() {
@@ -48,15 +54,16 @@ class App extends Component {
                 	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
                 		if (this.state.visible) 
                 			this.setState({ activeItem: e.value })
+                			this.setState({ votingPaper: getVotingPaperById(e.value) })
                 		}
                 	} />
                 
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
-                        	<VoteMap />
+                        	<VoteMap votingPaper={this.state.votingPaper} />
                         </div>
                         <div className='p-col'>
-                            <Results />
+                            <Results votingPaper={this.state.votingPaper} />
                         </div>
                     </div>
                 </div>
