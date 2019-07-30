@@ -21,7 +21,7 @@ export class Results extends Component {
             		<Column field='id' expander/>
             		<Column field='id' header='Id' />
             		<Column field='name' header='Name' />
-            		<Column field='cssStyle' header='CssStyle' />
+            		<Column field='type' header='Type' />
             		<Column field='color' header='Color' />
             	</DataTable>
             </div>
