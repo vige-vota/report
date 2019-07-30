@@ -77,3 +77,11 @@
 label {
 	font-size: 15px;
 }
+
+.choose {
+	min-width: 10.5em !important;
+}
+
+.city {
+	min-width: 22em !important;
+}
