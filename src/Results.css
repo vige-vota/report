@@ -1,0 +1,14 @@
+.my-content {
+	position: relative;
+	right: 4%;
+	top: 30px;
+}
+
+#headEnti {
+    font-size: 15px;
+}
+
+.tableContent {
+    position: relative;
+    bottom: 3%;
+}
