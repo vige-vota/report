@@ -1,6 +1,6 @@
 .rsm-svg {
 	width: 100%;
-	height: 400px;
+	height: 375px;
 }
 
 #buttons-zoom {
@@ -31,8 +31,8 @@
 }
 
 #btnResetZoom {
-    margin-bottom: 100px;
-    top: 11px;
+    bottom: 7px;
+    left: 9px;
 }
 
 #btnSearch {
