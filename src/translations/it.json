@@ -7,5 +7,7 @@
     "app.chooseregion": "Scegli regione...",
     "app.chooseprovince": "Scegli provincia...",
     "app.choosecity": "Scegli comune...",
-    "app.city": "Comune"
+    "app.choosecircumscription": "Scegli circoscrizione...",
+    "app.city": "Comune",
+    "app.circumscription": "Circoscrizione"
 }

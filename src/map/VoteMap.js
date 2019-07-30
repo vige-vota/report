@@ -136,10 +136,26 @@ class VoteMap extends Component {
 		          	</ZoomableGroup>
 		        </ComposableMap>
 		        <div id='buttons-zoom'>
-	        		<Button id='#btnResetZoom' icon='pi pi-refresh' onClick={ this.handleRefresh } />
+	        		<Button id='btnResetZoom' icon='pi pi-refresh' onClick={ this.handleRefresh } />
 		        	<Button id='btnZoomIn' icon='pi pi-plus' onClick={ this.handleZoomIn } />
 		        	<Button id='btnZoomOut' icon='pi pi-minus' onClick={ this.handleZoomOut } />
 		        </div>
+				<div className='p-grid'>
+					<div className='p-col-2'>
+						<FormattedMessage id='app.circumscription'
+		        			defaultMessage='Circumscription'>
+							{(city) => <label><b>{city}</b></label> }
+						</FormattedMessage>
+						<FormattedMessage id='app.choosecircumscription'
+							defaultMessage='Choose circumscription...'>
+							{(placeholder) => <Dropdown value={this.state.city} className='city' 
+								onChange={(e) => this.setState({city: e.value})}
+								placeholder={placeholder} 
+								options={this.cities}
+							/> }
+						</FormattedMessage>
+					</div>
+	        	</div>
 	        	<div className='p-grid'>
 	        		<div className='p-col-fixed' style={{ width: '160px' }}>
 	        			<FormattedMessage id='app.region'
