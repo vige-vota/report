@@ -4,7 +4,7 @@ import {
 	ComposableMap,
 	ZoomableGroup,
 	Geographies,
-	Geography,
+	Geography
 } from 'react-simple-maps'
 import './VoteMap.css'
 import { Button } from 'primereact/button'
@@ -17,13 +17,23 @@ const colorScale = scaleLinear()
 .domain([0, 100000000, 13386129701]) // Max is based on China
 .range(['#FFF176', '#FFC107', '#E65100'])
 
+const include = [
+  "Italy"
+]
+
+const min_zoom = 28
+const max_zoom = 128
+const wheel_zoom = 1.1
+const click_zoom = 2
+
 class VoteMap extends Component {
 	
 	constructor() {
 		super()
 
 		this.state = {
-		   zoom: 3,
+		   zoom: min_zoom,
+		   disablePanning: true,
 		   siteSuggestions: null
 		}
 		this.sites = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo']
@@ -52,42 +62,42 @@ class VoteMap extends Component {
 		  
 	handleRefresh() {
 		this.setState({
-			zoom: 3
+			zoom: min_zoom
 		})
 	}
 		  
 	handleWheel(event) {
-	   if (event.deltaY > 0)
-		   if (this.state.zoom > 1)
-				this.setState({
-					zoom: this.state.zoom / 1.1
-				})
-	   if (event.deltaY < 0)
-		   if (this.state.zoom < 128)
-				this.setState({
-					zoom: this.state.zoom * 1.1
-				})
+	   if (event.deltaY > 0) {
+		   let newZoom = this.state.zoom / wheel_zoom
+		   this.setState({
+				zoom: newZoom > min_zoom ? newZoom : min_zoom,
+			})
+	   }
+	   if (event.deltaY < 0) {
+		   let newZoom = this.state.zoom * wheel_zoom
+		   this.setState({
+				zoom: newZoom < max_zoom ? newZoom : max_zoom,
+			})
+	   }
 	}
 		  
 	handleZoomIn() {
-		if (this.state.zoom < 128)
-			this.setState({
-				zoom: this.state.zoom * 2,
-			})
+		let newZoom = this.state.zoom * click_zoom
+		this.setState({
+			zoom: newZoom < max_zoom ? newZoom : max_zoom,
+			disablePanning: false
+		})
 	}
 		  
 	handleZoomOut() {
-		if (this.state.zoom > 1)
-			this.setState({
-				zoom: this.state.zoom / 2,
-			})
+		let newZoom = this.state.zoom / click_zoom
+		this.setState({
+			zoom: newZoom > min_zoom ? newZoom : min_zoom,
+		})
 	}
 		  
 	handleClick() {
-		if (this.state.zoom < 128)
-			this.setState({
-				zoom: this.state.zoom * 2,
-			})
+		this.handleZoomIn()
 	}
 	
 	render() {
@@ -104,15 +114,16 @@ class VoteMap extends Component {
 				</FormattedMessage>
 				<Button id='btnSearch' icon='pi pi-search' />
 				<ComposableMap>
-		          	<ZoomableGroup zoom={ this.state.zoom }>
+		          	<ZoomableGroup zoom={ this.state.zoom } center={[ 5, 35 ]} disablePanning={this.state.disablePanning}>
 		          		<Geographies geography={ topoMap }>
-		          		{(geographies, projection) => geographies.map(geography => (
+		          		{(geographies, projection) => geographies.map(geography => 
+		          				include.indexOf(geography.properties['NAME']) !== -1 && (
 		          				<Geography
 		          					key={ geography.properties['NAME'] }
 		          					geography={ geography }
 		          					projection={ projection }
 		          				 	onWheel = {(e) => this.handleWheel(e)}
-		          				 	onClick={(e) => this.handleClick(e)}
+		          				 	onClick = {(e) => this.handleClick(e)}
 		          					style={{
 		          						default: {
 		          							fill: colorScale(geography.properties.pop_est),

@@ -15,3 +15,15 @@ export const getVotingPaperById = (value) => {
 		return result
 	} else return ''
 }
+
+export const getResultById = (vote, value) => {
+	if (value && vote) {
+		let result = ''
+		let votingPapers = vote.votingPapers
+		votingPapers.forEach(votingPaper => {
+			if (votingPaper.id === value.id)
+				result = votingPaper
+		})
+		return result
+	} else return ''
+}
