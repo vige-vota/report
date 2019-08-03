@@ -29,6 +29,7 @@ class VoteMap extends Component {
 		this.state = {
 		   zoom: min_zoom,
 		   disablePanning: true,
+		   center: [ 5, 35 ],
 		   siteSuggestions: null
 		}
 		this.sites = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo']
@@ -59,7 +60,8 @@ class VoteMap extends Component {
 		  
 	handleRefresh() {
 		this.setState({
-			zoom: min_zoom
+			zoom: min_zoom,
+			disablePlanning: true
 		})
 	}
 		  
@@ -90,19 +92,19 @@ class VoteMap extends Component {
 		let newZoom = this.state.zoom / click_zoom
 		this.setState({
 			zoom: newZoom > min_zoom ? newZoom : min_zoom,
+			disablePanning: newZoom <= min_zoom ? true : false
 		})
 	}
 		  
 	handleClick() {
-		this.handleZoomIn()
 	}
 	
 	handleMove(geography, evt) {
 		const x = evt.clientX
 		const y = evt.clientY - 120
 		this.refs.tooltip.className = 'tooltipvisible'
-		this.refs.tooltip.style = 'top: '+y+'px; left: '+x+'px;'
-		this.refs.tooltip.innerHTML = geography.properties['nome_pro']
+		this.refs.tooltip.style = 'top: '+ y + 'px; left: '+ x + 'px;'
+		this.refs.tooltip.innerHTML = geography.properties['name']
 	}
 	
 	handleLeave() {
@@ -123,10 +125,10 @@ class VoteMap extends Component {
 				</FormattedMessage>
 				<Button id='btnSearch' icon='pi pi-search' />
 				<ComposableMap>
-		          	<ZoomableGroup zoom={ this.state.zoom } center={[ 5, 35 ]} disablePanning={this.state.disablePanning}>
+		          	<ZoomableGroup zoom={ this.state.zoom } center={ this.state.center } disablePanning={this.state.disablePanning}>
 		          		<Geographies geography={ topoMap }>
 		          		{(geographies, projection) => geographies.map(geography => 
-		          		( <Geography className='tooltip' key={ geography.id }
+		          		( <Geography key={ geography.id }
 		          					geography={ geography }
 		          					projection={ projection }
 		          				 	onWheel = {(e) => this.handleWheel(e)}
@@ -147,7 +149,8 @@ class VoteMap extends Component {
 		                                    outline: 'none'
 		                                },
 		                                pressed: {
-		                                    fill: 'blue'
+		                                    fill: 'blue',
+		                                    outline: 'none'
 		                                }
 		          					}}
 		          				/>
