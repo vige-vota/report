@@ -11,18 +11,13 @@ import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
-import 'primeflex/primeflex.css'
 
 const colorScale = scaleLinear()
 .domain([0, 100000000, 13386129701]) // Max is based on China
 .range(['#FFF176', '#FFC107', '#E65100'])
 
-const include = [
-  "Italy"
-]
-
 const min_zoom = 28
-const max_zoom = 128
+const max_zoom = 300
 const wheel_zoom = 1.1
 const click_zoom = 2
 
@@ -50,6 +45,8 @@ class VoteMap extends Component {
 		this.handleRefresh = this.handleRefresh.bind(this)
 		this.handleWheel = this.handleWheel.bind(this)
 		this.handleClick = this.handleClick.bind(this)
+	    this.handleMove = this.handleMove.bind(this)
+	    this.handleLeave = this.handleLeave.bind(this)
 	}
 
 	suggestSites(event) {
@@ -100,8 +97,20 @@ class VoteMap extends Component {
 		this.handleZoomIn()
 	}
 	
+	handleMove(geography, evt) {
+		const x = evt.clientX
+		const y = evt.clientY - 120
+		this.refs.tooltip.className = 'tooltipvisible'
+		this.refs.tooltip.style = 'top: '+y+'px; left: '+x+'px;'
+		this.refs.tooltip.innerHTML = geography.properties['nome_pro']
+	}
+	
+	handleLeave() {
+		this.refs.tooltip.className = 'tooltipnotvisible'
+	}
+	
 	render() {
-		let topoMap = require('./topo.json')
+		let topoMap = require('./provinces.json')
 		return(
 			<div>
 				<FormattedMessage
@@ -117,24 +126,24 @@ class VoteMap extends Component {
 		          	<ZoomableGroup zoom={ this.state.zoom } center={[ 5, 35 ]} disablePanning={this.state.disablePanning}>
 		          		<Geographies geography={ topoMap }>
 		          		{(geographies, projection) => geographies.map(geography => 
-		          				include.indexOf(geography.properties['NAME']) !== -1 && (
-		          				<Geography
-		          					key={ geography.properties['NAME'] }
+		          		( <Geography className='tooltip' key={ geography.id }
 		          					geography={ geography }
 		          					projection={ projection }
 		          				 	onWheel = {(e) => this.handleWheel(e)}
 		          				 	onClick = {(e) => this.handleClick(e)}
+		          					onMouseMove={this.handleMove}
+		          					onMouseLeave={this.handleLeave}
 		          					style={{
 		          						default: {
 		          							fill: colorScale(geography.properties.pop_est),
 		          							stroke: '#FFF',
-		          							strokeWidth: 0.5,
+		          							strokeWidth: 0.02,
 		          							outline: 'none'
 		          						},
 		                                hover: {
 		                                    fill: '#2079d4',
 		                                    stroke: '#2079d4',
-		                                    strokeWidth: 0.75,
+		                                    strokeWidth: 0.2,
 		                                    outline: 'none'
 		                                },
 		                                pressed: {
@@ -146,6 +155,7 @@ class VoteMap extends Component {
 		          		</Geographies>
 		          	</ZoomableGroup>
 		        </ComposableMap>
+		        <div ref='tooltip' className='tooltipnotvisible'>xxxxxxxx</div>
 		        <div id='buttons-zoom'>
 	        		<Button id='btnResetZoom' icon='pi pi-refresh' onClick={ this.handleRefresh } />
 		        	<Button id='btnZoomIn' icon='pi pi-plus' onClick={ this.handleZoomIn } />

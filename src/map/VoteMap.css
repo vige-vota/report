@@ -85,3 +85,25 @@ label {
 .city {
 	min-width: 22em !important;
 }
+
+.tooltipnotvisible { 
+	display: none; 
+}
+
+.tooltipvisible {
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+
+  /* Fade in tooltip */
+  transition: opacity 0.3s;
+  opacity: 1;
+  content: "";
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
