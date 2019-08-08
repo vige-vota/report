@@ -9,6 +9,7 @@ import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
+import logo from './images/logo.ico'
 
 export var config
 
@@ -49,6 +50,14 @@ class App extends Component {
                      					{(title) => <p><strong>{title}</strong></p>}
                      			</FormattedMessage>
                      		</div>
+                     		<div className='powered'>
+                     			<img alt='logo' className='logo' src={logo} />
+             					<FormattedMessage
+             					id='app.powered'
+             						defaultMessage='Powered by'>
+         							{(title) => <p>{title} <a href='http://www.vige.it'>Vige</a></p>}
+         							</FormattedMessage>
+         					</div>
                      	</div>
                     </div>
                 	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
