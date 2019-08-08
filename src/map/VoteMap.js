@@ -112,7 +112,7 @@ class VoteMap extends Component {
 	}
 	
 	render() {
-		let topoMap = require('./provinces.json')
+		let topoMap = require('./regions.json')
 		return(
 			<div>
 				<FormattedMessage
@@ -128,7 +128,7 @@ class VoteMap extends Component {
 		          	<ZoomableGroup zoom={ this.state.zoom } center={ this.state.center } disablePanning={this.state.disablePanning}>
 		          		<Geographies geography={ topoMap }>
 		          		{(geographies, projection) => geographies.map(geography => 
-		          		( <Geography key={ geography.id }
+		          		( <Geography key={ geography.properties['name'] }
 		          					geography={ geography }
 		          					projection={ projection }
 		          				 	onWheel = {(e) => this.handleWheel(e)}
