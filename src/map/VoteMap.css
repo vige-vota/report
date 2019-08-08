@@ -1,40 +1,3 @@
-.rsm-svg {
-	width: 100%;
-	height: 375px;
-}
-
-#buttons-zoom {
-	position: relative;
-	bottom: 30px;
-}
-
-#buttons-zoom button {
-    color: #004080;
-    background: #fff;
-    border-radius: 90%;
-    width: 19px;
-    height: 19px;
-    padding: 1px 0 0 0;
-    box-shadow: 1px 1px 2px #aaa;
-}
-
-#buttons-zoom button:hover {
-    color: gray;
-}
-
-#btnZoomIn {
-    bottom: 30px;
-}
-
-#btnZoomOut {
-    bottom: 7px;
-}
-
-#btnResetZoom {
-    bottom: 7px;
-    left: 9px;
-}
-
 #btnSearch {
     position: relative;
     width: 28.5px;
@@ -43,15 +6,6 @@
     border: none;
     background-color: white;
     pointer-events: none;
-}
-
-#btnResetZoom, #btnZoomIn, #btnZoomOut {
-    position: absolute;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-    opacity: 1;
-    right: 11px;
 }
 
 .searchsites {
@@ -86,24 +40,6 @@ label {
 	min-width: 22em !important;
 }
 
-.tooltipnotvisible { 
-	display: none; 
-}
-
-.tooltipvisible {
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text */
-  position: absolute;
-
-  /* Fade in tooltip */
-  transition: opacity 0.3s;
-  opacity: 1;
-  content: "";
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+.p-col-fixed {
+	padding-top: 1.2%;
 }

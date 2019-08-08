@@ -1,25 +1,9 @@
 import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
-import {
-	ComposableMap,
-	ZoomableGroup,
-	Geographies,
-	Geography
-} from 'react-simple-maps'
 import './VoteMap.css'
-import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
+import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
-
-const colorScale = scaleLinear()
-.domain([0, 100000000, 13386129701]) // Max is based on China
-.range(['#FFF176', '#FFC107', '#E65100'])
-
-const min_zoom = 28
-const max_zoom = 300
-const wheel_zoom = 1.1
-const click_zoom = 2
 
 class VoteMap extends Component {
 	
@@ -27,9 +11,6 @@ class VoteMap extends Component {
 		super()
 
 		this.state = {
-		   zoom: min_zoom,
-		   disablePanning: true,
-		   center: [ 5, 35 ],
 		   siteSuggestions: null
 		}
 		this.sites = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo']
@@ -40,14 +21,6 @@ class VoteMap extends Component {
 		    {label: 'Istanbul', value: 'IST'},
 		    {label: 'Paris', value: 'PRS'}
 		]
-
-		this.handleZoomIn = this.handleZoomIn.bind(this)
-		this.handleZoomOut = this.handleZoomOut.bind(this)
-		this.handleRefresh = this.handleRefresh.bind(this)
-		this.handleWheel = this.handleWheel.bind(this)
-		this.handleClick = this.handleClick.bind(this)
-	    this.handleMove = this.handleMove.bind(this)
-	    this.handleLeave = this.handleLeave.bind(this)
 	}
 
 	suggestSites(event) {
@@ -57,62 +30,8 @@ class VoteMap extends Component {
 	    
 	    this.setState({ siteSuggestions: results })
 	}
-		  
-	handleRefresh() {
-		this.setState({
-			zoom: min_zoom,
-			disablePlanning: true
-		})
-	}
-		  
-	handleWheel(event) {
-	   if (event.deltaY > 0) {
-		   let newZoom = this.state.zoom / wheel_zoom
-		   this.setState({
-				zoom: newZoom > min_zoom ? newZoom : min_zoom,
-			})
-	   }
-	   if (event.deltaY < 0) {
-		   let newZoom = this.state.zoom * wheel_zoom
-		   this.setState({
-				zoom: newZoom < max_zoom ? newZoom : max_zoom,
-			})
-	   }
-	}
-		  
-	handleZoomIn() {
-		let newZoom = this.state.zoom * click_zoom
-		this.setState({
-			zoom: newZoom < max_zoom ? newZoom : max_zoom,
-			disablePanning: false
-		})
-	}
-		  
-	handleZoomOut() {
-		let newZoom = this.state.zoom / click_zoom
-		this.setState({
-			zoom: newZoom > min_zoom ? newZoom : min_zoom,
-			disablePanning: newZoom <= min_zoom ? true : false
-		})
-	}
-		  
-	handleClick() {
-	}
-	
-	handleMove(geography, evt) {
-		const x = evt.clientX
-		const y = evt.clientY - 120
-		this.refs.tooltip.className = 'tooltipvisible'
-		this.refs.tooltip.style = 'top: '+ y + 'px; left: '+ x + 'px;'
-		this.refs.tooltip.innerHTML = geography.properties['name']
-	}
-	
-	handleLeave() {
-		this.refs.tooltip.className = 'tooltipnotvisible'
-	}
 	
 	render() {
-		let topoMap = require('./regions.json')
 		return(
 			<div>
 				<FormattedMessage
@@ -124,46 +43,6 @@ class VoteMap extends Component {
 						completeMethod={this.suggestSites.bind(this)} size={38} /> }
 				</FormattedMessage>
 				<Button id='btnSearch' icon='pi pi-search' />
-				<ComposableMap>
-		          	<ZoomableGroup zoom={ this.state.zoom } center={ this.state.center } disablePanning={this.state.disablePanning}>
-		          		<Geographies geography={ topoMap }>
-		          		{(geographies, projection) => geographies.map(geography => 
-		          		( <Geography key={ geography.properties['name'] }
-		          					geography={ geography }
-		          					projection={ projection }
-		          				 	onWheel = {(e) => this.handleWheel(e)}
-		          				 	onClick = {(e) => this.handleClick(e)}
-		          					onMouseMove={this.handleMove}
-		          					onMouseLeave={this.handleLeave}
-		          					style={{
-		          						default: {
-		          							fill: colorScale(geography.properties.pop_est),
-		          							stroke: '#FFF',
-		          							strokeWidth: 0.02,
-		          							outline: 'none'
-		          						},
-		                                hover: {
-		                                    fill: '#2079d4',
-		                                    stroke: '#2079d4',
-		                                    strokeWidth: 0.2,
-		                                    outline: 'none'
-		                                },
-		                                pressed: {
-		                                    fill: 'blue',
-		                                    outline: 'none'
-		                                }
-		          					}}
-		          				/>
-		          		))}
-		          		</Geographies>
-		          	</ZoomableGroup>
-		        </ComposableMap>
-		        <div ref='tooltip' className='tooltipnotvisible'>xxxxxxxx</div>
-		        <div id='buttons-zoom'>
-	        		<Button id='btnResetZoom' icon='pi pi-refresh' onClick={ this.handleRefresh } />
-		        	<Button id='btnZoomIn' icon='pi pi-plus' onClick={ this.handleZoomIn } />
-		        	<Button id='btnZoomOut' icon='pi pi-minus' onClick={ this.handleZoomOut } />
-		        </div>
 				{this.props.votingPaper && this.props.votingPaper.type === 'little-nogroup' && <div className='p-grid'>
 					<div className='p-col-2'>
 						<FormattedMessage id='app.circumscription'
