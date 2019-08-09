@@ -13,7 +13,6 @@ class VoteMap extends Component {
 		this.state = {
 		   siteSuggestions: null
 		}
-		this.sites = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo']
 		this.cities = [
 		    {label: 'New York', value: 'NY'},
 		    {label: 'Rome', value: 'RM'},
@@ -21,6 +20,7 @@ class VoteMap extends Component {
 		    {label: 'Istanbul', value: 'IST'},
 		    {label: 'Paris', value: 'PRS'}
 		]
+		this.sites = this.cities.map(city => city.label)
 	}
 
 	suggestSites(event) {
