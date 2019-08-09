@@ -29,11 +29,14 @@ class VoteMap extends Component {
 		if (this.props.votingPaper) {
 			let objects = require('../cities/' + language + '.json')
 			if (this.props.votingPaper.type === 'little-nogroup')
-				this.zones = objects.zones.map(city => { 
+				this.circumspriptions = objects.zones.map(city => { 
 					return { label: city.name, value: city.id}})
-			else
-				this.zones = objects.zones.flatMap(city => city.zones).map(city => { 
-					return { label: city.name, value: city.id}})
+			this.regions = objects.zones.flatMap(city => city.zones).map(city => { 
+				return { label: city.name, value: city.id}})
+			this.provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => { 
+				return { label: city.name, value: city.id}})
+			this.cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => { 
+				return { label: city.name, value: city.id}})
 			this.sites = []
 			setAllZones(objects, this.props.votingPaper, this.sites, 0)
 		}
@@ -42,7 +45,9 @@ class VoteMap extends Component {
 				<FormattedMessage
         			id='app.search'
         				defaultMessage='Search site...'>
-					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
+					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) => 
+							this.setState({site: e.value})
+						}
 						placeholder={placeholder} 
 						suggestions={this.state.siteSuggestions} 
 						completeMethod={this.suggestSites.bind(this)} size={38} /> }
@@ -56,10 +61,12 @@ class VoteMap extends Component {
 						</FormattedMessage>
 						<FormattedMessage id='app.choosecircumscription'
 							defaultMessage='Choose circumscription...'>
-							{(placeholder) => <Dropdown value={this.state.city} className='city' 
-								onChange={(e) => this.setState({city: e.value})}
+							{(placeholder) => <Dropdown value={this.state.circumscription} className='city' 
+								onChange={(e) => 
+									this.setState({circumscription: e.value})
+								}
 								placeholder={placeholder} 
-								options={this.zones}
+								options={this.circumspriptions}
 							/> }
 						</FormattedMessage>
 					</div>
@@ -72,10 +79,12 @@ class VoteMap extends Component {
 						</FormattedMessage>
 	        			<FormattedMessage id='app.chooseregion'
 	        				defaultMessage='Choose region...'>
-							{(placeholder) => <Dropdown value={this.state.city} className='choose' 
-								onChange={(e) => this.setState({city: e.value})}
+							{(placeholder) => <Dropdown value={this.state.region} className='choose' 
+								onChange={(e) => 
+									this.setState({region: e.value})
+								}
 								placeholder={placeholder} 
-								options={this.zones} 
+								options={this.regions} 
 							/> }
 							</FormattedMessage>
 					</div>
@@ -86,10 +95,12 @@ class VoteMap extends Component {
 						</FormattedMessage>
 		        		<FormattedMessage id='app.chooseprovince'
 		        			defaultMessage='Choose province...'>
-							{(placeholder) => <Dropdown value={this.state.city} className='choose' 
-								onChange={(e) => this.setState({city: e.value})}
+							{(placeholder) => <Dropdown value={this.state.province} className='choose' 
+								onChange={(e) => 
+									this.setState({province: e.value})
+								}
 								placeholder={placeholder} 
-								options={this.zones} 
+								options={this.provinces} 
 							/> }
 						</FormattedMessage>
 					</div>
@@ -103,9 +114,11 @@ class VoteMap extends Component {
 						<FormattedMessage id='app.choosecity'
 							defaultMessage='Choose city...'>
 							{(placeholder) => <Dropdown value={this.state.city} className='city' 
-								onChange={(e) => this.setState({city: e.value})}
+								onChange={(e) => 
+									this.setState({city: e.value})
+								}
 								placeholder={placeholder} 
-								options={this.zones} 
+								options={this.cities} 
 							/> }
 						</FormattedMessage>
 					</div>

@@ -43,3 +43,7 @@ label {
 .p-col-fixed {
 	padding-top: 1.2%;
 }
+
+.p-dropdown .p-inputtext {
+    font-size: 11px !important;
+}
