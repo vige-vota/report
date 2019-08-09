@@ -27,3 +27,13 @@ export const getResultById = (vote, value) => {
 		return result
 	} else return ''
 }
+
+export const setAllZones = (value, votingPaper, list, counter) => {
+		value.zones.forEach(zone => { 
+			if (zone.zones) {
+				if (votingPaper.type === 'little-nogroup' || counter > 0)
+					list.push(zone)
+				setAllZones(zone, votingPaper, list, counter + 1)
+			}
+		})
+} 

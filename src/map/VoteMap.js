@@ -4,6 +4,8 @@ import { Dropdown } from 'primereact/dropdown'
 import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
+import { language } from '../index'
+import { setAllZones } from '../Utilities'
 
 class VoteMap extends Component {
 	
@@ -13,31 +15,34 @@ class VoteMap extends Component {
 		this.state = {
 		   siteSuggestions: null
 		}
-		this.cities = [
-		    {label: 'New York', value: 'NY'},
-		    {label: 'Rome', value: 'RM'},
-		    {label: 'London', value: 'LDN'},
-		    {label: 'Istanbul', value: 'IST'},
-		    {label: 'Paris', value: 'PRS'}
-		]
-		this.sites = this.cities.map(city => city.label)
 	}
 
 	suggestSites(event) {
 	    let results = this.sites.filter((site) => {
-	         return site.toLowerCase().startsWith(event.query.toLowerCase())
+	         return site.name.toLowerCase().startsWith(event.query.toLowerCase())
 	    })
 	    
 	    this.setState({ siteSuggestions: results })
 	}
 	
 	render() {
+		if (this.props.votingPaper) {
+			let objects = require('../cities/' + language + '.json')
+			if (this.props.votingPaper.type === 'little-nogroup')
+				this.zones = objects.zones.map(city => { 
+					return { label: city.name, value: city.id}})
+			else
+				this.zones = objects.zones.flatMap(city => city.zones).map(city => { 
+					return { label: city.name, value: city.id}})
+			this.sites = []
+			setAllZones(objects, this.props.votingPaper, this.sites, 0)
+		}
 		return(
-			<div>
+			    <div>
 				<FormattedMessage
         			id='app.search'
         				defaultMessage='Search site...'>
-					{(placeholder) => <AutoComplete className='searchsites' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
+					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
 						placeholder={placeholder} 
 						suggestions={this.state.siteSuggestions} 
 						completeMethod={this.suggestSites.bind(this)} size={38} /> }
@@ -54,7 +59,7 @@ class VoteMap extends Component {
 							{(placeholder) => <Dropdown value={this.state.city} className='city' 
 								onChange={(e) => this.setState({city: e.value})}
 								placeholder={placeholder} 
-								options={this.cities}
+								options={this.zones}
 							/> }
 						</FormattedMessage>
 					</div>
@@ -70,7 +75,7 @@ class VoteMap extends Component {
 							{(placeholder) => <Dropdown value={this.state.city} className='choose' 
 								onChange={(e) => this.setState({city: e.value})}
 								placeholder={placeholder} 
-								options={this.cities} 
+								options={this.zones} 
 							/> }
 							</FormattedMessage>
 					</div>
@@ -84,7 +89,7 @@ class VoteMap extends Component {
 							{(placeholder) => <Dropdown value={this.state.city} className='choose' 
 								onChange={(e) => this.setState({city: e.value})}
 								placeholder={placeholder} 
-								options={this.cities} 
+								options={this.zones} 
 							/> }
 						</FormattedMessage>
 					</div>
@@ -100,7 +105,7 @@ class VoteMap extends Component {
 							{(placeholder) => <Dropdown value={this.state.city} className='city' 
 								onChange={(e) => this.setState({city: e.value})}
 								placeholder={placeholder} 
-								options={this.cities} 
+								options={this.zones} 
 							/> }
 						</FormattedMessage>
 					</div>

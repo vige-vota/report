@@ -15,7 +15,7 @@ addLocaleData([...locale_en, ...locale_it])
 const messages = {
     'it': messages_it
 }
-const language = navigator.language.split(/[-_]/)[0]  // language without region code
+export const language = navigator.language.split(/[-_]/)[0]  // language without region code
 
 axios
 	.get(process.env.REACT_APP_VOTING_PAPERS_URL)
