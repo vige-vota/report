@@ -31,18 +31,26 @@ class VoteMap extends Component {
 			if (this.props.votingPaper.type === 'little-nogroup')
 				this.circumspriptions = objects.zones.map(city => {
 					return { label: city.name, value: city.id}})
+					
 			if (!this.state.circumscription)
 				this.regions = objects.zones.flatMap(city => city.zones).map(city => {
 					return { label: city.name, value: city.id}})
-			else findZonesByFather(this.state.circumscription, objects.zones, this.regions = [])
-			if (!this.state.region)
-				this.provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
-					return { label: city.name, value: city.id}})
-			else findZonesByFather(this.state.region, objects.zones, this.provinces = [])
-			if (!this.state.province)
-				this.cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
-					return { label: city.name, value: city.id}})
-			else findZonesByFather(this.state.province, objects.zones, this.cities = [])
+			else 
+				findZonesByFather(this.state.circumscription, objects.zones, this.regions = [], this.provinces = [], this.cities = [])
+			
+			if (!this.state.circumscription || this.state.region)
+				if (!this.state.region)
+					this.provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
+						return { label: city.name, value: city.id}})
+				else 
+					findZonesByFather(this.state.region, objects.zones, this.provinces = [], this.cities = [])
+			
+			if ((!this.state.circumscription && !this.state.region) || this.state.province)
+				if (!this.state.province)
+					this.cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
+						return { label: city.name, value: city.id}})
+				else findZonesByFather(this.state.province, objects.zones, this.cities = [])
+			
 			this.sites = []
 			setAllZones(objects, this.props.votingPaper, this.sites, 0)
 		}
@@ -69,7 +77,7 @@ class VoteMap extends Component {
 							defaultMessage='Choose circumscription...'>
 							{(placeholder) => <Dropdown value={this.state.circumscription} className='city' 
 								onChange={(e) => {
-									this.setState({circumscription: e.value})
+									this.setState({circumscription: e.value, region: null, province: null, city: null})
 								}}
 								placeholder={placeholder} 
 								options={this.circumspriptions}
@@ -87,9 +95,7 @@ class VoteMap extends Component {
 	        				defaultMessage='Choose region...'>
 							{(placeholder) => <Dropdown value={this.state.region} className='choose' 
 								onChange={(e) => {
-									this.setState({region: e.value})
-									this.setState({province: null})
-									this.setState({city: null})
+									this.setState({region: e.value, province: null, city: null})
 								}}
 								placeholder={placeholder} 
 								options={this.regions} 
@@ -105,8 +111,7 @@ class VoteMap extends Component {
 		        			defaultMessage='Choose province...'>
 							{(placeholder) => <Dropdown value={this.state.province} className='choose' 
 								onChange={(e) => {
-									this.setState({province: e.value})
-									this.setState({city: null})
+									this.setState({province: e.value, city: null})
 								}}
 								placeholder={placeholder} 
 								options={this.provinces} 
