@@ -36,4 +36,12 @@ export const setAllZones = (value, votingPaper, list, counter) => {
 				setAllZones(zone, votingPaper, list, counter + 1)
 			}
 		})
-} 
+}
+
+export const findZonesByFather = (value, zones, list) => {
+	zones.forEach(zone => {
+		if (zone.id === value)
+			zone.zones.forEach( e => { list.push( { label: e.name, value: e.id})})
+		else findZonesByFather(value, zone.zones, list)
+	})
+}
