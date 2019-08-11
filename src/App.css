@@ -43,3 +43,21 @@ body, html {
     background-repeat: no-repeat;
     transition: opacity, 0.4s, ease, 0.25s;
 }
+
+.logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 4vmin;
+}
+
+.powered {
+    position: relative;
+    left: 89%;
+    display: inline-flex;
+    top: 5px;
+}
+
+.powered p {
+	top: 6px;
+	font-size: 10px;
+	position: relative;
+}

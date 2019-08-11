@@ -1,30 +1,16 @@
 import React, { Component } from 'react'
-import { scaleLinear } from 'd3-scale'
-import {
-	ComposableMap,
-	ZoomableGroup,
-	Geographies,
-	Geography
-} from 'react-simple-maps'
 import './VoteMap.css'
-import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
+import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
-import 'primeflex/primeflex.css'
+import { language } from '../index'
+import { setAllZones, findZonesByFather, findFatherByChild } from '../Utilities'
 
-const colorScale = scaleLinear()
-.domain([0, 100000000, 13386129701]) // Max is based on China
-.range(['#FFF176', '#FFC107', '#E65100'])
-
-const include = [
-  "Italy"
-]
-
-const min_zoom = 28
-const max_zoom = 128
-const wheel_zoom = 1.1
-const click_zoom = 2
+var circumscriptions = []
+var regions = []
+var provinces = []
+var cities = []
 
 class VoteMap extends Component {
 	
@@ -32,125 +18,60 @@ class VoteMap extends Component {
 		super()
 
 		this.state = {
-		   zoom: min_zoom,
-		   disablePanning: true,
 		   siteSuggestions: null
 		}
-		this.sites = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo']
-		this.cities = [
-		    {label: 'New York', value: 'NY'},
-		    {label: 'Rome', value: 'RM'},
-		    {label: 'London', value: 'LDN'},
-		    {label: 'Istanbul', value: 'IST'},
-		    {label: 'Paris', value: 'PRS'}
-		]
-
-		this.handleZoomIn = this.handleZoomIn.bind(this)
-		this.handleZoomOut = this.handleZoomOut.bind(this)
-		this.handleRefresh = this.handleRefresh.bind(this)
-		this.handleWheel = this.handleWheel.bind(this)
-		this.handleClick = this.handleClick.bind(this)
 	}
 
 	suggestSites(event) {
 	    let results = this.sites.filter((site) => {
-	         return site.toLowerCase().startsWith(event.query.toLowerCase())
+	         return site.name.toLowerCase().startsWith(event.query.toLowerCase())
 	    })
 	    
 	    this.setState({ siteSuggestions: results })
 	}
-		  
-	handleRefresh() {
-		this.setState({
-			zoom: min_zoom
-		})
-	}
-		  
-	handleWheel(event) {
-	   if (event.deltaY > 0) {
-		   let newZoom = this.state.zoom / wheel_zoom
-		   this.setState({
-				zoom: newZoom > min_zoom ? newZoom : min_zoom,
-			})
-	   }
-	   if (event.deltaY < 0) {
-		   let newZoom = this.state.zoom * wheel_zoom
-		   this.setState({
-				zoom: newZoom < max_zoom ? newZoom : max_zoom,
-			})
-	   }
-	}
-		  
-	handleZoomIn() {
-		let newZoom = this.state.zoom * click_zoom
-		this.setState({
-			zoom: newZoom < max_zoom ? newZoom : max_zoom,
-			disablePanning: false
-		})
-	}
-		  
-	handleZoomOut() {
-		let newZoom = this.state.zoom / click_zoom
-		this.setState({
-			zoom: newZoom > min_zoom ? newZoom : min_zoom,
-		})
-	}
-		  
-	handleClick() {
-		this.handleZoomIn()
-	}
 	
 	render() {
-		let topoMap = require('./topo.json')
+		let objects = require('../cities/' + language + '.json')
+		if (this.props.votingPaper) {
+			if (this.props.votingPaper.type === 'little-nogroup')
+				circumscriptions = objects.zones.map(city => {
+					return { label: city.name, value: city.id}})
+					
+			if (!this.state.circumscription)
+				regions = objects.zones.flatMap(city => city.zones).map(city => {
+					return { label: city.name, value: city.id}})
+			else 
+				findZonesByFather(this.state.circumscription, objects.zones, regions = [], provinces = [], cities = [])
+			
+			if (!this.state.circumscription || this.state.region)
+				if (!this.state.region)
+					provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
+						return { label: city.name, value: city.id}})
+				else 
+					findZonesByFather(this.state.region, objects.zones, provinces = [], cities = [])
+			
+			if ((!this.state.circumscription && !this.state.region) || this.state.province)
+				if (!this.state.province)
+					cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
+						return { label: city.name, value: city.id}})
+				else findZonesByFather(this.state.province, objects.zones, cities = [])
+			
+			this.sites = []
+			setAllZones(objects, this.props.votingPaper, this.sites, 0)
+		}
 		return(
-			<div>
+			    <div>
 				<FormattedMessage
         			id='app.search'
         				defaultMessage='Search site...'>
-					{(placeholder) => <AutoComplete className='searchsites' value={this.state.site} onChange={(e) => this.setState({site: e.value})}
+					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) => 
+							this.setState({site: e.value})
+						}
 						placeholder={placeholder} 
 						suggestions={this.state.siteSuggestions} 
 						completeMethod={this.suggestSites.bind(this)} size={38} /> }
 				</FormattedMessage>
 				<Button id='btnSearch' icon='pi pi-search' />
-				<ComposableMap>
-		          	<ZoomableGroup zoom={ this.state.zoom } center={[ 5, 35 ]} disablePanning={this.state.disablePanning}>
-		          		<Geographies geography={ topoMap }>
-		          		{(geographies, projection) => geographies.map(geography => 
-		          				include.indexOf(geography.properties['NAME']) !== -1 && (
-		          				<Geography
-		          					key={ geography.properties['NAME'] }
-		          					geography={ geography }
-		          					projection={ projection }
-		          				 	onWheel = {(e) => this.handleWheel(e)}
-		          				 	onClick = {(e) => this.handleClick(e)}
-		          					style={{
-		          						default: {
-		          							fill: colorScale(geography.properties.pop_est),
-		          							stroke: '#FFF',
-		          							strokeWidth: 0.5,
-		          							outline: 'none'
-		          						},
-		                                hover: {
-		                                    fill: '#2079d4',
-		                                    stroke: '#2079d4',
-		                                    strokeWidth: 0.75,
-		                                    outline: 'none'
-		                                },
-		                                pressed: {
-		                                    fill: 'blue'
-		                                }
-		          					}}
-		          				/>
-		          		))}
-		          		</Geographies>
-		          	</ZoomableGroup>
-		        </ComposableMap>
-		        <div id='buttons-zoom'>
-	        		<Button id='btnResetZoom' icon='pi pi-refresh' onClick={ this.handleRefresh } />
-		        	<Button id='btnZoomIn' icon='pi pi-plus' onClick={ this.handleZoomIn } />
-		        	<Button id='btnZoomOut' icon='pi pi-minus' onClick={ this.handleZoomOut } />
-		        </div>
 				{this.props.votingPaper && this.props.votingPaper.type === 'little-nogroup' && <div className='p-grid'>
 					<div className='p-col-2'>
 						<FormattedMessage id='app.circumscription'
@@ -159,10 +80,15 @@ class VoteMap extends Component {
 						</FormattedMessage>
 						<FormattedMessage id='app.choosecircumscription'
 							defaultMessage='Choose circumscription...'>
-							{(placeholder) => <Dropdown value={this.state.city} className='city' 
-								onChange={(e) => this.setState({city: e.value})}
+							{(placeholder) => <Dropdown value={this.state.circumscription} className='city' 
+								onChange={(e) =>
+									this.setState({circumscription: e.value, 
+												   region: null, 
+												   province: null, 
+												   city: null})
+									}
 								placeholder={placeholder} 
-								options={this.cities}
+								options={circumscriptions}
 							/> }
 						</FormattedMessage>
 					</div>
@@ -175,10 +101,19 @@ class VoteMap extends Component {
 						</FormattedMessage>
 	        			<FormattedMessage id='app.chooseregion'
 	        				defaultMessage='Choose region...'>
-							{(placeholder) => <Dropdown value={this.state.city} className='choose' 
-								onChange={(e) => this.setState({city: e.value})}
-								placeholder={placeholder} 
-								options={this.cities} 
+							{(placeholder) => <Dropdown value={this.state.region} className='choose' 
+								onChange={(e) => {
+									let resultCircumscriptions = []
+									findFatherByChild(e.value, objects.zones, resultCircumscriptions)
+									let ci = resultCircumscriptions.pop()
+									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id,
+												   region: e.value, 
+												   province: null, 
+												   city: null})
+									}
+								}
+								placeholder={placeholder}
+								options={regions} 
 							/> }
 							</FormattedMessage>
 					</div>
@@ -189,10 +124,22 @@ class VoteMap extends Component {
 						</FormattedMessage>
 		        		<FormattedMessage id='app.chooseprovince'
 		        			defaultMessage='Choose province...'>
-							{(placeholder) => <Dropdown value={this.state.city} className='choose' 
-								onChange={(e) => this.setState({city: e.value})}
+							{(placeholder) => <Dropdown value={this.state.province} className='choose' 
+								onChange={(e) => {
+									let resultRegions = []
+									findFatherByChild(e.value, objects.zones, resultRegions)
+									let re = resultRegions.pop()
+									let resultCircumscriptions = []
+									findFatherByChild(re.id, objects.zones, resultCircumscriptions)
+									let ci = resultCircumscriptions.pop()
+									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
+												   region: this.state.region ? this.state.region : re.id, 
+										   		   province: e.value, 
+												   city: null})
+									}
+								}
 								placeholder={placeholder} 
-								options={this.cities} 
+								options={provinces} 
 							/> }
 						</FormattedMessage>
 					</div>
@@ -206,9 +153,24 @@ class VoteMap extends Component {
 						<FormattedMessage id='app.choosecity'
 							defaultMessage='Choose city...'>
 							{(placeholder) => <Dropdown value={this.state.city} className='city' 
-								onChange={(e) => this.setState({city: e.value})}
+								onChange={(e) => {
+									let resultProvince = []
+									findFatherByChild(e.value, objects.zones, resultProvince)
+									let pr = resultProvince.pop()
+									let resultRegion = []
+									findFatherByChild(pr.id, objects.zones, resultRegion)
+									let re = resultRegion.pop()
+									let resultCircumscriptions = []
+									findFatherByChild(re.id, objects.zones, resultCircumscriptions)
+									let ci = resultCircumscriptions.pop()
+									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
+												   region: this.state.region ? this.state.region : re.id, 
+												   province: this.state.province ? this.state.province : pr.id, 
+												   city: e.value})
+									}
+								}
 								placeholder={placeholder} 
-								options={this.cities} 
+								options={cities} 
 							/> }
 						</FormattedMessage>
 					</div>

@@ -1,0 +1,1295 @@
+{
+	"zones": [
+		{
+			"id": 0,
+			"name": "I: ITALIA NORD-OCCIDENTALE",
+			"zones": [
+				{
+					"id": 1,
+					"name": "LOMBARDIA",
+					"zones": [
+						{
+							"id": 2,
+							"name": "BERGAMO",
+							"zones": []
+						},
+						{
+							"id": 3,
+							"name": "BRESCIA",
+							"zones": []
+						},
+						{
+							"id": 4,
+							"name": "COMO",
+							"zones": []
+						},
+						{
+							"id": 5,
+							"name": "CREMONA",
+							"zones": []
+						},
+						{
+							"id": 6,
+							"name": "LECCO",
+							"zones": []
+						},
+						{
+							"id": 7,
+							"name": "LODI",
+							"zones": []
+						},
+						{
+							"id": 8,
+							"name": "MANTOVA",
+							"zones": []
+						},
+						{
+							"id": 9,
+							"name": "MILANO",
+							"zones": []
+						},
+						{
+							"id": 10,
+							"name": "MONZA E DELLA BRIANZA",
+							"zones": []
+						},
+						{
+							"id": 11,
+							"name": "PAVIA",
+							"zones": []
+						},
+						{
+							"id": 12,
+							"name": "SONDRIO",
+							"zones": []
+						},
+						{
+							"id": 13,
+							"name": "VARESE",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 14,
+					"name": "PIEMONTE",
+					"zones": [
+						{
+							"id": 15,
+							"name": "ALESSANDRIA",
+							"zones": []
+						},
+						{
+							"id": 16,
+							"name": "ASTI",
+							"zones": []
+						},
+						{
+							"id": 17,
+							"name": "BIELLA",
+							"zones": []
+						},
+						{
+							"id": 18,
+							"name": "CUNEO",
+							"zones": []
+						},
+						{
+							"id": 19,
+							"name": "NOVARA",
+							"zones": []
+						},
+						{
+							"id": 20,
+							"name": "TORINO",
+							"zones": []
+						},
+						{
+							"id": 21,
+							"name": "VERBANO-CUSIO-OSSOLA",
+							"zones": []
+						},
+						{
+							"id": 22,
+							"name": "VERCELLI",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 23,
+					"name": "LIGURIA",
+					"zones": [
+						{
+							"id": 24,
+							"name": "GENOVA",
+							"zones": []
+						},
+						{
+							"id": 25,
+							"name": "IMPERIA",
+							"zones": []
+						},
+						{
+							"id": 26,
+							"name": "LA SPEZIA",
+							"zones": []
+						},
+						{
+							"id": 27,
+							"name": "SAVONA",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 28,
+					"name": "VALLE D'AOSTA",
+					"zones": [
+						{
+							"id": 29,
+							"name": "AOSTA",
+							"zones": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 30,
+			"name": "II: ITALIA NORD-ORIENTALE",
+			"zones": [
+				{
+					"id": 31,
+					"name": "FRIULI-VENEZIA GIULIA",
+					"zones": [
+						{
+							"id": 32,
+							"name": "GORIZIA",
+							"zones": []
+						},
+						{
+							"id": 33,
+							"name": "PORDENONE",
+							"zones": []
+						},
+						{
+							"id": 34,
+							"name": "TRIESTE",
+							"zones": []
+						},
+						{
+							"id": 35,
+							"name": "UDINE",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 36,
+					"name": "TRENTINO-ALTO ADIGE",
+					"zones": [
+						{
+							"id": 37,
+							"name": "BOLZANO",
+							"zones": []
+						},
+						{
+							"id": 38,
+							"name": "TRENTO",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 39,
+					"name": "VENETO",
+					"zones": [
+						{
+							"id": 40,
+							"name": "BELLUNO",
+							"zones": []
+						},
+						{
+							"id": 41,
+							"name": "PADOVA",
+							"zones": []
+						},
+						{
+							"id": 42,
+							"name": "ROVIGO",
+							"zones": []
+						},
+						{
+							"id": 43,
+							"name": "TREVISO",
+							"zones": []
+						},
+						{
+							"id": 44,
+							"name": "VENEZIA",
+							"zones": []
+						},
+						{
+							"id": 45,
+							"name": "VERONA",
+							"zones": []
+						},
+						{
+							"id": 46,
+							"name": "VICENZA",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 47,
+					"name": "EMILIA ROMAGNA",
+					"zones": [
+						{
+							"id": 48,
+							"name": "BOLOGNA",
+							"zones": []
+						},
+						{
+							"id": 49,
+							"name": "FERRARA",
+							"zones": []
+						},
+						{
+							"id": 50,
+							"name": "FORLI-CESENA",
+							"zones": []
+						},
+						{
+							"id": 51,
+							"name": "MODENA",
+							"zones": []
+						},
+						{
+							"id": 52,
+							"name": "PARMA",
+							"zones": []
+						},
+						{
+							"id": 53,
+							"name": "PIACENZA",
+							"zones": []
+						},
+						{
+							"id": 54,
+							"name": "RAVENNA",
+							"zones": []
+						},
+						{
+							"id": 55,
+							"name": "REGGIO EMILIA",
+							"zones": []
+						},
+						{
+							"id": 56,
+							"name": "RIMINI",
+							"zones": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 57,
+			"name": "III: ITALIA CENTRALE",
+			"zones": [
+				{
+					"id": 58,
+					"name": "LAZIO",
+					"zones": [
+						{
+							"id": 59,
+							"name": "ROMA",
+							"zones": [
+								{
+									"id": 132,
+									"name": "ROMA",
+									"zones": []
+								},
+								{
+									"id": 133,
+									"name": "GUIDONIA MONTECELIO",
+									"zones": []
+								},
+								{
+									"id": 134,
+									"name": "FIUMICINO",
+									"zones": []
+								},
+								{
+									"id": 135,
+									"name": "POMEZIA",
+									"zones": []
+								},
+								{
+									"id": 136,
+									"name": "TIVOLI",
+									"zones": []
+								},
+								{
+									"id": 137,
+									"name": "ANZIO",
+									"zones": []
+								},
+								{
+									"id": 138,
+									"name": "VELLETRI",
+									"zones": []
+								},
+								{
+									"id": 139,
+									"name": "CIVITAVECCHIA",
+									"zones": []
+								},
+								{
+									"id": 140,
+									"name": "NETTUNO",
+									"zones": []
+								},
+								{
+									"id": 141,
+									"name": "ARDEA",
+									"zones": []
+								},
+								{
+									"id": 142,
+									"name": "MARINO",
+									"zones": []
+								},
+								{
+									"id": 143,
+									"name": "ALBANO LAZIALE",
+									"zones": []
+								},
+								{
+									"id": 144,
+									"name": "LADISPOLI",
+									"zones": []
+								},
+								{
+									"id": 145,
+									"name": "MONTEROTONDO",
+									"zones": []
+								},
+								{
+									"id": 146,
+									"name": "CIAMPINO",
+									"zones": []
+								},
+								{
+									"id": 147,
+									"name": "CERVETERI",
+									"zones": []
+								},
+								{
+									"id": 148,
+									"name": "FONTE NUOVA",
+									"zones": []
+								},
+								{
+									"id": 149,
+									"name": "GENZANO DI ROMA",
+									"zones": []
+								},
+								{
+									"id": 150,
+									"name": "MENTANA",
+									"zones": []
+								},
+								{
+									"id": 151,
+									"name": "FRASCATI",
+									"zones": []
+								},
+								{
+									"id": 152,
+									"name": "PALESTRINA",
+									"zones": []
+								},
+								{
+									"id": 153,
+									"name": "COLLEFERRO",
+									"zones": []
+								},
+								{
+									"id": 154,
+									"name": "GROTTAFERRATA",
+									"zones": []
+								},
+								{
+									"id": 155,
+									"name": "ANGUILLARA SABAZIA",
+									"zones": []
+								},
+								{
+									"id": 156,
+									"name": "BRACCIANO",
+									"zones": []
+								},
+								{
+									"id": 157,
+									"name": "ARICCIA",
+									"zones": []
+								},
+								{
+									"id": 158,
+									"name": "SANTA MARINELLA",
+									"zones": []
+								},
+								{
+									"id": 159,
+									"name": "ZAGAROLO",
+									"zones": []
+								},
+								{
+									"id": 160,
+									"name": "ROCCA DI PAPA",
+									"zones": []
+								},
+								{
+									"id": 161,
+									"name": "VALMONTONE",
+									"zones": []
+								},
+								{
+									"id": 162,
+									"name": "FIANO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 163,
+									"name": "SAN CESAREO",
+									"zones": []
+								},
+								{
+									"id": 164,
+									"name": "ARTENA",
+									"zones": []
+								},
+								{
+									"id": 165,
+									"name": "LANUVIO",
+									"zones": []
+								},
+								{
+									"id": 166,
+									"name": "LARIANO",
+									"zones": []
+								},
+								{
+									"id": 167,
+									"name": "PALOMBARA SABINA",
+									"zones": []
+								},
+								{
+									"id": 168,
+									"name": "FORMELLO",
+									"zones": []
+								},
+								{
+									"id": 169,
+									"name": "MONTE COMPATRI",
+									"zones": []
+								},
+								{
+									"id": 170,
+									"name": "ROCCA PRIORA",
+									"zones": []
+								},
+								{
+									"id": 171,
+									"name": "CAMPAGNANO DI ROMA",
+									"zones": []
+								},
+								{
+									"id": 172,
+									"name": "CAVE",
+									"zones": []
+								},
+								{
+									"id": 173,
+									"name": "CAPENA",
+									"zones": []
+								},
+								{
+									"id": 174,
+									"name": "RIANO",
+									"zones": []
+								},
+								{
+									"id": 175,
+									"name": "RIGNANO",
+									"zones": []
+								},
+								{
+									"id": 176,
+									"name": "SEGNI",
+									"zones": []
+								},
+								{
+									"id": 177,
+									"name": "SUBIACO",
+									"zones": []
+								},
+								{
+									"id": 178,
+									"name": "CASTEL GANDOLFO",
+									"zones": []
+								},
+								{
+									"id": 179,
+									"name": "MORLUPO",
+									"zones": []
+								},
+								{
+									"id": 180,
+									"name": "MONTE PORZIO CATONE",
+									"zones": []
+								},
+								{
+									"id": 181,
+									"name": "CASTELNUOVO DI PORTO",
+									"zones": []
+								},
+								{
+									"id": 182,
+									"name": "SACROFANO",
+									"zones": []
+								},
+								{
+									"id": 183,
+									"name": "MANZIANA",
+									"zones": []
+								},
+								{
+									"id": 184,
+									"name": "CASTEL MADAMA",
+									"zones": []
+								},
+								{
+									"id": 185,
+									"name": "MARCELLINA",
+									"zones": []
+								},
+								{
+									"id": 186,
+									"name": "OLEVANO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 187,
+									"name": "LABICO",
+									"zones": []
+								},
+								{
+									"id": 188,
+									"name": "GALLICANO NEL LAZIO",
+									"zones": []
+								},
+								{
+									"id": 189,
+									"name": "GENAZZANO",
+									"zones": []
+								},
+								{
+									"id": 190,
+									"name": "TREVIGNAO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 191,
+									"name": "MONTELIBRETTI",
+									"zones": []
+								},
+								{
+									"id": 192,
+									"name": "TOLFA",
+									"zones": []
+								},
+								{
+									"id": 193,
+									"name": "SANT'ANGELO ROMANO'",
+									"zones": []
+								},
+								{
+									"id": 194,
+									"name": "CARPINETO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 195,
+									"name": "COLONNA",
+									"zones": []
+								},
+								{
+									"id": 196,
+									"name": "CANALE MONTERANO",
+									"zones": []
+								},
+								{
+									"id": 197,
+									"name": "ALLUMIERE",
+									"zones": []
+								},
+								{
+									"id": 198,
+									"name": "VICOVARO",
+									"zones": []
+								},
+								{
+									"id": 199,
+									"name": "SANT'ORESTE'",
+									"zones": []
+								},
+								{
+									"id": 200,
+									"name": "SAN VITO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 201,
+									"name": "MAZZANO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 202,
+									"name": "SAN POLO DEI CAVALIERI",
+									"zones": []
+								},
+								{
+									"id": 203,
+									"name": "BELLEGRA",
+									"zones": []
+								},
+								{
+									"id": 204,
+									"name": "MORICONE",
+									"zones": []
+								},
+								{
+									"id": 205,
+									"name": "POLI",
+									"zones": []
+								},
+								{
+									"id": 206,
+									"name": "MONTELANICO",
+									"zones": []
+								},
+								{
+									"id": 207,
+									"name": "CIVITELLA SAN PAOLO",
+									"zones": []
+								},
+								{
+									"id": 208,
+									"name": "NEROLA",
+									"zones": []
+								},
+								{
+									"id": 209,
+									"name": "MONTORIO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 210,
+									"name": "NEMI",
+									"zones": []
+								},
+								{
+									"id": 211,
+									"name": "GAVIGNANO",
+									"zones": []
+								},
+								{
+									"id": 212,
+									"name": "AGOSTA",
+									"zones": []
+								},
+								{
+									"id": 213,
+									"name": "SAN GREGORIO DA SASSOLA",
+									"zones": []
+								},
+								{
+									"id": 214,
+									"name": "ARSOLI",
+									"zones": []
+								},
+								{
+									"id": 215,
+									"name": "AFFILE",
+									"zones": []
+								},
+								{
+									"id": 216,
+									"name": "NAZZANO",
+									"zones": []
+								},
+								{
+									"id": 217,
+									"name": "MAGLIANO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 218,
+									"name": "ARCINAZZO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 219,
+									"name": "ROVIANO",
+									"zones": []
+								},
+								{
+									"id": 220,
+									"name": "CICILIANO",
+									"zones": []
+								},
+								{
+									"id": 221,
+									"name": "MONTEFLAVIO",
+									"zones": []
+								},
+								{
+									"id": 222,
+									"name": "GERANO",
+									"zones": []
+								},
+								{
+									"id": 223,
+									"name": "PONZANO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 224,
+									"name": "CERRETO LAZIALE",
+									"zones": []
+								},
+								{
+									"id": 225,
+									"name": "TORRITA TIBERINA",
+									"zones": []
+								},
+								{
+									"id": 226,
+									"name": "LICENZA",
+									"zones": []
+								},
+								{
+									"id": 227,
+									"name": "ROCCA SANTO STEFANO",
+									"zones": []
+								},
+								{
+									"id": 228,
+									"name": "MANDELA",
+									"zones": []
+								},
+								{
+									"id": 229,
+									"name": "SAMBUCI",
+									"zones": []
+								},
+								{
+									"id": 230,
+									"name": "ANTICOLI CORRADO",
+									"zones": []
+								},
+								{
+									"id": 231,
+									"name": "CASTEL SAN PIETRO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 232,
+									"name": "MARANO EQUO",
+									"zones": []
+								},
+								{
+									"id": 233,
+									"name": "RIOFREDDO",
+									"zones": []
+								},
+								{
+									"id": 234,
+									"name": "PISONIANO",
+									"zones": []
+								},
+								{
+									"id": 235,
+									"name": "CASAPE",
+									"zones": []
+								},
+								{
+									"id": 236,
+									"name": "GORGA",
+									"zones": []
+								},
+								{
+									"id": 237,
+									"name": "ROIATE",
+									"zones": []
+								},
+								{
+									"id": 238,
+									"name": "CINETO ROMANO",
+									"zones": []
+								},
+								{
+									"id": 239,
+									"name": "FILACCIANO",
+									"zones": []
+								},
+								{
+									"id": 240,
+									"name": "CAMERATA NUOVA",
+									"zones": []
+								},
+								{
+									"id": 241,
+									"name": "CERVARA DI ROMA",
+									"zones": []
+								},
+								{
+									"id": 242,
+									"name": "ROCCA DI CAVE",
+									"zones": []
+								},
+								{
+									"id": 243,
+									"name": "JENNE",
+									"zones": []
+								},
+								{
+									"id": 244,
+									"name": "CAPRANICA PRENESTINA",
+									"zones": []
+								},
+								{
+									"id": 245,
+									"name": "CANTERANO",
+									"zones": []
+								},
+								{
+									"id": 246,
+									"name": "VALLINFREDA",
+									"zones": []
+								},
+								{
+									"id": 247,
+									"name": "VALLEPIETRA",
+									"zones": []
+								},
+								{
+									"id": 248,
+									"name": "ROCCAGIOVINE",
+									"zones": []
+								},
+								{
+									"id": 249,
+									"name": "PERCILE",
+									"zones": []
+								},
+								{
+									"id": 250,
+									"name": "ROCCA CANTERANO",
+									"zones": []
+								},
+								{
+									"id": 251,
+									"name": "SARACINESCO",
+									"zones": []
+								},
+								{
+									"id": 252,
+									"name": "VIVARO ROMANO",
+									"zones": []
+								}
+							]
+						},
+						{
+							"id": 60,
+							"name": "VITERBO",
+							"zones": []
+						},
+						{
+							"id": 61,
+							"name": "LATINA",
+							"zones": []
+						},
+						{
+							"id": 62,
+							"name": "FROSINONE",
+							"zones": []
+						},
+						{
+							"id": 63,
+							"name": "RIETI",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 64,
+					"name": "TOSCANA",
+					"zones": [
+						{
+							"id": 65,
+							"name": "AREZZO",
+							"zones": []
+						},
+						{
+							"id": 66,
+							"name": "FIRENZE",
+							"zones": []
+						},
+						{
+							"id": 67,
+							"name": "GROSSETO",
+							"zones": []
+						},
+						{
+							"id": 68,
+							"name": "LIVORNO",
+							"zones": []
+						},
+						{
+							"id": 69,
+							"name": "LUCCA",
+							"zones": []
+						},
+						{
+							"id": 70,
+							"name": "MASSA-CARRARA",
+							"zones": []
+						},
+						{
+							"id": 71,
+							"name": "PISA",
+							"zones": []
+						},
+						{
+							"id": 72,
+							"name": "PISTOIA",
+							"zones": []
+						},
+						{
+							"id": 73,
+							"name": "PRATO",
+							"zones": []
+						},
+						{
+							"id": 74,
+							"name": "SIENA",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 75,
+					"name": "MARCHE",
+					"zones": [
+						{
+							"id": 76,
+							"name": "ANCONA",
+							"zones": []
+						},
+						{
+							"id": 77,
+							"name": "ASCOLI PICENO",
+							"zones": []
+						},
+						{
+							"id": 78,
+							"name": "FERMO",
+							"zones": []
+						},
+						{
+							"id": 79,
+							"name": "MACERATA",
+							"zones": []
+						},
+						{
+							"id": 80,
+							"name": "PESARO E URBINO",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 81,
+					"name": "UMBRIA",
+					"zones": [
+						{
+							"id": 82,
+							"name": "PERUGIA",
+							"zones": []
+						},
+						{
+							"id": 83,
+							"name": "TERNI",
+							"zones": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 84,
+			"name": "IV: ITALIA MERIDIONALE",
+			"zones": [
+				{
+					"id": 85,
+					"name": "CAMPANIA",
+					"zones": [
+						{
+							"id": 86,
+							"name": "AVELLINO",
+							"zones": []
+						},
+						{
+							"id": 87,
+							"name": "BENEVENTO",
+							"zones": []
+						},
+						{
+							"id": 88,
+							"name": "CASERTA",
+							"zones": []
+						},
+						{
+							"id": 89,
+							"name": "NAPOLI",
+							"zones": []
+						},
+						{
+							"id": 90,
+							"name": "SALERNO",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 91,
+					"name": "ABRUZZO",
+					"zones": [
+						{
+							"id": 92,
+							"name": "CHIETI",
+							"zones": []
+						},
+						{
+							"id": 93,
+							"name": "L'AQUILA'",
+							"zones": []
+						},
+						{
+							"id": 94,
+							"name": "PESCARA",
+							"zones": []
+						},
+						{
+							"id": 95,
+							"name": "TERAMO",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 96,
+					"name": "MOLISE",
+					"zones": [
+						{
+							"id": 97,
+							"name": "CAMPOBASSO",
+							"zones": []
+						},
+						{
+							"id": 98,
+							"name": "ISERNIA",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 99,
+					"name": "PUGLIA",
+					"zones": [
+						{
+							"id": 100,
+							"name": "BARI",
+							"zones": []
+						},
+						{
+							"id": 101,
+							"name": "BARLETTA-ANDRIA-TRANI",
+							"zones": []
+						},
+						{
+							"id": 102,
+							"name": "BRINDISI",
+							"zones": []
+						},
+						{
+							"id": 103,
+							"name": "FOGGIA",
+							"zones": []
+						},
+						{
+							"id": 104,
+							"name": "LECCE",
+							"zones": []
+						},
+						{
+							"id": 105,
+							"name": "TARANTO",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 106,
+					"name": "CALABRIA",
+					"zones": [
+						{
+							"id": 107,
+							"name": "CATANZARO",
+							"zones": []
+						},
+						{
+							"id": 108,
+							"name": "COSENZA",
+							"zones": []
+						},
+						{
+							"id": 109,
+							"name": "CROTONE",
+							"zones": []
+						},
+						{
+							"id": 110,
+							"name": "REGGIO CALABRIA",
+							"zones": []
+						},
+						{
+							"id": 111,
+							"name": "VIBO VALENTIA",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 112,
+					"name": "BASILICATA",
+					"zones": [
+						{
+							"id": 113,
+							"name": "MATERA",
+							"zones": []
+						},
+						{
+							"id": 114,
+							"name": "POTENZA",
+							"zones": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": 115,
+			"name": "V: ITALIA INSULARE",
+			"zones": [
+				{
+					"id": 116,
+					"name": "SICILIA",
+					"zones": [
+						{
+							"id": 117,
+							"name": "AGRIGENTO",
+							"zones": []
+						},
+						{
+							"id": 118,
+							"name": "CALTANISSETTA",
+							"zones": []
+						},
+						{
+							"id": 119,
+							"name": "CATANIA",
+							"zones": []
+						},
+						{
+							"id": 120,
+							"name": "ENNA",
+							"zones": []
+						},
+						{
+							"id": 121,
+							"name": "MESSINA",
+							"zones": []
+						},
+						{
+							"id": 122,
+							"name": "PALERMO",
+							"zones": []
+						},
+						{
+							"id": 123,
+							"name": "RAGUSA",
+							"zones": []
+						},
+						{
+							"id": 124,
+							"name": "SIRACUSA",
+							"zones": []
+						},
+						{
+							"id": 125,
+							"name": "TRAPANI",
+							"zones": []
+						}
+					]
+				},
+				{
+					"id": 126,
+					"name": "SARDEGNA",
+					"zones": [
+						{
+							"id": 127,
+							"name": "CAGLIARI",
+							"zones": []
+						},
+						{
+							"id": 128,
+							"name": "NUORO",
+							"zones": []
+						},
+						{
+							"id": 129,
+							"name": "ORISTANO",
+							"zones": []
+						},
+						{
+							"id": 130,
+							"name": "SASSARI",
+							"zones": []
+						},
+						{
+							"id": 131,
+							"name": "SUD SARDEGNA",
+							"zones": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
