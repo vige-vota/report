@@ -55,3 +55,16 @@ export const findZonesByFather = (value, zones, list, list2, list3) => {
 		else findZonesByFather(value, zone.zones, list, list2, list3)
 	})
 }
+
+export const findFatherByChild = (value, objects, result) => {
+	objects.forEach(object => {
+		object.zones.forEach(zone => {
+		if (zone)
+			if (zone.id === value) {
+				result.push(object)
+			} else {
+				findFatherByChild(value, object.zones, result)	
+			}
+		})
+	})
+}

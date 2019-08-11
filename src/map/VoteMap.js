@@ -5,7 +5,12 @@ import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
 import { language } from '../index'
-import { setAllZones, findZonesByFather } from '../Utilities'
+import { setAllZones, findZonesByFather, findFatherByChild } from '../Utilities'
+
+var circumscriptions = []
+var regions = []
+var provinces = []
+var cities = []
 
 class VoteMap extends Component {
 	
@@ -29,27 +34,27 @@ class VoteMap extends Component {
 		let objects = require('../cities/' + language + '.json')
 		if (this.props.votingPaper) {
 			if (this.props.votingPaper.type === 'little-nogroup')
-				this.circumspriptions = objects.zones.map(city => {
+				circumscriptions = objects.zones.map(city => {
 					return { label: city.name, value: city.id}})
 					
 			if (!this.state.circumscription)
-				this.regions = objects.zones.flatMap(city => city.zones).map(city => {
+				regions = objects.zones.flatMap(city => city.zones).map(city => {
 					return { label: city.name, value: city.id}})
 			else 
-				findZonesByFather(this.state.circumscription, objects.zones, this.regions = [], this.provinces = [], this.cities = [])
+				findZonesByFather(this.state.circumscription, objects.zones, regions = [], provinces = [], cities = [])
 			
 			if (!this.state.circumscription || this.state.region)
 				if (!this.state.region)
-					this.provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
+					provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
 						return { label: city.name, value: city.id}})
 				else 
-					findZonesByFather(this.state.region, objects.zones, this.provinces = [], this.cities = [])
+					findZonesByFather(this.state.region, objects.zones, provinces = [], cities = [])
 			
 			if ((!this.state.circumscription && !this.state.region) || this.state.province)
 				if (!this.state.province)
-					this.cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
+					cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
 						return { label: city.name, value: city.id}})
-				else findZonesByFather(this.state.province, objects.zones, this.cities = [])
+				else findZonesByFather(this.state.province, objects.zones, cities = [])
 			
 			this.sites = []
 			setAllZones(objects, this.props.votingPaper, this.sites, 0)
@@ -76,11 +81,14 @@ class VoteMap extends Component {
 						<FormattedMessage id='app.choosecircumscription'
 							defaultMessage='Choose circumscription...'>
 							{(placeholder) => <Dropdown value={this.state.circumscription} className='city' 
-								onChange={(e) => {
-									this.setState({circumscription: e.value, region: null, province: null, city: null})
-								}}
+								onChange={(e) =>
+									this.setState({circumscription: e.value, 
+												   region: null, 
+												   province: null, 
+												   city: null})
+									}
 								placeholder={placeholder} 
-								options={this.circumspriptions}
+								options={circumscriptions}
 							/> }
 						</FormattedMessage>
 					</div>
@@ -95,10 +103,17 @@ class VoteMap extends Component {
 	        				defaultMessage='Choose region...'>
 							{(placeholder) => <Dropdown value={this.state.region} className='choose' 
 								onChange={(e) => {
-									this.setState({region: e.value, province: null, city: null})
-								}}
-								placeholder={placeholder} 
-								options={this.regions} 
+									let resultCircumscriptions = []
+									findFatherByChild(e.value, objects.zones, resultCircumscriptions)
+									let ci = resultCircumscriptions.pop()
+									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id,
+												   region: e.value, 
+												   province: null, 
+												   city: null})
+									}
+								}
+								placeholder={placeholder}
+								options={regions} 
 							/> }
 							</FormattedMessage>
 					</div>
@@ -111,10 +126,20 @@ class VoteMap extends Component {
 		        			defaultMessage='Choose province...'>
 							{(placeholder) => <Dropdown value={this.state.province} className='choose' 
 								onChange={(e) => {
-									this.setState({province: e.value, city: null})
-								}}
+									let resultRegions = []
+									findFatherByChild(e.value, objects.zones, resultRegions)
+									let re = resultRegions.pop()
+									let resultCircumscriptions = []
+									findFatherByChild(re.id, objects.zones, resultCircumscriptions)
+									let ci = resultCircumscriptions.pop()
+									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
+												   region: this.state.region ? this.state.region : re.id, 
+										   		   province: e.value, 
+												   city: null})
+									}
+								}
 								placeholder={placeholder} 
-								options={this.provinces} 
+								options={provinces} 
 							/> }
 						</FormattedMessage>
 					</div>
@@ -128,11 +153,24 @@ class VoteMap extends Component {
 						<FormattedMessage id='app.choosecity'
 							defaultMessage='Choose city...'>
 							{(placeholder) => <Dropdown value={this.state.city} className='city' 
-								onChange={(e) => 
-									this.setState({city: e.value})
+								onChange={(e) => {
+									let resultProvince = []
+									findFatherByChild(e.value, objects.zones, resultProvince)
+									let pr = resultProvince.pop()
+									let resultRegion = []
+									findFatherByChild(pr.id, objects.zones, resultRegion)
+									let re = resultRegion.pop()
+									let resultCircumscriptions = []
+									findFatherByChild(re.id, objects.zones, resultCircumscriptions)
+									let ci = resultCircumscriptions.pop()
+									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
+												   region: this.state.region ? this.state.region : re.id, 
+												   province: this.state.province ? this.state.province : pr.id, 
+												   city: e.value})
+									}
 								}
 								placeholder={placeholder} 
-								options={this.cities} 
+								options={cities} 
 							/> }
 						</FormattedMessage>
 					</div>
