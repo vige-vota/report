@@ -1,4 +1,9 @@
 {
+	"it": "Italia",
+	"level_0": "Circ. ",
+	"level_1": "Regione ",
+	"level_2": "Provincia di ",
+	"level_3": "Comune di ",
     "app.powered": "Sviluppato da ",
     "app.title": "Affluenza e Risultati",
     "app.region": "Regione",

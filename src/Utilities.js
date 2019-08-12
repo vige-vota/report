@@ -1,5 +1,8 @@
+import React from 'react'
 import { config } from './App'
 import ReactDOM from 'react-dom'
+import { language } from './index'
+import { FormattedMessage } from 'react-intl'
 
 export const getTabs = (component) => {
     return ReactDOM.findDOMNode(component).querySelectorAll('.p-menuitem-link')
@@ -16,16 +19,23 @@ export const getVotingPaperById = (value) => {
 	} else return ''
 }
 
-export const getResultById = (vote, value) => {
-	if (value && vote) {
+export const getZoneById = (value, sites) => {
+	if (value) {
 		let result = ''
-		let votingPapers = vote.votingPapers
-		votingPapers.forEach(votingPaper => {
-			if (votingPaper.id === value.id)
-				result = votingPaper
+		sites.forEach(site => {
+			if (site.id === value)
+				result = site
 		})
 		return result
 	} else return ''
+}
+
+export const getTitle = (value) => {
+	if (value) {
+		return <FormattedMessage id={'level_' + value.level}>
+					{e => e + ' ' + value.name}
+			   </FormattedMessage>
+	} else return <FormattedMessage id={language} defaultMessage='Great Britain' />
 }
 
 export const setAllZones = (value, votingPaper, list, counter) => {

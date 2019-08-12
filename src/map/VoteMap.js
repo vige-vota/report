@@ -5,7 +5,7 @@ import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
 import { language } from '../index'
-import { setAllZones, findZonesByFather, findFatherByChild } from '../Utilities'
+import { setAllZones, findZonesByFather, findFatherByChild, getZoneById } from '../Utilities'
 
 let circumscriptions = []
 let regions = []
@@ -69,10 +69,11 @@ class VoteMap extends Component {
 				<FormattedMessage
         			id='app.search'
         				defaultMessage='Search site...'>
-					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) => 
+					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) =>
 							this.setState({site: e.value
 								})
 						} onSelect={(e) => {
+							this.props.app.refs.results.setState({zone: e.value})
 							let value0 = objects.zones.filter(zone => {
 								return zone.id === e.value.id
 							})[0]
@@ -95,7 +96,6 @@ class VoteMap extends Component {
 								value1 = results.pop()
 							}
 							if (!value0) {
-								console.log(value1 ? value1.id : value2 ? value2.id : value3 ? value3.id : null)
 								findFatherByChild(value1 ? value1.id : value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
 								value0 = results.pop()
 							}
@@ -120,13 +120,14 @@ class VoteMap extends Component {
 						<FormattedMessage id='app.choosecircumscription'
 							defaultMessage='Choose circumscription...'>
 							{(placeholder) => <Dropdown value={this.state.circumscription} className='city' 
-								onChange={(e) =>
+								onChange={(e) => {
 									this.setState({circumscription: e.value, 
 												   region: null, 
 												   province: null, 
 												   city: null,
 												   site: null})
-									}
+									this.props.app.refs.results.setState({zone: getZoneById(e.value, this.sites)})
+								}}
 								placeholder={placeholder} 
 								options={circumscriptions}
 							/> }
@@ -151,8 +152,8 @@ class VoteMap extends Component {
 												   province: null, 
 												   city: null,
 												   site: null})
-									}
-								}
+									this.props.app.refs.results.setState({zone: getZoneById(e.value, this.sites)})
+								}}
 								placeholder={placeholder}
 								options={regions} 
 							/> }
@@ -178,8 +179,8 @@ class VoteMap extends Component {
 										   		   province: e.value, 
 												   city: null,
 												   site: null})
-									}
-								}
+									this.props.app.refs.results.setState({zone: getZoneById(e.value, this.sites)})
+								}}
 								placeholder={placeholder} 
 								options={provinces} 
 							/> }
@@ -210,8 +211,8 @@ class VoteMap extends Component {
 												   province: this.state.province ? this.state.province : pr.id, 
 												   city: e.value,
 												   site: null})
-									}
-								}
+									this.props.app.refs.results.setState({zone: getZoneById(e.value, this.sites)})
+								}}
 								placeholder={placeholder} 
 								options={cities} 
 							/> }

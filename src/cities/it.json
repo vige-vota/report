@@ -3,69 +3,83 @@
 		{
 			"id": 0,
 			"name": "I: ITALIA NORD-OCCIDENTALE",
+			"level": 0,
 			"zones": [
 				{
 					"id": 1,
 					"name": "LOMBARDIA",
+					"level": 1,
 					"zones": [
 						{
 							"id": 2,
 							"name": "BERGAMO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 3,
 							"name": "BRESCIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 4,
 							"name": "COMO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 5,
 							"name": "CREMONA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 6,
 							"name": "LECCO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 7,
 							"name": "LODI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 8,
 							"name": "MANTOVA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 9,
 							"name": "MILANO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 10,
 							"name": "MONZA E DELLA BRIANZA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 11,
 							"name": "PAVIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 12,
 							"name": "SONDRIO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 13,
 							"name": "VARESE",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -73,45 +87,54 @@
 				{
 					"id": 14,
 					"name": "PIEMONTE",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 15,
 							"name": "ALESSANDRIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 16,
 							"name": "ASTI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 17,
 							"name": "BIELLA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 18,
 							"name": "CUNEO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 19,
 							"name": "NOVARA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 20,
 							"name": "TORINO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 21,
 							"name": "VERBANO-CUSIO-OSSOLA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 22,
 							"name": "VERCELLI",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -119,25 +142,30 @@
 				{
 					"id": 23,
 					"name": "LIGURIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 24,
 							"name": "GENOVA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 25,
 							"name": "IMPERIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 26,
 							"name": "LA SPEZIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 27,
 							"name": "SAVONA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -145,10 +173,12 @@
 				{
 					"id": 28,
 					"name": "VALLE D'AOSTA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 29,
 							"name": "AOSTA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -158,29 +188,35 @@
 		{
 			"id": 30,
 			"name": "II: ITALIA NORD-ORIENTALE",
+			"level": 0,	
 			"zones": [
 				{
 					"id": 31,
 					"name": "FRIULI-VENEZIA GIULIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 32,
 							"name": "GORIZIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 33,
 							"name": "PORDENONE",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 34,
 							"name": "TRIESTE",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 35,
 							"name": "UDINE",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -188,15 +224,18 @@
 				{
 					"id": 36,
 					"name": "TRENTINO-ALTO ADIGE",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 37,
 							"name": "BOLZANO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 38,
 							"name": "TRENTO",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -204,40 +243,48 @@
 				{
 					"id": 39,
 					"name": "VENETO",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 40,
 							"name": "BELLUNO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 41,
 							"name": "PADOVA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 42,
 							"name": "ROVIGO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 43,
 							"name": "TREVISO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 44,
 							"name": "VENEZIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 45,
 							"name": "VERONA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 46,
 							"name": "VICENZA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -245,50 +292,60 @@
 				{
 					"id": 47,
 					"name": "EMILIA ROMAGNA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 48,
 							"name": "BOLOGNA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 49,
 							"name": "FERRARA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 50,
 							"name": "FORLI-CESENA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 51,
 							"name": "MODENA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 52,
 							"name": "PARMA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 53,
 							"name": "PIACENZA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 54,
 							"name": "RAVENNA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 55,
 							"name": "REGGIO EMILIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 56,
 							"name": "RIMINI",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -298,618 +355,742 @@
 		{
 			"id": 57,
 			"name": "III: ITALIA CENTRALE",
+			"level": 0,	
 			"zones": [
 				{
 					"id": 58,
 					"name": "LAZIO",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 59,
 							"name": "ROMA",
+							"level": 2,	
 							"zones": [
 								{
 									"id": 132,
 									"name": "ROMA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 133,
 									"name": "GUIDONIA MONTECELIO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 134,
 									"name": "FIUMICINO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 135,
 									"name": "POMEZIA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 136,
 									"name": "TIVOLI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 137,
 									"name": "ANZIO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 138,
 									"name": "VELLETRI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 139,
 									"name": "CIVITAVECCHIA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 140,
 									"name": "NETTUNO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 141,
 									"name": "ARDEA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 142,
 									"name": "MARINO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 143,
 									"name": "ALBANO LAZIALE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 144,
 									"name": "LADISPOLI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 145,
 									"name": "MONTEROTONDO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 146,
 									"name": "CIAMPINO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 147,
 									"name": "CERVETERI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 148,
 									"name": "FONTE NUOVA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 149,
 									"name": "GENZANO DI ROMA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 150,
 									"name": "MENTANA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 151,
 									"name": "FRASCATI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 152,
 									"name": "PALESTRINA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 153,
 									"name": "COLLEFERRO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 154,
 									"name": "GROTTAFERRATA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 155,
 									"name": "ANGUILLARA SABAZIA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 156,
 									"name": "BRACCIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 157,
 									"name": "ARICCIA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 158,
 									"name": "SANTA MARINELLA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 159,
 									"name": "ZAGAROLO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 160,
 									"name": "ROCCA DI PAPA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 161,
 									"name": "VALMONTONE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 162,
 									"name": "FIANO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 163,
 									"name": "SAN CESAREO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 164,
 									"name": "ARTENA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 165,
 									"name": "LANUVIO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 166,
 									"name": "LARIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 167,
 									"name": "PALOMBARA SABINA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 168,
 									"name": "FORMELLO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 169,
 									"name": "MONTE COMPATRI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 170,
 									"name": "ROCCA PRIORA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 171,
 									"name": "CAMPAGNANO DI ROMA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 172,
 									"name": "CAVE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 173,
 									"name": "CAPENA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 174,
 									"name": "RIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 175,
 									"name": "RIGNANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 176,
 									"name": "SEGNI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 177,
 									"name": "SUBIACO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 178,
 									"name": "CASTEL GANDOLFO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 179,
 									"name": "MORLUPO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 180,
 									"name": "MONTE PORZIO CATONE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 181,
 									"name": "CASTELNUOVO DI PORTO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 182,
 									"name": "SACROFANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 183,
 									"name": "MANZIANA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 184,
 									"name": "CASTEL MADAMA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 185,
 									"name": "MARCELLINA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 186,
 									"name": "OLEVANO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 187,
 									"name": "LABICO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 188,
 									"name": "GALLICANO NEL LAZIO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 189,
 									"name": "GENAZZANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 190,
 									"name": "TREVIGNAO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 191,
 									"name": "MONTELIBRETTI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 192,
 									"name": "TOLFA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 193,
 									"name": "SANT'ANGELO ROMANO'",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 194,
 									"name": "CARPINETO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 195,
 									"name": "COLONNA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 196,
 									"name": "CANALE MONTERANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 197,
 									"name": "ALLUMIERE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 198,
 									"name": "VICOVARO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 199,
 									"name": "SANT'ORESTE'",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 200,
 									"name": "SAN VITO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 201,
 									"name": "MAZZANO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 202,
 									"name": "SAN POLO DEI CAVALIERI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 203,
 									"name": "BELLEGRA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 204,
 									"name": "MORICONE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 205,
 									"name": "POLI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 206,
 									"name": "MONTELANICO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 207,
 									"name": "CIVITELLA SAN PAOLO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 208,
 									"name": "NEROLA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 209,
 									"name": "MONTORIO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 210,
 									"name": "NEMI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 211,
 									"name": "GAVIGNANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 212,
 									"name": "AGOSTA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 213,
 									"name": "SAN GREGORIO DA SASSOLA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 214,
 									"name": "ARSOLI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 215,
 									"name": "AFFILE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 216,
 									"name": "NAZZANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 217,
 									"name": "MAGLIANO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 218,
 									"name": "ARCINAZZO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 219,
 									"name": "ROVIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 220,
 									"name": "CICILIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 221,
 									"name": "MONTEFLAVIO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 222,
 									"name": "GERANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 223,
 									"name": "PONZANO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 224,
 									"name": "CERRETO LAZIALE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 225,
 									"name": "TORRITA TIBERINA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 226,
 									"name": "LICENZA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 227,
 									"name": "ROCCA SANTO STEFANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 228,
 									"name": "MANDELA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 229,
 									"name": "SAMBUCI",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 230,
 									"name": "ANTICOLI CORRADO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 231,
 									"name": "CASTEL SAN PIETRO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 232,
 									"name": "MARANO EQUO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 233,
 									"name": "RIOFREDDO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 234,
 									"name": "PISONIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 235,
 									"name": "CASAPE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 236,
 									"name": "GORGA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 237,
 									"name": "ROIATE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 238,
 									"name": "CINETO ROMANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 239,
 									"name": "FILACCIANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 240,
 									"name": "CAMERATA NUOVA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 241,
 									"name": "CERVARA DI ROMA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 242,
 									"name": "ROCCA DI CAVE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 243,
 									"name": "JENNE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 244,
 									"name": "CAPRANICA PRENESTINA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 245,
 									"name": "CANTERANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 246,
 									"name": "VALLINFREDA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 247,
 									"name": "VALLEPIETRA",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 248,
 									"name": "ROCCAGIOVINE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 249,
 									"name": "PERCILE",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 250,
 									"name": "ROCCA CANTERANO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 251,
 									"name": "SARACINESCO",
+									"level": 3,	
 									"zones": []
 								},
 								{
 									"id": 252,
 									"name": "VIVARO ROMANO",
+									"level": 3,	
 									"zones": []
 								}
 							]
@@ -917,21 +1098,25 @@
 						{
 							"id": 60,
 							"name": "VITERBO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 61,
 							"name": "LATINA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 62,
 							"name": "FROSINONE",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 63,
 							"name": "RIETI",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -939,55 +1124,66 @@
 				{
 					"id": 64,
 					"name": "TOSCANA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 65,
 							"name": "AREZZO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 66,
 							"name": "FIRENZE",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 67,
 							"name": "GROSSETO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 68,
 							"name": "LIVORNO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 69,
 							"name": "LUCCA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 70,
 							"name": "MASSA-CARRARA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 71,
 							"name": "PISA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 72,
 							"name": "PISTOIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 73,
 							"name": "PRATO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 74,
 							"name": "SIENA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -995,30 +1191,36 @@
 				{
 					"id": 75,
 					"name": "MARCHE",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 76,
 							"name": "ANCONA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 77,
 							"name": "ASCOLI PICENO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 78,
 							"name": "FERMO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 79,
 							"name": "MACERATA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 80,
 							"name": "PESARO E URBINO",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1026,15 +1228,18 @@
 				{
 					"id": 81,
 					"name": "UMBRIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 82,
 							"name": "PERUGIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 83,
 							"name": "TERNI",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1044,34 +1249,41 @@
 		{
 			"id": 84,
 			"name": "IV: ITALIA MERIDIONALE",
+			"level": 0,	
 			"zones": [
 				{
 					"id": 85,
 					"name": "CAMPANIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 86,
 							"name": "AVELLINO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 87,
 							"name": "BENEVENTO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 88,
 							"name": "CASERTA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 89,
 							"name": "NAPOLI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 90,
 							"name": "SALERNO",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1079,25 +1291,30 @@
 				{
 					"id": 91,
 					"name": "ABRUZZO",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 92,
 							"name": "CHIETI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 93,
 							"name": "L'AQUILA'",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 94,
 							"name": "PESCARA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 95,
 							"name": "TERAMO",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1105,15 +1322,18 @@
 				{
 					"id": 96,
 					"name": "MOLISE",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 97,
 							"name": "CAMPOBASSO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 98,
 							"name": "ISERNIA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1121,35 +1341,42 @@
 				{
 					"id": 99,
 					"name": "PUGLIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 100,
 							"name": "BARI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 101,
 							"name": "BARLETTA-ANDRIA-TRANI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 102,
 							"name": "BRINDISI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 103,
 							"name": "FOGGIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 104,
 							"name": "LECCE",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 105,
 							"name": "TARANTO",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1157,30 +1384,36 @@
 				{
 					"id": 106,
 					"name": "CALABRIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 107,
 							"name": "CATANZARO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 108,
 							"name": "COSENZA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 109,
 							"name": "CROTONE",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 110,
 							"name": "REGGIO CALABRIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 111,
 							"name": "VIBO VALENTIA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1188,15 +1421,18 @@
 				{
 					"id": 112,
 					"name": "BASILICATA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 113,
 							"name": "MATERA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 114,
 							"name": "POTENZA",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1206,54 +1442,65 @@
 		{
 			"id": 115,
 			"name": "V: ITALIA INSULARE",
+			"level": 0,	
 			"zones": [
 				{
 					"id": 116,
 					"name": "SICILIA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 117,
 							"name": "AGRIGENTO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 118,
 							"name": "CALTANISSETTA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 119,
 							"name": "CATANIA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 120,
 							"name": "ENNA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 121,
 							"name": "MESSINA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 122,
 							"name": "PALERMO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 123,
 							"name": "RAGUSA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 124,
 							"name": "SIRACUSA",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 125,
 							"name": "TRAPANI",
+							"level": 2,	
 							"zones": []
 						}
 					]
@@ -1261,30 +1508,36 @@
 				{
 					"id": 126,
 					"name": "SARDEGNA",
+					"level": 1,	
 					"zones": [
 						{
 							"id": 127,
 							"name": "CAGLIARI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 128,
 							"name": "NUORO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 129,
 							"name": "ORISTANO",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 130,
 							"name": "SASSARI",
+							"level": 2,	
 							"zones": []
 						},
 						{
 							"id": 131,
 							"name": "SUD SARDEGNA",
+							"level": 2,	
 							"zones": []
 						}
 					]

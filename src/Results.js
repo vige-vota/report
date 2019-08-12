@@ -4,13 +4,15 @@ import { Column } from 'primereact/column'
 import { config } from './App'
 import './Results.css'
 import axios from 'axios'
-import { getResultById } from './Utilities';
+import { getTitle } from './Utilities';
 
 export class Results extends Component {
 
     constructor() {
         super()
-        this.state = {}
+        this.state = {
+        	zone: null
+        }
         axios
     	.get(process.env.REACT_APP_VOTING_URL)
     	.then(response => {
@@ -25,7 +27,7 @@ export class Results extends Component {
         return (
         	<div className='tableContent'>
         		<div id='headEnti'>
-        			<h3>{getResultById(this.state.vote, this.props.votingPaper)}</h3>
+        			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
             	<DataTable value={config.votingPapers}>
             		<Column field='id' expander/>
