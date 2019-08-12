@@ -7,10 +7,12 @@ import { FormattedMessage } from 'react-intl'
 import { language } from '../index'
 import { setAllZones, findZonesByFather, findFatherByChild } from '../Utilities'
 
-var circumscriptions = []
-var regions = []
-var provinces = []
-var cities = []
+let circumscriptions = []
+let regions = []
+let provinces = []
+let cities = []
+
+let objects
 
 class VoteMap extends Component {
 	
@@ -30,8 +32,11 @@ class VoteMap extends Component {
 	    this.setState({ siteSuggestions: results })
 	}
 	
+	componentDidMount() {
+		objects = require('../cities/' + language + '.json')
+	}
+	
 	render() {
-		let objects = require('../cities/' + language + '.json')
 		if (this.props.votingPaper) {
 			if (this.props.votingPaper.type === 'little-nogroup')
 				circumscriptions = objects.zones.map(city => {
@@ -65,10 +70,44 @@ class VoteMap extends Component {
         			id='app.search'
         				defaultMessage='Search site...'>
 					{(placeholder) => <AutoComplete field='name' className='searchsites' value={this.state.site} onChange={(e) => 
-							this.setState({site: e.value})
+							this.setState({site: e.value
+								})
+						} onSelect={(e) => {
+							let value0 = objects.zones.filter(zone => {
+								return zone.id === e.value.id
+							})[0]
+							let value1 = objects.zones.flatMap(e => e.zones).filter(zone => {
+								return zone.id === e.value.id
+							})[0]
+							let value2 = objects.zones.flatMap(e => e.zones).flatMap(e => e.zones).filter(zone => {
+								return zone.id === e.value.id
+							})[0]
+							let value3 = objects.zones.flatMap(e => e.zones).flatMap(e => e.zones).flatMap(e => e.zones).filter(zone => {
+								return zone.id === e.value.id
+							})[0]
+							let results
+							if (!value2) {
+								findFatherByChild(value3 ? value3.id : null, objects.zones, results = [])
+								value2 = results.pop()
+							}
+							if (!value1) {
+								findFatherByChild(value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
+								value1 = results.pop()
+							}
+							if (!value0) {
+								console.log(value1 ? value1.id : value2 ? value2.id : value3 ? value3.id : null)
+								findFatherByChild(value1 ? value1.id : value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
+								value0 = results.pop()
+							}
+							this.setState({
+							   circumscription: value0 ? value0.id : null,
+							   region: value1 ? value1.id : null,
+							   province: value2 ? value2.id : null,
+							   city: value3 ? value3.id : null
+							}) }
 						}
-						placeholder={placeholder} 
-						suggestions={this.state.siteSuggestions} 
+						placeholder={placeholder}
+						suggestions={this.state.siteSuggestions}
 						completeMethod={this.suggestSites.bind(this)} size={38} /> }
 				</FormattedMessage>
 				<Button id='btnSearch' icon='pi pi-search' />
@@ -85,7 +124,8 @@ class VoteMap extends Component {
 									this.setState({circumscription: e.value, 
 												   region: null, 
 												   province: null, 
-												   city: null})
+												   city: null,
+												   site: null})
 									}
 								placeholder={placeholder} 
 								options={circumscriptions}
@@ -109,7 +149,8 @@ class VoteMap extends Component {
 									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id,
 												   region: e.value, 
 												   province: null, 
-												   city: null})
+												   city: null,
+												   site: null})
 									}
 								}
 								placeholder={placeholder}
@@ -135,7 +176,8 @@ class VoteMap extends Component {
 									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
 												   region: this.state.region ? this.state.region : re.id, 
 										   		   province: e.value, 
-												   city: null})
+												   city: null,
+												   site: null})
 									}
 								}
 								placeholder={placeholder} 
@@ -166,7 +208,8 @@ class VoteMap extends Component {
 									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
 												   region: this.state.region ? this.state.region : re.id, 
 												   province: this.state.province ? this.state.province : pr.id, 
-												   city: e.value})
+												   city: e.value,
+												   site: null})
 									}
 								}
 								placeholder={placeholder} 
