@@ -36,7 +36,52 @@ class VoteMap extends Component {
 		objects = require('../cities/' + language + '.json')
 	}
 	
-	render() {
+	reset() {
+		this.setState({
+			circumscription: null,
+			region: null,
+			province: null,
+			city: null,
+			site: null
+		})
+	}
+	
+	selectComplete(value) {
+		this.props.app.refs.results.setState({zone: value})
+		let value0 = objects.zones.filter(zone => {
+			return zone.id === value.id
+		})[0]
+		let value1 = objects.zones.flatMap(e => e.zones).filter(zone => {
+			return zone.id === value.id
+		})[0]
+		let value2 = objects.zones.flatMap(e => e.zones).flatMap(e => e.zones).filter(zone => {
+			return zone.id === value.id
+		})[0]
+		let value3 = objects.zones.flatMap(e => e.zones).flatMap(e => e.zones).flatMap(e => e.zones).filter(zone => {
+			return zone.id === value.id
+		})[0]
+		let results
+		if (!value2) {
+			findFatherByChild(value3 ? value3.id : null, objects.zones, results = [])
+			value2 = results.pop()
+		}
+		if (!value1) {
+			findFatherByChild(value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
+			value1 = results.pop()
+		}
+		if (!value0) {
+			findFatherByChild(value1 ? value1.id : value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
+			value0 = results.pop()
+		}
+		this.setState({
+		   circumscription: value0 ? value0.id : null,
+		   region: value1 ? value1.id : null,
+		   province: value2 ? value2.id : null,
+		   city: value3 ? value3.id : null
+		})
+	}
+	
+	renderLocations() {
 		if (this.props.votingPaper) {
 			if (this.props.votingPaper.type === 'little-nogroup')
 				circumscriptions = objects.zones.map(city => {
@@ -64,6 +109,10 @@ class VoteMap extends Component {
 			this.sites = []
 			setAllZones(objects, this.props.votingPaper, this.sites, 0)
 		}
+	}
+	
+	render() {
+		this.renderLocations()
 		return(
 			    <div>
 				<FormattedMessage
@@ -73,39 +122,8 @@ class VoteMap extends Component {
 							this.setState({site: e.value
 								})
 						} onSelect={(e) => {
-							this.props.app.refs.results.setState({zone: e.value})
-							let value0 = objects.zones.filter(zone => {
-								return zone.id === e.value.id
-							})[0]
-							let value1 = objects.zones.flatMap(e => e.zones).filter(zone => {
-								return zone.id === e.value.id
-							})[0]
-							let value2 = objects.zones.flatMap(e => e.zones).flatMap(e => e.zones).filter(zone => {
-								return zone.id === e.value.id
-							})[0]
-							let value3 = objects.zones.flatMap(e => e.zones).flatMap(e => e.zones).flatMap(e => e.zones).filter(zone => {
-								return zone.id === e.value.id
-							})[0]
-							let results
-							if (!value2) {
-								findFatherByChild(value3 ? value3.id : null, objects.zones, results = [])
-								value2 = results.pop()
-							}
-							if (!value1) {
-								findFatherByChild(value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
-								value1 = results.pop()
-							}
-							if (!value0) {
-								findFatherByChild(value1 ? value1.id : value2 ? value2.id : value3 ? value3.id : null, objects.zones, results = [])
-								value0 = results.pop()
-							}
-							this.setState({
-							   circumscription: value0 ? value0.id : null,
-							   region: value1 ? value1.id : null,
-							   province: value2 ? value2.id : null,
-							   city: value3 ? value3.id : null
-							}) }
-						}
+							this.selectComplete(e.value)
+						}}
 						placeholder={placeholder}
 						suggestions={this.state.siteSuggestions}
 						completeMethod={this.suggestSites.bind(this)} size={38} /> }

@@ -22,6 +22,12 @@ export class Results extends Component {
     	    console.log(error)
     	});
     }
+	
+	reset() {
+		this.setState({
+			zone: null
+		})
+	}
 
     render() {
         return (

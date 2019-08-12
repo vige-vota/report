@@ -62,15 +62,17 @@ class App extends Component {
                      	</div>
                     </div>
                 	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
-                		if (this.state.visible) 
+                		if (this.state.visible) {
                 			this.setState({ activeItem: e.value,
                 						    votingPaper: getVotingPaperById(e.value) })
-                		}
+                			this.refs.voteMap.reset()
+                			this.refs.results.reset()
+                		}}
                 	} />
                 
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
-                        	<VoteMap votingPaper={this.state.votingPaper} app={this} />
+                        	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />
                         </div>
                         <div className='p-col'>
                             {results}
