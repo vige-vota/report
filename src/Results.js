@@ -21,6 +21,13 @@ export class Results extends Component {
     	.catch(function(error) {
     	    console.log(error)
     	});
+        this.partyTemplate = this.partyTemplate.bind(this);
+    }
+
+    partyTemplate(rowData, column) {
+        return <img src={`data:image/jpeg;base64,${rowData.image}`} 
+        			alt={rowData.name} 
+        			style={{ width:'40%' }} />;
     }
 	
 	reset() {
@@ -30,18 +37,23 @@ export class Results extends Component {
 	}
 
     render() {
+    	let dataTable = ''
+    	if (this.props.app.state.votingPaper) {
+    		let value = this.props.app.state.votingPaper.groups
+    		if (this.props.app.state.votingPaper.type === 'little-nogroup')
+    			value = this.props.app.state.votingPaper.groups[0].parties
+    		dataTable = <DataTable value={value}>
+    						<Column field='id' expander/>
+    						<Column field='image' body={this.partyTemplate} />
+    						<Column field='name' header='Name' />
+    					</DataTable>
+    	}
         return (
         	<div className='tableContent'>
         		<div id='headEnti'>
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
-            	<DataTable value={config.votingPapers}>
-            		<Column field='id' expander/>
-            		<Column field='id' header='Id' />
-            		<Column field='name' header='Name' />
-            		<Column field='type' header='Type' />
-            		<Column field='color' header='Color' />
-            	</DataTable>
+            	{dataTable}
             </div>
         )
     }
