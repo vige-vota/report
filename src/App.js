@@ -4,7 +4,10 @@ import './App.css'
 import { TabMenu } from 'primereact/tabmenu'
 import 'primeflex/primeflex.css'
 import VoteMap from './map/VoteMap';
-import Results from './Results';
+import Littlenogroup from './results/Littlenogroup';
+import Biggerpartygroup from './results/Biggerpartygroup';
+import Bigger from './results/Bigger';
+import Little from './results/Little';
 import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -35,13 +38,24 @@ class App extends Component {
     }
 
     render() {
+    	let results = ''
+        if (this.state.votingPaper) {
+        	if (this.state.votingPaper.type === 'bigger-partygroup')
+        		results = <Biggerpartygroup ref='results' votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'little')
+        		results = <Little ref='results' votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'bigger')
+        		results = <Bigger ref='results' votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'little-nogroup')
+        		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
+        }
         return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
             	<div className='content-section implementation'>
                 	<div className='second-row'>
         				<div className='container container-live'>
                      		<div className='box-live'>
-                     			<div className='img-responsive inmlive'> </div>
+                     			<div className='img-responsive inmlive' />
                      		</div>
                      		<div className='box-title'>
                      			<FormattedMessage
@@ -61,18 +75,21 @@ class App extends Component {
                      	</div>
                     </div>
                 	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
-                		if (this.state.visible) 
-                			this.setState({ activeItem: e.value })
-                			this.setState({ votingPaper: getVotingPaperById(e.value) })
-                		}
+                		if (this.state.visible) {
+                			this.setState({ activeItem: e.value,
+                						    votingPaper: getVotingPaperById(e.value) })
+                			this.refs.voteMap.reset()
+                			if (this.refs.results)
+                				this.refs.results.reset()
+                		}}
                 	} />
                 
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
-                        	<VoteMap votingPaper={this.state.votingPaper} />
+                        	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />
                         </div>
                         <div className='p-col'>
-                            <Results votingPaper={this.state.votingPaper} />
+                            {results}
                         </div>
                     </div>
                 </div>
