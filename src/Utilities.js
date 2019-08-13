@@ -30,6 +30,29 @@ export const getZoneById = (value, sites) => {
 	} else return ''
 }
 
+export const getVotesById = (value, votes) => {
+	if (value) {
+		let result = 0
+		votes.votingPapers.forEach(votingPaper => {
+		if (votingPaper.id === value)
+			result = votingPaper.electors
+		else votingPaper.groups.forEach(group => {
+			if (group.id === value)
+				result = group.electors
+			else group.parties.forEach(party => {
+				if (party.id === value)
+					result = party.electors
+				else party.candidates.forEach(candidate => {
+					if (candidate.id === value)
+						result = candidate.electors
+				})
+			})
+		})
+	})
+	return result
+	} else return 0
+}
+
 export const getTitle = (value) => {
 	if (value) {
 		return <FormattedMessage id={'level_' + value.level}>
