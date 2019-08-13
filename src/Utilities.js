@@ -38,13 +38,13 @@ export const getVotesById = (value, votes) => {
 			result = votingPaper.electors
 		else votingPaper.groups.forEach(group => {
 			if (group.id === value)
-				result = group.electors
+				result = group.votes
 			else group.parties.forEach(party => {
 				if (party.id === value)
-					result = party.electors
+					result = party.votes
 				else party.candidates.forEach(candidate => {
 					if (candidate.id === value)
-						result = candidate.electors
+						result = candidate.votes
 				})
 			})
 		})

@@ -49,25 +49,17 @@ export class Littlenogroup extends Component {
 							{ e => e + ': ' + getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)}
 			  			  </FormattedMessage>
 			footer = <div>{votings} {blankPapers}</div>
-    		let value = ''
-    		if (this.props.app.state.votingPaper.type === 'little-nogroup')
-    			value = this.props.app.state.votingPaper.groups[0].parties.map((e) => {
+    		let value = this.props.app.state.votingPaper.parties.map((e) => {
     				let numberVotes = getVotesById(e.id, this.state.vote)
+    				let percent = (numberVotes / this.state.vote.electors * 100).toFixed(2)
+    				if (isNaN(percent))
+    					percent = 0
     				return {
     					id: e.id,
     					name: e.name,
     					image: e.image,
     					votes: numberVotes,
-    					percent: (numberVotes / this.state.vote.electors * 100).toFixed(2)
-    			}})
-    		else value = this.props.app.state.votingPaper.groups.map((e) => { 
-    			let numberVotes = getVotesById(e.id, this.state.vote)
-    			return {
-    				id: e.id,
-    				name: e.name,
-    				image: e.image,
-    				votes: numberVotes,
-    				percent: (numberVotes / this.state.vote.electors * 100).toFixed(2)
+    					percent: percent
     		}})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
