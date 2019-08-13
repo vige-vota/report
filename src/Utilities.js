@@ -53,6 +53,22 @@ export const getVotesById = (value, votes) => {
 	} else return 0
 }
 
+export const getBlankPapers = (value, votes) => {
+	if (value) {
+		let result = 0
+		votes.votingPapers.forEach(votingPaper => {
+			console.log(votingPaper.electors)
+			if (votingPaper.id === value) {
+				console.log(votingPaper.groups)
+				console.log(votingPaper.parties)
+				if (!votingPaper.groups && !votingPaper.parties)
+					result++
+			}
+		})
+	return result
+	} else return 0
+}
+
 export const getTitle = (value) => {
 	if (value) {
 		return <FormattedMessage id={'level_' + value.level}>

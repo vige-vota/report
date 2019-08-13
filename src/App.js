@@ -4,7 +4,10 @@ import './App.css'
 import { TabMenu } from 'primereact/tabmenu'
 import 'primeflex/primeflex.css'
 import VoteMap from './map/VoteMap';
-import Results from './Results';
+import Littlenogroup from './results/Littlenogroup';
+import Biggerpartygroup from './results/Biggerpartygroup';
+import Bigger from './results/Bigger';
+import Little from './results/Little';
 import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -35,7 +38,17 @@ class App extends Component {
     }
 
     render() {
-    	let results = <Results ref='results' votingPaper={this.state.votingPaper} app={this} />
+    	let results = ''
+        if (this.state.votingPaper) {
+        	if (this.state.votingPaper.type === 'bigger-partygroup')
+        		results = <Biggerpartygroup ref='results' votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'little')
+        		results = <Little ref='results' votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'bigger')
+        		results = <Bigger ref='results' votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'little-nogroup')
+        		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
+        }
         return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
             	<div className='content-section implementation'>
@@ -66,7 +79,8 @@ class App extends Component {
                 			this.setState({ activeItem: e.value,
                 						    votingPaper: getVotingPaperById(e.value) })
                 			this.refs.voteMap.reset()
-                			this.refs.results.reset()
+                			if (this.refs.results)
+                				this.refs.results.reset()
                 		}}
                 	} />
                 

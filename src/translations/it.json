@@ -14,5 +14,9 @@
     "app.choosecity": "Scegli comune...",
     "app.choosecircumscription": "Scegli circoscrizione...",
     "app.city": "Comune",
-    "app.circumscription": "Circoscrizione"
+    "app.circumscription": "Circoscrizione",
+    "app.table.lists": "Liste",
+    "app.table.votes": "Voti",
+    "app.table.votings": "Votanti",
+    "app.table.blankpapers": "Schede bianche"
 }
