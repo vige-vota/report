@@ -18,5 +18,6 @@
     "app.table.lists": "Liste",
     "app.table.votes": "Voti",
     "app.table.votings": "Votanti",
+    "app.table.totallists": "Totale liste",
     "app.table.blankpapers": "Schede bianche"
 }
