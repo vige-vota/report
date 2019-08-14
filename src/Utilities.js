@@ -30,42 +30,53 @@ export const getZoneById = (value, sites) => {
 	} else return ''
 }
 
-export const getVotesById = (value, votes) => {
-	if (value) {
-		let result = 0
-		votes.votingPapers.forEach(votingPaper => {
-		if (votingPaper.id === value)
-			result = votingPaper.electors
-		else {
+export const getComponentById = (value, votingPaper) => {
+	let result
+	if (votingPaper.id === value)
+		result = votingPaper
+	else {
+		if (votingPaper.groups)
 			votingPaper.groups.forEach(group => {
 				if (group.id === value)
-					result = group.electors
-				else group.parties.forEach(party => {
-					if (party.id === value)
-						result = party.electors
-					else party.candidates.forEach(candidate => {
-						if (candidate.id === value)
-							result = candidate.electors
+					result = group
+					else group.parties.forEach(party => {
+						if (party.id === value)
+							result = party
+						else party.candidates.forEach(candidate => {
+							if (candidate.id === value)
+								result = candidate
+						})
 					})
-				})
 			})
+		if (votingPaper.parties)
 			votingPaper.parties.forEach(party => {
 				if (party.id === value)
-					result = party.electors
+					result = party
 				else party.candidates.forEach(candidate => {
 					if (candidate.id === value)
-						result = candidate.electors
+						result = candidate
 				})
 			})
 		}
-	})
 	return result
-	} else return 0
+}
+
+export const getVotesById = (value, votes) => {
+	let result
+	votes.votingPapers.forEach(votingPaper => {
+		let component = getComponentById(value, votingPaper)
+		if (component)
+			result = component
+	})
+	if (result)
+		return result.electors
+	else return 0
 }
 
 export const getBlankPapers = (value, votes) => {
-	if (value)
-		return votes.votingPapers.filter(votingPaper => votingPaper.id === value)[0].blankPapers
+	let list = votes.votingPapers.filter(votingPaper => votingPaper.id === value)
+	if (list.length > 0)
+		return list[0].blankPapers
 	else return 0
 }
 
