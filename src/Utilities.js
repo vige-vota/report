@@ -36,34 +36,37 @@ export const getVotesById = (value, votes) => {
 		votes.votingPapers.forEach(votingPaper => {
 		if (votingPaper.id === value)
 			result = votingPaper.electors
-		else votingPaper.groups.forEach(group => {
-			if (group.id === value)
-				result = group.votes
-			else group.parties.forEach(party => {
-				if (party.id === value)
-					result = party.votes
-				else party.candidates.forEach(candidate => {
-					if (candidate.id === value)
-						result = candidate.votes
+		else {
+			votingPaper.groups.forEach(group => {
+				if (group.id === value)
+					result = group.electors
+				else group.parties.forEach(party => {
+					if (party.id === value)
+						result = party.electors
+					else party.candidates.forEach(candidate => {
+						if (candidate.id === value)
+							result = candidate.electors
+					})
 				})
 			})
-		})
+			votingPaper.parties.forEach(party => {
+				if (party.id === value)
+					result = party.electors
+				else party.candidates.forEach(candidate => {
+					if (candidate.id === value)
+						result = candidate.electors
+				})
+			})
+		}
 	})
 	return result
 	} else return 0
 }
 
 export const getBlankPapers = (value, votes) => {
-	if (value) {
-		let result = 0
-		votes.votingPapers.forEach(votingPaper => {
-			if (votingPaper.id === value) {
-				if (!votingPaper.groups && !votingPaper.parties)
-					result++
-			}
-		})
-	return result
-	} else return 0
+	if (value)
+		return votes.votingPapers.filter(votingPaper => votingPaper.id === value)[0].blankPapers
+	else return 0
 }
 
 export const getTitle = (value) => {
