@@ -34,9 +34,13 @@ export class Biggerpartygroup extends Component {
     	let dataTable = ''
         if (this.state.vote && this.props.app.state.votingPaper) {
             let values = getComponentById(data.id, this.props.app.state.votingPaper).parties
+            let sumValue = 0
+            let sumPercent = 0
             let value = values.map((e) => {
                 let numberVotes = getVotesById(e.id, this.state.vote)
-            	let percent = getPercent(numberVotes, this.state.vote)
+                sumValue += numberVotes
+            	let percent = getPercent(e.id, this.state.vote)
+                sumPercent += percent
                 return {
                 	id: e.id,
                 	name: e.name,
@@ -44,17 +48,20 @@ export class Biggerpartygroup extends Component {
                 	votes: numberVotes,
                 	percent: percent
             }})
-            let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
-        	let footerVotants = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
-        	let footerPercent = footerVotants
-            let footer = <ColumnGroup>
-            				<Row>
-            					<Column colSpan={2} />
-            					<Column footer={votings} />
-            					<Column footer={footerVotants} />
-            					<Column footer={footerPercent} />
-            				</Row>
-            			</ColumnGroup>
+            let footer = ''
+            if (values.length > 0) {
+            	let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
+            		let footerVotants = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
+            		let footerPercent = footerVotants
+            		footer = <ColumnGroup>
+            					<Row>
+            						<Column colSpan={2} />
+            						<Column footer={votings} />
+            						<Column footer={sumValue} />
+            						<Column footer={sumPercent} />
+            						</Row>
+            						</ColumnGroup>
+            }
             dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='bigger-sub-header'>
             				<Column />
@@ -97,7 +104,7 @@ export class Biggerpartygroup extends Component {
         	let values = this.props.app.state.votingPaper.groups
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, this.state.vote)
-            	let percent = getPercent(numberVotes, this.state.vote)
+            	let percent = getPercent(e.id, this.state.vote)
         		return {
         			id: e.id,
         			name: e.name,

@@ -48,7 +48,7 @@ export class Little extends Component {
         				 </div>
     		let value = this.props.app.state.votingPaper.groups.map((e) => { 
     			let numberVotes = getVotesById(e.id, this.state.vote)
-            	let percent = getPercent(numberVotes, this.state.vote)
+            	let percent = getPercent(e.id, this.state.vote)
     			return {
     				id: e.id,
     				name: e.name,

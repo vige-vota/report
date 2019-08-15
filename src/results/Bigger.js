@@ -48,9 +48,7 @@ export class Bigger extends Component {
     					 </div>
     		let value = this.props.app.state.votingPaper.groups.map((e) => { 
     			let numberVotes = getVotesById(e.id, this.state.vote)
-				let percent = (numberVotes / this.state.vote.electors * 100).toFixed(2)
-				if (isNaN(percent))
-					percent = 0
+            	let percent = getPercent(e.id, this.state.vote)
     			return {
     				id: e.id,
     				name: e.name,

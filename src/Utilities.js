@@ -72,10 +72,22 @@ export const getVotesById = (value, votes) => {
 }
 
 export const getPercent = (value, votes) => {
-	let result = (value / votes.electors * 100).toFixed(2)
-	if (isNaN(result))
-		result = 0
-	return result
+	let voteComponent
+	let voteVotingPaper
+	let result = 0
+	votes.votingPapers.forEach(votingPaper => {
+		let component = getComponentById(value, votingPaper)
+		if (component) {
+			voteComponent = component
+			voteVotingPaper = votingPaper
+		}
+	})
+	if (voteComponent) {
+		result = (voteComponent.electors / voteVotingPaper.electors * 100).toFixed(2)
+		if (isNaN(result))
+			result = 0
+	}
+	return parseFloat(result)
 }
 
 export const getBlankPapers = (value, votes) => {
