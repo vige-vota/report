@@ -83,7 +83,8 @@ export const getPercent = (value, votes) => {
 		}
 	})
 	if (voteComponent) {
-		result = (voteComponent.electors / voteVotingPaper.electors * 100).toFixed(2)
+		let totalElectors = voteVotingPaper.electors - voteVotingPaper.blankPapers
+		result = (voteComponent.electors / totalElectors * 100).toFixed(2)
 		if (isNaN(result))
 			result = 0
 	}
