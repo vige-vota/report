@@ -51,16 +51,14 @@ export class Biggerpartygroup extends Component {
             let footer = ''
             if (values.length > 0) {
             	let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
-            		let footerVotants = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
-            		let footerPercent = footerVotants
-            		footer = <ColumnGroup>
+            	footer = <ColumnGroup>
             					<Row>
             						<Column colSpan={2} />
             						<Column footer={votings} />
             						<Column footer={sumValue} />
             						<Column footer={sumPercent} />
-            						</Row>
-            						</ColumnGroup>
+            					</Row>
+            			 </ColumnGroup>
             }
             dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='bigger-sub-header'>
