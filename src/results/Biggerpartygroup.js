@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
+import { ColumnGroup } from 'primereact/columngroup'
+import { Row } from 'primereact/row'
 import './Results.css'
 import './Biggerpartygroup.css'
 import axios from 'axios'
-import { getTitle, getVotesById, getBlankPapers, getComponentById } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent } from '../Utilities';
 
 export class Biggerpartygroup extends Component {
 
@@ -24,6 +26,7 @@ export class Biggerpartygroup extends Component {
     	    console.log(error)
     	});
         this.partyTemplate = this.partyTemplate.bind(this);
+        this.listsTemplate = this.listsTemplate.bind(this);
         this.rowExpansionTemplate = this.rowExpansionTemplate.bind(this);
     }
     
@@ -33,9 +36,7 @@ export class Biggerpartygroup extends Component {
             let values = getComponentById(data.id, this.props.app.state.votingPaper).parties
             let value = values.map((e) => {
                 let numberVotes = getVotesById(e.id, this.state.vote)
-            	let percent = (numberVotes / this.state.vote.electors * 100).toFixed(2)
-            	if (isNaN(percent))
-            		percent = 0
+            	let percent = getPercent(numberVotes, this.state.vote)
                 return {
                 	id: e.id,
                 	name: e.name,
@@ -43,15 +44,21 @@ export class Biggerpartygroup extends Component {
                 	votes: numberVotes,
                 	percent: percent
             }})
-            let votings = <FormattedMessage id='app.table.totallists' defaultMessage='Total lists'>
-        				   { e => e + ' ' + getVotesById(this.props.app.state.votingPaper.id, this.state.vote) + ' '
-        								  + getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
-        				   }
-        				  </FormattedMessage>
-            let footer = <div>{votings}</div>
-            dataTable = <DataTable value={value} sortField="votes" sortOrder={-1} 
-        			     footer={footer} className='bigger-sub-header'>
-                    		<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+            let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
+        	let footerVotants = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
+        	let footerPercent = footerVotants
+            let footer = <ColumnGroup>
+            				<Row>
+            					<Column colSpan={2} />
+            					<Column footer={votings} />
+            					<Column footer={footerVotants} />
+            					<Column footer={footerPercent} />
+            				</Row>
+            			</ColumnGroup>
+            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            			 footerColumnGroup={footer} className='bigger-sub-header'>
+            				<Column />
+            				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
         					<Column field='name' style={{width: '70%' }} />
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
@@ -63,7 +70,19 @@ export class Biggerpartygroup extends Component {
     partyTemplate(rowData, column) {
         return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         			alt={rowData.name} 
-        			style={{ width:'66px' }} />;
+        			style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />;
+    }
+
+    listsTemplate(rowData, column) {
+    	let images = ''
+    	let component = getComponentById(rowData.id, this.props.app.state.votingPaper)
+    	images = component.parties.map(e => <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 
+								  alt={rowData.name} style={{ width:'10%' }} />)
+        return <div>{rowData.name} 
+        		  <div className='border-images'>
+        			 <span className='party-images'>{images}</span>
+        		  </div>
+        	   </div>
     }
 	
 	reset() {
@@ -78,9 +97,7 @@ export class Biggerpartygroup extends Component {
         	let values = this.props.app.state.votingPaper.groups
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, this.state.vote)
-    			let percent = (numberVotes / this.state.vote.electors * 100).toFixed(2)
-    			if (isNaN(percent))
-    				percent = 0
+            	let percent = getPercent(numberVotes, this.state.vote)
         		return {
         			id: e.id,
         			name: e.name,
@@ -88,23 +105,24 @@ export class Biggerpartygroup extends Component {
         			votes: numberVotes,
         			percent: percent
         	}})
-            let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings'>
-					   { e => e + ': ' + getVotesById(this.props.app.state.votingPaper.id, this.state.vote)}
-					  </FormattedMessage>
-            let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers'>
-							   { e => e + ': ' + getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)}
-							  </FormattedMessage>
-			let footer = <div>{votings} {blankPapers}</div>
-            let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
+            let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
+            let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
+			let votingValues = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
+			let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)
+			let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp;
+							  {blankPapers} <span className='footer-value'>{blankPapersValues}</span>
+						 </div>
+            let lists = <FormattedMessage id='app.table.candidatesandlists' defaultMessage='Candidates and lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-            dataTable = <DataTable value={value} sortField="votes" sortOrder={-1} 
+            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px' footer={footer}
         				 expandedRows={this.state.expandedRows} 
         				 onRowToggle={(e) => this.setState({expandedRows:e.data})}
-        				 rowExpansionTemplate={this.rowExpansionTemplate}>
+        				 rowExpansionTemplate={this.rowExpansionTemplate}
+            			 className='bigger-table'>
             				<Column field='id' expander/>
         					<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-        					<Column field='name' header={lists} style={{width: '70%' }} />
+        					<Column field='name' header={lists} body={this.listsTemplate} style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>

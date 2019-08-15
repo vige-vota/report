@@ -62,15 +62,20 @@ export const getComponentById = (value, votingPaper) => {
 }
 
 export const getVotesById = (value, votes) => {
-	let result
+	let result = 0
 	votes.votingPapers.forEach(votingPaper => {
 		let component = getComponentById(value, votingPaper)
 		if (component)
-			result = component
+			result = component.electors
 	})
-	if (result)
-		return result.electors
-	else return 0
+	return result
+}
+
+export const getPercent = (value, votes) => {
+	let result = (value / votes.electors * 100).toFixed(2)
+	if (isNaN(result))
+		result = 0
+	return result
 }
 
 export const getBlankPapers = (value, votes) => {

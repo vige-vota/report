@@ -4,7 +4,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Results.css'
 import axios from 'axios'
-import { getTitle, getVotesById, getBlankPapers } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getPercent } from '../Utilities';
 
 export class Bigger extends Component {
 
@@ -38,17 +38,14 @@ export class Bigger extends Component {
 
     render() {
     	let dataTable = ''
-        let votings = ''
-        let blankPapers = ''
-        let footer = ''
     	if (this.state.vote && this.props.app.state.votingPaper) {
-    		votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings'>
-							{ e => e + ': ' + getVotesById(this.props.app.state.votingPaper.id, this.state.vote)}
-					  </FormattedMessage>
-			blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers'>
-							{ e => e + ': ' + getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)}
-					  </FormattedMessage>
-		    footer = <div>{votings} {blankPapers}</div>
+            let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
+            let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
+    		let votingValues = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
+    		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)
+    		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp;
+    						{blankPapers} <span className='footer-value'>{blankPapersValues}</span>
+    					 </div>
     		let value = this.props.app.state.votingPaper.groups.map((e) => { 
     			let numberVotes = getVotesById(e.id, this.state.vote)
 				let percent = (numberVotes / this.state.vote.electors * 100).toFixed(2)

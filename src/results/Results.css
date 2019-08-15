@@ -20,3 +20,11 @@
 .p-datatable-footer {
 	border: none !important;
 }
+
+.p-datatable-tbody > tr > td {
+	padding: inherit !important;
+}
+
+.footer-value{
+	font-weight: 400;
+}
