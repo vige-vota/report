@@ -1,0 +1,21 @@
+.little-sub-header .p-datatable-thead {
+	display: none;
+}
+
+.little-sub-header .p-datatable-tfoot td {
+	border: none !important;
+	text-align: left !important;
+	padding: 10px 0px 10px !important;
+	font-weight: 400 !important;
+}
+
+.little-table .party-images {
+	position: absolute;
+	right: 10%;
+	width: 50%;
+}
+
+.little-table .border-images {
+	position: relative;
+	bottom: 25px;
+}
