@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Results.css'
+import './Littlenogroup.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getPercent } from '../Utilities';
 

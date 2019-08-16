@@ -49,7 +49,7 @@ export class Biggerpartygroup extends Component {
                 	percent: percent
             }})
             let footer = ''
-            if (values.length > 0) {
+            if (values.length > 1) {
             	let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
             	footer = <ColumnGroup>
             					<Row>
@@ -61,7 +61,7 @@ export class Biggerpartygroup extends Component {
             			 </ColumnGroup>
             }
             dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
-            			 footerColumnGroup={footer} className='bigger-sub-header'>
+            			 footerColumnGroup={footer} className='biggernogroup-sub-header'>
             				<Column />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
         					<Column field='name' style={{width: '70%' }} />
@@ -73,16 +73,18 @@ export class Biggerpartygroup extends Component {
     }
 
     partyTemplate(rowData, column) {
-        return <img src={`data:image/jpeg;base64,${rowData.image}`} 
-        			alt={rowData.name} 
-        			style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />;
+    	if (rowData.image)
+    		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
+        				alt={rowData.name} 
+        				style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+    	else return ''
     }
 
     listsTemplate(rowData, column) {
     	let images = ''
     	let component = getComponentById(rowData.id, this.props.app.state.votingPaper)
-    	images = component.parties.map(e => <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 
-								  alt={rowData.name} style={{ width:'10%' }} />)
+    	images = component.parties.map(e => e.image ? <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 
+								  alt={rowData.name} style={{ width:'10%' }} /> : '')
         return <div>{rowData.name} 
         		  <div className='border-images'>
         			 <span className='party-images'>{images}</span>
@@ -124,7 +126,7 @@ export class Biggerpartygroup extends Component {
         				 expandedRows={this.state.expandedRows} 
         				 onRowToggle={(e) => this.setState({expandedRows:e.data})}
         				 rowExpansionTemplate={this.rowExpansionTemplate}
-            			 className='bigger-table'>
+            			 className='biggernogroup-table'>
             				<Column field='id' expander/>
         					<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
         					<Column field='name' header={lists} body={this.listsTemplate} style={{width: '70%' }} />

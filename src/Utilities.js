@@ -42,20 +42,22 @@ export const getComponentById = (value, votingPaper) => {
 					else group.parties.forEach(party => {
 						if (party.id === value)
 							result = party
-						else party.candidates.forEach(candidate => {
-							if (candidate.id === value)
-								result = candidate
-						})
+						else if (party.candidates)
+							party.candidates.forEach(candidate => {
+								if (candidate.id === value)
+									result = candidate
+							})
 					})
 			})
 		if (votingPaper.parties)
 			votingPaper.parties.forEach(party => {
 				if (party.id === value)
 					result = party
-				else party.candidates.forEach(candidate => {
-					if (candidate.id === value)
-						result = candidate
-				})
+				else if (party.candidates) 
+					party.candidates.forEach(candidate => {
+						if (candidate.id === value)
+							result = candidate
+					})
 			})
 		}
 	return result
