@@ -119,7 +119,7 @@ export class Biggerpartygroup extends Component {
 			let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp;
 							  {blankPapers} <span className='footer-value'>{blankPapersValues}</span>
 						 </div>
-            let lists = <FormattedMessage id='app.table.candidatesandlists' defaultMessage='Candidates and lists' />
+            let lists = <FormattedMessage id='app.table.candidatesandlists' defaultMessage='Candidates and Lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
             dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px' footer={footer}
