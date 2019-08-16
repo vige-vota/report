@@ -42,35 +42,55 @@ export const getComponentById = (value, votingPaper) => {
 					else group.parties.forEach(party => {
 						if (party.id === value)
 							result = party
-						else party.candidates.forEach(candidate => {
-							if (candidate.id === value)
-								result = candidate
-						})
+						else if (party.candidates)
+							party.candidates.forEach(candidate => {
+								if (candidate.id === value)
+									result = candidate
+							})
 					})
 			})
 		if (votingPaper.parties)
 			votingPaper.parties.forEach(party => {
 				if (party.id === value)
 					result = party
-				else party.candidates.forEach(candidate => {
-					if (candidate.id === value)
-						result = candidate
-				})
+				else if (party.candidates) 
+					party.candidates.forEach(candidate => {
+						if (candidate.id === value)
+							result = candidate
+					})
 			})
 		}
 	return result
 }
 
 export const getVotesById = (value, votes) => {
-	let result
+	let result = 0
 	votes.votingPapers.forEach(votingPaper => {
 		let component = getComponentById(value, votingPaper)
 		if (component)
-			result = component
+			result = component.electors
 	})
-	if (result)
-		return result.electors
-	else return 0
+	return result
+}
+
+export const getPercent = (value, votes) => {
+	let voteComponent
+	let voteVotingPaper
+	let result = 0
+	votes.votingPapers.forEach(votingPaper => {
+		let component = getComponentById(value, votingPaper)
+		if (component) {
+			voteComponent = component
+			voteVotingPaper = votingPaper
+		}
+	})
+	if (voteComponent) {
+		let totalElectors = voteVotingPaper.electors - voteVotingPaper.blankPapers
+		result = (voteComponent.electors / totalElectors * 100).toFixed(2)
+		if (isNaN(result))
+			result = 0
+	}
+	return parseFloat(result)
 }
 
 export const getBlankPapers = (value, votes) => {

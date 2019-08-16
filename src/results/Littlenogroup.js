@@ -3,8 +3,9 @@ import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Results.css'
+import './Littlenogroup.css'
 import axios from 'axios'
-import { getTitle, getVotesById, getBlankPapers } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getPercent } from '../Utilities';
 
 export class Littlenogroup extends Component {
 
@@ -27,7 +28,7 @@ export class Littlenogroup extends Component {
     partyTemplate(rowData, column) {
         return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         			alt={rowData.name} 
-        			style={{ width:'66px' }} />
+        			style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
     }
 	
 	reset() {
@@ -38,22 +39,17 @@ export class Littlenogroup extends Component {
 
     render() {
     	let dataTable = ''
-    	let votings = ''
-        let blankPapers = ''
-        let footer = ''
     	if (this.state.vote && this.props.app.state.votingPaper) {
-    		votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings'>
-    					{ e => e + ': ' + getVotesById(this.props.app.state.votingPaper.id, this.state.vote)}
-    				  </FormattedMessage>
-    		blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers'>
-							{ e => e + ': ' + getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)}
-			  			  </FormattedMessage>
-			footer = <div>{votings} {blankPapers}</div>
+            let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
+            let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
+    		let votingValues = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
+    		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)
+    		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp; 
+    						{blankPapers} <span className='footer-value'>{blankPapersValues}</span>
+    					 </div>
     		let value = this.props.app.state.votingPaper.parties.map((e) => {
     				let numberVotes = getVotesById(e.id, this.state.vote)
-    				let percent = (numberVotes / this.state.vote.electors * 100).toFixed(2)
-    				if (isNaN(percent))
-    					percent = 0
+                	let percent = getPercent(e.id, this.state.vote)
     				return {
     					id: e.id,
     					name: e.name,
