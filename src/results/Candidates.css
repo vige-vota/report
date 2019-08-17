@@ -1,0 +1,18 @@
+.p-dialog .p-dialog-titlebar-icons {
+    margin-top: -14%;
+}
+
+.p-dialog .p-dialog-titlebar {
+    padding: 0px 10px 0px 10px !important;
+    height: 80px;
+    border: 0px solid !important;
+}
+
+.party-for-candidates {
+	display: inline-flex;
+}
+
+.party-for-candidates .title-for-candidates {
+	margin-top: 12%;
+	padding: 0px 0px 0px 50px;
+}

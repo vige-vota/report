@@ -2,17 +2,22 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
+import { Button } from 'primereact/button'
+import { Candidates } from './Candidates'
+import {Dialog} from 'primereact/dialog';
 import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
-import { getTitle, getVotesById, getBlankPapers, getPercent } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent } from '../Utilities';
 
 export class Littlenogroup extends Component {
 
     constructor() {
         super()
         this.state = {
-        	zone: null
+        	zone: null,
+        	showCandidates: null,
+            selectedParty: null
         }
         axios
     	.get(process.env.REACT_APP_VOTING_URL)
@@ -23,12 +28,32 @@ export class Littlenogroup extends Component {
     	    console.log(error)
     	});
         this.partyTemplate = this.partyTemplate.bind(this);
+        this.candidatesTemplate = this.candidatesTemplate.bind(this);
+    }
+
+    renderModalHeader() {
+    		return (
+        		<div id='headEnti'>
+        			<h2>{getTitle(this.state.zone)}</h2>
+        			<h3><FormattedMessage id='app.table.candidatesandelected' defaultMessage='Candidates and Elected' /></h3>
+        		</div>
+        )
+    }
+    
+    candidatesTemplate(data) {
+    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
+    	if (component.candidates)
+    		return <Button label={data.name} className='candidates-button' 
+    			onClick={(e) => this.setState({showCandidates: true, selectedParty: component})} />
+    		else return data.name
     }
 
     partyTemplate(rowData, column) {
-        return <img src={`data:image/jpeg;base64,${rowData.image}`} 
-        			alt={rowData.name} 
-        			style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+    	if (rowData.image)
+    		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
+        				alt={rowData.name} 
+        				style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+    	else return ''
     }
 	
 	reset() {
@@ -62,7 +87,7 @@ export class Littlenogroup extends Component {
     		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
     					 scrollable={true} scrollHeight='450px' footer={footer}>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-    						<Column field='name' header={lists} style={{width: '70%' }} />
+    						<Column field='name' header={lists} style={{width: '70%' }} body={this.candidatesTemplate} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
     					</DataTable>
@@ -73,6 +98,12 @@ export class Littlenogroup extends Component {
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
             	{dataTable}
+            	<Dialog visible={this.state.showCandidates} 
+        			modal={true} onHide={() => this.setState({showCandidates: false})}
+        			style={{width: '50vw'}} header={this.renderModalHeader()}>
+        			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        				vote={this.state.vote} />
+        		</Dialog>
             </div>
         )
     }

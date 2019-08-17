@@ -3,7 +3,10 @@ import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { ColumnGroup } from 'primereact/columngroup'
+import { Button } from 'primereact/button'
 import { Row } from 'primereact/row'
+import { Candidates } from './Candidates'
+import {Dialog} from 'primereact/dialog';
 import './Results.css'
 import './Biggerpartygroup.css'
 import axios from 'axios'
@@ -15,7 +18,9 @@ export class Biggerpartygroup extends Component {
         super()
         this.state = {
         	zone: null,
-            expandedRows: null
+            expandedRows: null,
+            showCandidates: null,
+            selectedParty: null
         }
         axios
     	.get(process.env.REACT_APP_VOTING_URL)
@@ -28,6 +33,24 @@ export class Biggerpartygroup extends Component {
         this.partyTemplate = this.partyTemplate.bind(this);
         this.listsTemplate = this.listsTemplate.bind(this);
         this.rowExpansionTemplate = this.rowExpansionTemplate.bind(this);
+        this.candidatesTemplate = this.candidatesTemplate.bind(this);
+    }
+
+    renderModalHeader() {
+    		return (
+        		<div id='headEnti'>
+        			<h2>{getTitle(this.state.zone)}</h2>
+        			<h3><FormattedMessage id='app.table.candidatesandelected' defaultMessage='Candidates and Elected' /></h3>
+        		</div>
+        )
+    }
+    
+    candidatesTemplate(data) {
+    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
+    	if (component.candidates)
+    		return <Button label={data.name} className='candidates-button' 
+    			onClick={(e) => this.setState({showCandidates: true, selectedParty: component})} />
+    		else return data.name
     }
     
     rowExpansionTemplate(data) {
@@ -64,7 +87,7 @@ export class Biggerpartygroup extends Component {
             			 footerColumnGroup={footer} className='biggernogroup-sub-header'>
             				<Column />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-        					<Column field='name' style={{width: '70%' }} />
+        					<Column field='name' style={{width: '70%' }} body={this.candidatesTemplate} />
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
         				</DataTable>
@@ -144,6 +167,12 @@ export class Biggerpartygroup extends Component {
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
             	{this.renderDataTable()}
+            	<Dialog visible={this.state.showCandidates} 
+        		modal={true} onHide={() => this.setState({showCandidates: false})}
+        		style={{width: '50vw'}} header={this.renderModalHeader()}>
+        		<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        			vote={this.state.vote} />
+        	</Dialog>
             </div>
         )
     }
