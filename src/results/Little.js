@@ -5,6 +5,7 @@ import { Column } from 'primereact/column'
 import { ColumnGroup } from 'primereact/columngroup'
 import { Button } from 'primereact/button'
 import { Candidates } from './Candidates'
+import {Dialog} from 'primereact/dialog';
 import { Row } from 'primereact/row'
 import './Results.css'
 import './Little.css'
@@ -34,10 +35,19 @@ export class Little extends Component {
         this.rowExpansionTemplate = this.rowExpansionTemplate.bind(this);
         this.candidatesTemplate = this.candidatesTemplate.bind(this);
     }
+
+    renderModalHeader() {
+    		return (
+        		<div id='headEnti'>
+        			<h2>{getTitle(this.state.zone)}</h2>
+        			<h3><FormattedMessage id='app.table.candidatesandelected' defaultMessage='Candidates and Elected' /></h3>
+        		</div>
+        )
+    }
     
     candidatesTemplate(data) {
 		return <Button label={data.name} className='candidates-button' 
-			onClick={(e) => this.setState({showCandidates: true, selectedParty: data.id})} />
+			onClick={(e) => this.setState({showCandidates: true, selectedParty: data})} />
     }
     
     rowExpansionTemplate(data) {
@@ -154,9 +164,11 @@ export class Little extends Component {
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
             	{this.renderDataTable()}
-            	<Candidates visible={this.state.showCandidates} 
-					modal={true} onHide={() => this.setState({showCandidates: false})} 
-					style={{width: '50vw'}} zone={this.state.zone} party={this.state.selectedParty} />
+            	<Dialog visible={this.state.showCandidates} 
+        			modal={true} onHide={() => this.setState({showCandidates: false})}
+        			style={{width: '50vw'}} header={this.renderModalHeader()}>
+        			<Candidates zone={this.state.zone} party={this.state.selectedParty} />
+        		</Dialog>
             </div>
         )
     }

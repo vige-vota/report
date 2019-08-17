@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Candidates.css'
-import {Dialog} from 'primereact/dialog';
-import { getTitle, getVotesById, getBlankPapers, getPercent } from '../Utilities';
+import { getVotesById, getBlankPapers, getPercent, getComponentById } from '../Utilities';
 
-export class Candidates extends Dialog {
+export class Candidates extends Component {
 	
 	renderDataTable() {
     	let dataTable = ''
-        if (this.state.vote && this.props.app.state.votingPaper) {
+        if (this.props.party) {
+        	console.log(this.props.party)
+        	let componentParty = getComponentById(this.props.party)
+        	console.log(componentParty)
         	let values = this.props.app.state.votingPaper.groups
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, this.state.vote)
@@ -47,26 +49,19 @@ export class Candidates extends Dialog {
     	return dataTable
 	}
 
-    renderHeader() {
-    	if (this.props.visible) {
-    		return (
-        		<div id='headEnti'>
-        			<h2>{getTitle(this.props.zone)}</h2>
-        			<h3><FormattedMessage id='app.table.candidatesandelected' defaultMessage='Candidates and Elected' /></h3>
-        		</div>
-        ) } else return ''
-    }
-
-    renderContent() {
-    	if (this.props.visible) {
-    		return (
-    			<div className='tableContent'>
-        		<div id='headEnti'>
-        			<h3>{this.props.party}</h3>
-        		</div>
-            	{this.renderDataTable()}
-            </div>
-        ) } else return ''
+    render() {
+    		if (this.props.party)
+    			return (
+    				<div className='tableContent'>
+    					<div className='party-for-candidates'>
+    						<img src={`data:image/jpeg;base64,${this.props.party.image}`}
+            						alt={this.props.party.name} 
+            						style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+            					<div className='title-for-candidates'>{this.props.party.name}</div>
+    					</div>
+    				</div>
+    			)
+    		else return ''
     }
 }
 
