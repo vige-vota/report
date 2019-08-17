@@ -3,7 +3,9 @@ import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { ColumnGroup } from 'primereact/columngroup'
+import { Button } from 'primereact/button'
 import { Row } from 'primereact/row'
+import { Candidates } from './Candidates'
 import './Results.css'
 import './Bigger.css'
 import axios from 'axios'
@@ -15,7 +17,9 @@ export class Bigger extends Component {
         super()
         this.state = {
         	zone: null,
-            expandedRows: null
+            expandedRows: null,
+            showCandidates: null,
+            selectedParty: null
         }
         axios
     	.get(process.env.REACT_APP_VOTING_URL)
@@ -28,6 +32,12 @@ export class Bigger extends Component {
         this.partyTemplate = this.partyTemplate.bind(this);
         this.listsTemplate = this.listsTemplate.bind(this);
         this.rowExpansionTemplate = this.rowExpansionTemplate.bind(this);
+        this.candidatesTemplate = this.candidatesTemplate.bind(this);
+    }
+    
+    candidatesTemplate(data) {
+		return <Button label={data.name} className='candidates-button' 
+			onClick={(e) => this.setState({showCandidates: true, selectedParty: data.id})} />
     }
     
     rowExpansionTemplate(data) {
@@ -64,7 +74,7 @@ export class Bigger extends Component {
             			 footerColumnGroup={footer} className='bigger-sub-header'>
             				<Column />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-        					<Column field='name' style={{width: '70%' }} />
+        					<Column field='name' style={{width: '70%' }} body={this.candidatesTemplate} />
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
         				</DataTable>
@@ -144,6 +154,9 @@ export class Bigger extends Component {
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
             	{this.renderDataTable()}
+            	<Candidates visible={this.state.showCandidates} 
+            		modal={true} onHide={() => this.setState({showCandidates: false})}
+            		style={{width: '50vw'}} zone={this.state.zone} party={this.state.selectedParty} />
             </div>
         )
     }

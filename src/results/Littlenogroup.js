@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
+import { Button } from 'primereact/button'
+import { Candidates } from './Candidates'
 import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
@@ -12,7 +14,9 @@ export class Littlenogroup extends Component {
     constructor() {
         super()
         this.state = {
-        	zone: null
+        	zone: null,
+        	showCandidates: null,
+            selectedParty: null
         }
         axios
     	.get(process.env.REACT_APP_VOTING_URL)
@@ -23,6 +27,12 @@ export class Littlenogroup extends Component {
     	    console.log(error)
     	});
         this.partyTemplate = this.partyTemplate.bind(this);
+        this.candidatesTemplate = this.candidatesTemplate.bind(this);
+    }
+    
+    candidatesTemplate(data) {
+		return <Button label={data.name} className='candidates-button' 
+			onClick={(e) => this.setState({showCandidates: true, selectedParty: data.id})} />
     }
 
     partyTemplate(rowData, column) {
@@ -62,7 +72,7 @@ export class Littlenogroup extends Component {
     		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
     					 scrollable={true} scrollHeight='450px' footer={footer}>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-    						<Column field='name' header={lists} style={{width: '70%' }} />
+    						<Column field='name' header={lists} style={{width: '70%' }} body={this.candidatesTemplate} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
     					</DataTable>
@@ -73,6 +83,9 @@ export class Littlenogroup extends Component {
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
             	{dataTable}
+            	<Candidates visible={this.state.showCandidates} 
+					modal={true} onHide={() => this.setState({showCandidates: false})} 
+					style={{width: '50vw'}} zone={this.state.zone} party={this.state.selectedParty} />
             </div>
         )
     }
