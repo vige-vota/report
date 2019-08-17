@@ -46,8 +46,11 @@ export class Biggerpartygroup extends Component {
     }
     
     candidatesTemplate(data) {
-		return <Button label={data.name} className='candidates-button' 
-			onClick={(e) => this.setState({showCandidates: true, selectedParty: data})} />
+    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
+    	if (component.candidates)
+    		return <Button label={data.name} className='candidates-button' 
+    			onClick={(e) => this.setState({showCandidates: true, selectedParty: component})} />
+    		else return data.name
     }
     
     rowExpansionTemplate(data) {
@@ -167,7 +170,8 @@ export class Biggerpartygroup extends Component {
             	<Dialog visible={this.state.showCandidates} 
         		modal={true} onHide={() => this.setState({showCandidates: false})}
         		style={{width: '50vw'}} header={this.renderModalHeader()}>
-        		<Candidates zone={this.state.zone} party={this.state.selectedParty} />
+        		<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        			vote={this.state.vote} />
         	</Dialog>
             </div>
         )

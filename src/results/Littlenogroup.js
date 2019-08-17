@@ -8,7 +8,7 @@ import {Dialog} from 'primereact/dialog';
 import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
-import { getTitle, getVotesById, getBlankPapers, getPercent } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent } from '../Utilities';
 
 export class Littlenogroup extends Component {
 
@@ -41,14 +41,19 @@ export class Littlenogroup extends Component {
     }
     
     candidatesTemplate(data) {
-		return <Button label={data.name} className='candidates-button' 
-			onClick={(e) => this.setState({showCandidates: true, selectedParty: data})} />
+    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
+    	if (component.candidates)
+    		return <Button label={data.name} className='candidates-button' 
+    			onClick={(e) => this.setState({showCandidates: true, selectedParty: component})} />
+    		else return data.name
     }
 
     partyTemplate(rowData, column) {
-        return <img src={`data:image/jpeg;base64,${rowData.image}`} 
-        			alt={rowData.name} 
-        			style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+    	if (rowData.image)
+    		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
+        				alt={rowData.name} 
+        				style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+    	else return ''
     }
 	
 	reset() {
@@ -96,7 +101,8 @@ export class Littlenogroup extends Component {
             	<Dialog visible={this.state.showCandidates} 
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
-        			<Candidates zone={this.state.zone} party={this.state.selectedParty} />
+        			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        				vote={this.state.vote} />
         		</Dialog>
             </div>
         )
