@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Candidates.css'
-import { getVotesById, getPercent } from '../Utilities';
+import { getVotesById } from '../Utilities';
 
 export class Candidates extends Component {
 
