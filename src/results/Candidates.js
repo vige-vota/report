@@ -21,13 +21,11 @@ export class Candidates extends Component {
         	let values = this.props.party.candidates
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, this.props.vote)
-            	let percent = getPercent(e.id, this.props.vote)
         		return {
         			id: e.id,
         			name: e.name,
         			image: e.image,
-        			votes: numberVotes,
-        			percent: percent
+        			votes: numberVotes
         	}})
             let lists = <FormattedMessage id='app.table.candidate' defaultMessage='Candidate' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
@@ -37,7 +35,6 @@ export class Candidates extends Component {
         					<Column field='image' body={this.candidateTemplate} style={{width:'12%'}} />
         					<Column field='name' header={lists} style={{width:'70%'}} />
         					<Column field='votes' header={votes} />
-        					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
         }
     	return dataTable
