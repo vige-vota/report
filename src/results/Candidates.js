@@ -28,11 +28,11 @@ export class Candidates extends Component {
         			votes: numberVotes
         	}})
             let lists = <FormattedMessage id='app.table.candidate' defaultMessage='Candidate' />
-            let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
+            let votes = <FormattedMessage id='app.table.preferences' defaultMessage='Preferences' />
             dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px'
             			 className='candidates-table'>
-        					<Column field='image' body={this.candidateTemplate} style={{width:'12%'}} />
+        					<Column field='image' body={this.candidateTemplate} style={{width:'14%'}} />
         					<Column field='name' header={lists} style={{width:'70%'}} />
         					<Column field='votes' header={votes} />
         				</DataTable>
@@ -47,7 +47,7 @@ export class Candidates extends Component {
     					<div className='party-for-candidates'>
     						<img src={`data:image/jpeg;base64,${this.props.party.image}`}
             						alt={this.props.party.name} 
-            						style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+            						style={{ width:'66px', left:'2%', bottom:'6px', position:'relative' }} />
             					<div className='title-for-candidates'>{this.props.party.name}</div>
     					</div>
     					{this.renderDataTable()}
