@@ -25,5 +25,6 @@
     "app.table.preferences": "Preferenze",
     "app.table.votings": "Votanti:",
     "app.table.totallists": "Totale liste",
-    "app.table.blankpapers": "Schede bianche:"
+    "app.table.blankpapers": "Schede bianche:",
+    "app.error": "Errore"
 }
