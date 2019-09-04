@@ -13,6 +13,8 @@ import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import logo from './images/logo.ico'
+import {history} from './index'
+import {language} from './index'
 
 export var config
 
@@ -49,7 +51,15 @@ class App extends Component {
         	else if (this.state.votingPaper.type === 'little-nogroup')
         		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
         }
-        return (
+    	let subtitle = ''
+    	if (history) {
+    		let options = { year: 'numeric', month: 'long', day: 'numeric' }
+    		subtitle = <FormattedMessage
+							id='app.subtitle'
+							values = {{0: new Date(history).toLocaleDateString(language, options)}}
+							defaultMessage=' for' />
+    	}
+		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
             	<div className='content-section implementation'>
                 	<div className='second-row'>
@@ -61,7 +71,7 @@ class App extends Component {
                      			<FormattedMessage
                      				id='app.title'
                      				defaultMessage='Affluence and Results'>
-                     					{(title) => <p><strong>{title}</strong></p>}
+                     					{(title) => <p><strong>{title}{subtitle}</strong></p>}
                      			</FormattedMessage>
                      		</div>
                      		<div className='powered'>

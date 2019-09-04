@@ -9,6 +9,7 @@ import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent } from '../Utilities';
+import {history} from '../index'
 
 export class Littlenogroup extends Component {
 
@@ -19,8 +20,12 @@ export class Littlenogroup extends Component {
         	showCandidates: null,
             selectedParty: null
         }
+        let voting_url = process.env.REACT_APP_VOTING_URL
+        if (history) {
+        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + window.location.pathname
+        }
         axios
-    	.get(process.env.REACT_APP_VOTING_URL)
+    	.get(voting_url)
     	.then(response => {
     	    this.setState({vote: response.data})
     	})

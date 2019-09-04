@@ -6,6 +6,7 @@
 	"level_3": "Comune di ",
     "app.powered": "Sviluppato da ",
     "app.title": "Affluenza e Risultati",
+    "app.subtitle": " del {0}",
     "app.region": "Regione",
     "app.province": "Provincia",
     "app.search": "Cerca ente...",
