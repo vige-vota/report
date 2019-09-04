@@ -19,11 +19,11 @@ const messages = {
 }
 export const language = navigator.language.split(/[-_]/)[0]  // language without region code
 
-export var history = false
+export var history = ''
 let voting_papers_url = process.env.REACT_APP_VOTING_PAPERS_URL
 if (window.location.pathname !== '/') {
 	voting_papers_url = process.env.REACT_APP_HISTORY_VOTING_PAPERS_URL + window.location.pathname
-	history = true
+	history = window.location.pathname.substring(1)
 }
 
 ReactDOM.render(<ProgressSpinner/>, document.getElementById('root'))
