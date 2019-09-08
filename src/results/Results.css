@@ -1,7 +1,8 @@
 .my-content {
 	position: relative;
-	right: 4%;
+	left: 4%;
 	top: 30px;
+	width: 90%;
 }
 
 #headEnti {
