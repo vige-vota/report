@@ -35,6 +35,7 @@ export const getComponentById = (value, votingPaper) => {
 	if (votingPaper.id === value)
 		result = votingPaper
 	else {
+		console.log(votingPaper)
 		if (votingPaper.groups)
 			votingPaper.groups.forEach(group => {
 				if (group.id === value)
@@ -65,6 +66,7 @@ export const getComponentById = (value, votingPaper) => {
 
 export const getVotesById = (value, votes) => {
 	let result = 0
+	console.log(votes.votingPapers)
 	votes.votingPapers.forEach(votingPaper => {
 		let component = getComponentById(value, votingPaper)
 		if (component)
