@@ -77,7 +77,8 @@ export class Littlenogroup extends Component {
     		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp; 
     						{blankPapers} <span className='footer-value'>{blankPapersValues}</span>
     					 </div>
-    		let value = this.props.app.state.votingPaper.parties.map((e) => {
+    		let values = this.props.app.state.votingPaper.parties
+    		let value = values.map((e) => {
     				let numberVotes = getVotesById(e.id, this.state.vote)
                 	let percent = getPercent(e.id, this.state.vote)
     				return {
