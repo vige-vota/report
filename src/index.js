@@ -17,6 +17,7 @@ addLocaleData([...locale_en, ...locale_it])
 const messages = {
     'it': messages_it
 }
+
 export const language = navigator.language.split(/[-_]/)[0]  // language without region code
 
 export var history = ''
