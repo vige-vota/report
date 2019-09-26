@@ -8,7 +8,7 @@ import {Dialog} from 'primereact/dialog';
 import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
-import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
 import {history} from '../index'
 
 export class Littlenogroup extends Component {
@@ -28,6 +28,7 @@ export class Littlenogroup extends Component {
     	.get(voting_url)
     	.then(response => {
     	    this.setState({vote: response.data})
+    	    console.log(response.data)
     	})
     	.catch(function(error) {
     	    console.log(error)
@@ -74,8 +75,11 @@ export class Littlenogroup extends Component {
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
     		let votingValues = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
     		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)
+            let updateDate = <FormattedMessage id='app.table.updatedate' defaultMessage='Data updated to:' />
+    		let updateDateValues = getUpdateDate(this.state.vote)
     		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp; 
-    						{blankPapers} <span className='footer-value'>{blankPapersValues}</span>
+    						{blankPapers} <span className='footer-value'>{blankPapersValues}</span> &nbsp;
+    						{updateDate} <span className='footer-value'>{updateDateValues}</span>
     					 </div>
     		let values = this.props.app.state.votingPaper.parties
     		let value = values.map((e) => {

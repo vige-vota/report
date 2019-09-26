@@ -100,6 +100,13 @@ export const getBlankPapers = (value, votes) => {
 	else return 0
 }
 
+export const getUpdateDate = (votes) => {
+	let options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }
+	if (votes.affluence)
+		return new Date(votes.affluence.$date).toLocaleDateString(language, options)
+	else return new Date().toLocaleDateString(language, options)
+}
+
 export const getTitle = (value) => {
 	if (value) {
 		return <FormattedMessage id={'level_' + value.level}>
