@@ -8,6 +8,7 @@ import Littlenogroup from './results/Littlenogroup';
 import Biggerpartygroup from './results/Biggerpartygroup';
 import Bigger from './results/Bigger';
 import Little from './results/Little';
+import Ballots from './results/Ballots';
 import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -32,7 +33,6 @@ class App extends Component {
                 ],
             activeItem: { id: config.votingPapers[0].id, label: config.votingPapers[0].name },
             activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
-            visible: true
         }
         config.votingPapers.map((votingPaper) => 
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
@@ -58,6 +58,7 @@ class App extends Component {
         	else if (this.state.votingPaper.type === 'little-nogroup')
         		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
         }
+    	let ballots = <Ballots />
     	let subtitle = ''
     	if (history) {
     		let options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -91,31 +92,32 @@ class App extends Component {
          					</div>
                      	</div>
                     </div>
-                	<TabMenu ref='tabMenu' className={this.state.visible ? 'vote-tabmenu' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
-                		if (this.state.visible) {
-                			this.setState({ activeItem: e.value,
-                						    votingPaper: getVotingPaperById(e.value) })
-                			this.refs.voteMap.reset()
-                			if (this.refs.results)
-                				this.refs.results.reset()
-                		}}
+                	<TabMenu ref='tabMenu' className='vote-tabmenu' model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
+                		this.setState({ activeItem: e.value,
+                					votingPaper: getVotingPaperById(e.value) })
+                		this.refs.voteMap.reset()
+                		if (this.refs.results)
+                			this.refs.results.reset()
+                		}
                 	} />
                 	
-                	<TabMenu ref='tabVotes' className={this.state.visible ? 'vote-tabvotes' : 'disabled'}  model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
-                		if (this.state.visible) {
-                			this.setState({ activeTabVote: e.value })
-                			this.refs.voteMap.reset()
-                			if (this.refs.results)
-                				this.refs.results.reset()
-                		}}
+                	<TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
+                		this.setState({ activeTabVote: e.value })
+                		this.refs.voteMap.reset()
+                		if (this.refs.results)
+                			this.refs.results.reset()
+                		}
                 	} />
                 
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
                         	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />
                         </div>
-                        <div className='p-col'>
+                        <div className={this.state.activeTabVote.id === 0 ? 'p-col' : 'disabled'}>
                             {results}
+                        </div>
+                        <div className={this.state.activeTabVote.id === 1 ? 'p-col' : 'disabled'}>
+                        	{ballots}
                         </div>
                     </div>
                 </div>
