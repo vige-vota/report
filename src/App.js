@@ -26,7 +26,12 @@ class App extends Component {
         this.state = {
             items: [
                 ],
+            tabvotes: [
+            	{ id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
+            	{ id: 1, label: <FormattedMessage id='app.tab.voters' defaultMessage='VOTERS' /> }
+                ],
             activeItem: { id: config.votingPapers[0].id, label: config.votingPapers[0].name },
+            activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
             visible: true
         }
         config.votingPapers.map((votingPaper) => 
@@ -35,8 +40,10 @@ class App extends Component {
     }
 
     componentDidMount() {
-		const tabs = getTabs(this)
+		const tabs = getTabs(this, '.vote-tabmenu')
         tabs[0].click()
+		const tabvotes = getTabs(this, '.vote-tabvotes')
+        tabvotes[0].click()
     }
 
     render() {
@@ -84,10 +91,19 @@ class App extends Component {
          					</div>
                      	</div>
                     </div>
-                	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
+                	<TabMenu ref='tabMenu' className={this.state.visible ? 'vote-tabmenu' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
                 		if (this.state.visible) {
                 			this.setState({ activeItem: e.value,
                 						    votingPaper: getVotingPaperById(e.value) })
+                			this.refs.voteMap.reset()
+                			if (this.refs.results)
+                				this.refs.results.reset()
+                		}}
+                	} />
+                	
+                	<TabMenu ref='tabVotes' className={this.state.visible ? 'vote-tabvotes' : 'disabled'}  model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
+                		if (this.state.visible) {
+                			this.setState({ activeTabVote: e.value })
                 			this.refs.voteMap.reset()
                 			if (this.refs.results)
                 				this.refs.results.reset()
