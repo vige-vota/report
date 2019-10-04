@@ -152,7 +152,8 @@ export class Bigger extends Component {
 						 </div>
             let lists = <FormattedMessage id='app.table.governersandlists' defaultMessage='Candidates and Lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            if (this.props.app.state.activeTabVote.id === 0)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px' footer={footer}
         				 expandedRows={this.state.expandedRows} 
         				 onRowToggle={(e) => this.setState({expandedRows:e.data})}
@@ -164,6 +165,7 @@ export class Bigger extends Component {
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
+        	else dataTable = ''
         }
     	return dataTable
 	}

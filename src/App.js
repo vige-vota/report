@@ -8,7 +8,6 @@ import Littlenogroup from './results/Littlenogroup';
 import Biggerpartygroup from './results/Biggerpartygroup';
 import Bigger from './results/Bigger';
 import Little from './results/Little';
-import Ballots from './results/Ballots';
 import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -58,7 +57,6 @@ class App extends Component {
         	else if (this.state.votingPaper.type === 'little-nogroup')
         		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
         }
-    	let ballots = <Ballots ref='ballots' votingPaper={this.state.votingPaper} app={this} />
     	let subtitle = ''
     	if (history) {
     		let options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -113,11 +111,8 @@ class App extends Component {
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
                         	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />
                         </div>
-                        <div className={this.state.activeTabVote.id === 0 ? 'p-col' : 'disabled'}>
+                        <div className='p-col'>
                             {results}
-                        </div>
-                        <div className={this.state.activeTabVote.id === 1 ? 'p-col' : 'disabled'}>
-                        	{ballots}
                         </div>
                     </div>
                 </div>
