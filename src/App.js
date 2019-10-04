@@ -58,7 +58,7 @@ class App extends Component {
         	else if (this.state.votingPaper.type === 'little-nogroup')
         		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
         }
-    	let ballots = <Ballots />
+    	let ballots = <Ballots ref='ballots' votingPaper={this.state.votingPaper} app={this} />
     	let subtitle = ''
     	if (history) {
     		let options = { year: 'numeric', month: 'long', day: 'numeric' }
