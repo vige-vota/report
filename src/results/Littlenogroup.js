@@ -98,11 +98,21 @@ export class Littlenogroup extends Component {
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
     					 scrollable={true} scrollHeight='450px' footer={footer}>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-    						<Column field='name' header={lists} style={{width: '70%' }} body={this.candidatesTemplate} />
+    						<Column field='name' header={lists} body={this.candidatesTemplate} style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
     					</DataTable>
-    		else dataTable = ''
+    		else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+			 			scrollable={true} scrollHeight='450px' footer={footer}>
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' header={lists} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+						</DataTable>
     	}
         return (
         	<div className='tableContent'>

@@ -78,17 +78,31 @@ export class Bigger extends Component {
             }})
             let footer = ''
             if (values.length > 1) {
-            	let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
-            	footer = <ColumnGroup>
-            					<Row>
-            						<Column colSpan={2} />
-            						<Column footer={votings} />
-            						<Column footer={sumValue} />
-            						<Column footer={sumPercent} />
-            					</Row>
-            			 </ColumnGroup>
+        		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
+            	if (this.props.app.state.activeTabVote.id === 0)
+            		footer = <ColumnGroup>
+            						<Row>
+            							<Column colSpan={2} />
+            							<Column footer={votings} />
+            							<Column footer={sumValue} />
+            							<Column footer={sumPercent} />
+            							</Row>
+            					 </ColumnGroup>
+            	else footer = <ColumnGroup>
+									<Row>
+										<Column colSpan={2} />
+										<Column footer={votings} />
+										<Column footer={sumValue} />
+										<Column footer={sumPercent} />
+										<Column footer={sumPercent} />
+										<Column footer={sumPercent} />
+										<Column footer={sumPercent} />
+										<Column footer={sumPercent} />
+									</Row>
+								</ColumnGroup>
             }
-            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            if (this.props.app.state.activeTabVote.id === 0)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='bigger-sub-header'>
             				<Column />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
@@ -96,6 +110,18 @@ export class Bigger extends Component {
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
         				</DataTable>
+            else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+			 			 footerColumnGroup={footer} className='bigger-sub-header'>
+							<Column />
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' style={{width: '20%' }} body={this.candidatesTemplate} />
+							<Column field='percent' style={{width:'10%'}} />
+							<Column field='percent' style={{width:'10%'}} />
+							<Column field='percent' style={{width:'10%'}} />
+							<Column field='percent' style={{width:'10%'}} />
+							<Column field='percent' style={{width:'10%'}} />
+							<Column field='percent' style={{width:'10%'}} />
+						</DataTable>
         }
         return dataTable
     }
@@ -165,7 +191,22 @@ export class Bigger extends Component {
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
-        	else dataTable = ''
+        	else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+			 			scrollable={true} scrollHeight='450px' footer={footer}
+			 			expandedRows={this.state.expandedRows} 
+			 			onRowToggle={(e) => this.setState({expandedRows:e.data})}
+			 			rowExpansionTemplate={this.rowExpansionTemplate}
+            			className='bigger-table'>
+							<Column field='id' expander style={{width:'6%'}} />
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' header={lists} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='percent' header='%' style={{width:'10%'}} />
+						</DataTable>
         }
     	return dataTable
 	}
