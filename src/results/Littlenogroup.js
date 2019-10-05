@@ -28,7 +28,6 @@ export class Littlenogroup extends Component {
     	.get(voting_url)
     	.then(response => {
     	    this.setState({vote: response.data})
-    	    console.log(response.data)
     	})
     	.catch(function(error) {
     	    console.log(error)

@@ -112,9 +112,9 @@ export class Biggerpartygroup extends Component {
         				</DataTable>
             else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
 			 			footerColumnGroup={footer} className='biggernogroup-sub-header'>
-							<Column />
-							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' style={{width: '20%' }} body={this.candidatesTemplate} />
+							<Column style={{width:'6%'}} />
+							<Column field='image' body={this.partyTemplate} style={{width:'9.5%'}} />
+							<Column field='name' body={this.candidatesTemplate} style={{width:'18%'}} />
 							<Column field='percent' style={{width:'10%'}} />
 							<Column field='percent' style={{width:'10%'}} />
 							<Column field='percent' style={{width:'10%'}} />
@@ -187,7 +187,7 @@ export class Biggerpartygroup extends Component {
             			 className='biggernogroup-table'>
             				<Column field='id' expander/>
         					<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-        					<Column field='name' header={lists} body={this.listsTemplate} style={{width: '70%' }} />
+        					<Column field='name' header={lists} body={this.listsTemplate} className='padding-name' style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
@@ -199,7 +199,7 @@ export class Biggerpartygroup extends Component {
 			 			className='biggernogroup-table'>
 							<Column field='id' expander style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' header={lists} style={{width: '20%' }} />
+							<Column field='name' header={lists} className='padding-name' style={{width: '20%' }} />
 							<Column field='percent' header='%' style={{width:'10%'}} />
 							<Column field='percent' header='%' style={{width:'10%'}} />
 							<Column field='percent' header='%' style={{width:'10%'}} />
@@ -219,11 +219,11 @@ export class Biggerpartygroup extends Component {
         		</div>
             	{this.renderDataTable()}
             	<Dialog visible={this.state.showCandidates} 
-        		modal={true} onHide={() => this.setState({showCandidates: false})}
-        		style={{width: '50vw'}} header={this.renderModalHeader()}>
-        		<Candidates zone={this.state.zone} party={this.state.selectedParty} 
-        			vote={this.state.vote} />
-        	</Dialog>
+        			modal={true} onHide={() => this.setState({showCandidates: false})}
+        			style={{width: '50vw'}} header={this.renderModalHeader()}>
+        			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        				vote={this.state.vote} />
+        		</Dialog>
             </div>
         )
     }

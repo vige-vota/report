@@ -114,7 +114,7 @@ export class Bigger extends Component {
 			 			 footerColumnGroup={footer} className='bigger-sub-header'>
 							<Column />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' style={{width: '20%' }} body={this.candidatesTemplate} />
+							<Column field='name' style={{width: '24%' }} body={this.candidatesTemplate} />
 							<Column field='percent' style={{width:'10%'}} />
 							<Column field='percent' style={{width:'10%'}} />
 							<Column field='percent' style={{width:'10%'}} />

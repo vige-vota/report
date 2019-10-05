@@ -112,7 +112,7 @@ export class Little extends Component {
         				</DataTable>
             else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
 			 			 footerColumnGroup={footer} className='little-sub-header'>
-							<Column />
+							<Column style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
 							<Column field='name' style={{width: '20%' }} body={this.candidatesTemplate} />
 							<Column field='percent' style={{width:'10%'}} />

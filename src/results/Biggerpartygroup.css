@@ -19,3 +19,11 @@
 	position: relative;
 	bottom: 25px;
 }
+
+.biggernogroup-table .padding-name {
+	padding: 0.429em 1em !important;
+}
+
+.biggernogroup-table .p-datatable-tfoot > tr > td {
+	padding: 0.429em 1em !important;
+}
