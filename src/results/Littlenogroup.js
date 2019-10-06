@@ -104,7 +104,7 @@ export class Littlenogroup extends Component {
     		else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
 			 			scrollable={true} scrollHeight='450px' footer={footer}>
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' header={lists} />
+							<Column field='name' header={lists} body={this.candidatesTemplate} />
 							<Column field='percent' header='%' style={{width:'10%'}} />
 							<Column field='percent' header='%' style={{width:'10%'}} />
 							<Column field='percent' header='%' style={{width:'10%'}} />
