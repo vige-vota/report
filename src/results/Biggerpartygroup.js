@@ -113,8 +113,8 @@ export class Biggerpartygroup extends Component {
             else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
 			 			footerColumnGroup={footer} className='biggernogroup-sub-header'>
 							<Column style={{width:'6%'}} />
-							<Column field='image' body={this.partyTemplate} style={{width:'9.5%'}} />
-							<Column field='name' body={this.candidatesTemplate} style={{width:'18%'}} />
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' body={this.candidatesTemplate} style={{width:'20%'}} />
 							<Column field='percent' style={{width:'10%'}} />
 							<Column field='percent' style={{width:'10%'}} />
 							<Column field='percent' style={{width:'10%'}} />

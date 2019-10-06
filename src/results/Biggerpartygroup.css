@@ -25,5 +25,9 @@
 }
 
 .biggernogroup-table .p-datatable-tfoot > tr > td {
-	padding: 0.429em 1em !important;
+	width: 10px;
+}
+
+.biggernogroup-table .p-datatable-tfoot > tr > td > span {
+	padding: 2em 0em 2em 1em !important;
 }
