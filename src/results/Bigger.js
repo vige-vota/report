@@ -90,7 +90,8 @@ export class Bigger extends Component {
             					 </ColumnGroup>
             	else {
         			let columns = []
-        			for (let i = 0; i< 6; i++)
+        			const maxSize = 6
+        			for (let i = 0; i< maxSize; i++)
         				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
             		footer = <ColumnGroup>
 									<Row>
@@ -112,7 +113,8 @@ export class Bigger extends Component {
         				</DataTable>
             else {
     			let columns = []
-    			for (let i = 0; i< 6; i++)
+    			const maxSize = 6
+    			for (let i = 0; i< maxSize; i++)
     				columns.push(<Column key={'percent-columns-' + i} field='percent' style={{width:'10%'}} />)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			 footerColumnGroup={footer} className='bigger-sub-header'>
@@ -193,7 +195,8 @@ export class Bigger extends Component {
         				</DataTable>
         	else {
     			let columns = []
-    			for (let i = 0; i< 6; i++)
+    			const maxSize = 6
+    			for (let i = 0; i< maxSize; i++)
     				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
         		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			scrollable={true} scrollHeight='450px' footer={footer}

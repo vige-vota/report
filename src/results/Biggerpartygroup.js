@@ -90,7 +90,8 @@ export class Biggerpartygroup extends Component {
             					 </ColumnGroup>
             	else {
         			let columns = []
-        			for (let i = 0; i< 6; i++)
+        			const maxSize = 6
+        			for (let i = 0; i< maxSize; i++)
         				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
             		footer = <ColumnGroup>
 									<Row>
