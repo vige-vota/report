@@ -41,12 +41,15 @@ class App extends Component {
     componentDidMount() {
 		const tabs = getTabs(this, '.vote-tabmenu')
         tabs[0].click()
-		const tabvotes = getTabs(this, '.vote-tabvotes')
-        tabvotes[0].click()
+        if (history) {
+        	const tabvotes = getTabs(this, '.vote-tabvotes')
+        	tabvotes[0].click()
+        }
     }
 
     render() {
     	let results = ''
+    	let ballots = ''
         if (this.state.votingPaper) {
         	if (this.state.votingPaper.type === 'bigger-partygroup')
         		results = <Biggerpartygroup ref='results' votingPaper={this.state.votingPaper} app={this} />
@@ -64,6 +67,13 @@ class App extends Component {
 							id='app.subtitle'
 							values = {{0: new Date(history).toLocaleDateString(language, options)}}
 							defaultMessage=' for' />
+			ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
+            		this.setState({ activeTabVote: e.value })
+            		this.refs.voteMap.reset()
+            		if (this.refs.results)
+            			this.refs.results.reset()
+            		}
+            	} />
     	}
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
@@ -98,15 +108,9 @@ class App extends Component {
                 			this.refs.results.reset()
                 		}
                 	} />
-                	
-                	<TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
-                		this.setState({ activeTabVote: e.value })
-                		this.refs.voteMap.reset()
-                		if (this.refs.results)
-                			this.refs.results.reset()
-                		}
-                	} />
                 
+                	{ballots}
+                	
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
                         	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />
