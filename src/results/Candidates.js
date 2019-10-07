@@ -37,18 +37,18 @@ export class Candidates extends Component {
         					<Column field='name' header={lists} style={{width:'70%'}} />
         					<Column field='votes' header={votes} />
         				</DataTable>
-        	else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+        	else {
+    			let columns = []
+    			for (let i = 0; i< 6; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field='votes' header='%' />)
+        		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 				scrollable={true} scrollHeight='450px'
 			 				className='candidates-table'>
 								<Column field='image' body={this.candidateTemplate} style={{width:'14%'}} />
 								<Column field='name' header={lists} style={{width:'20%'}} />
-								<Column field='votes' header='%' />
-								<Column field='votes' header='%' />
-								<Column field='votes' header='%' />
-								<Column field='votes' header='%' />
-								<Column field='votes' header='%' />
-								<Column field='votes' header='%' />
+								{columns}
 							</DataTable>
+        	}
         }
     	return dataTable
 	}
