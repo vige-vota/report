@@ -194,7 +194,6 @@ export class Bigger extends Component {
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
         	else {
-        		console.log(this.state.vote)
     			let columns = []
     			const maxSize = 6
     			for (let i = 0; i< maxSize; i++)
