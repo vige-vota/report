@@ -29,13 +29,26 @@ export class Candidates extends Component {
         	}})
             let lists = <FormattedMessage id='app.table.candidate' defaultMessage='Candidate' />
             let votes = <FormattedMessage id='app.table.preferences' defaultMessage='Preferences' />
-            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            if (this.props.app.state.activeTabVote.id === 0)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px'
             			 className='candidates-table'>
         					<Column field='image' body={this.candidateTemplate} style={{width:'14%'}} />
         					<Column field='name' header={lists} style={{width:'70%'}} />
         					<Column field='votes' header={votes} />
         				</DataTable>
+        	else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+			 				scrollable={true} scrollHeight='450px'
+			 				className='candidates-table'>
+								<Column field='image' body={this.candidateTemplate} style={{width:'14%'}} />
+								<Column field='name' header={lists} style={{width:'20%'}} />
+								<Column field='votes' header='%' />
+								<Column field='votes' header='%' />
+								<Column field='votes' header='%' />
+								<Column field='votes' header='%' />
+								<Column field='votes' header='%' />
+								<Column field='votes' header='%' />
+							</DataTable>
         }
     	return dataTable
 	}

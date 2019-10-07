@@ -222,7 +222,7 @@ export class Biggerpartygroup extends Component {
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
         			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
-        				vote={this.state.vote} />
+        				vote={this.state.vote} app={this.props.app} />
         		</Dialog>
             </div>
         )
