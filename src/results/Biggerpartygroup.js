@@ -88,18 +88,18 @@ export class Biggerpartygroup extends Component {
             							<Column footer={sumPercent} />
             						</Row>
             					 </ColumnGroup>
-            	else footer = <ColumnGroup>
+            	else {
+        			let columns = []
+        			for (let i = 0; i< 6; i++)
+        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
+            		footer = <ColumnGroup>
 									<Row>
 										<Column colSpan={2} />
 										<Column footer={votings} />
-										<Column footer={sumValue} />
-										<Column footer={sumPercent} />
-										<Column footer={sumPercent} />
-										<Column footer={sumPercent} />
-										<Column footer={sumPercent} />
-										<Column footer={sumPercent} />
+										{columns}
 									</Row>
 								</ColumnGroup>
+            	}
             }
             if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
@@ -110,18 +110,20 @@ export class Biggerpartygroup extends Component {
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
         				</DataTable>
-            else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            else {
+        			let columns = []
+        			let namePercent = 0
+        			for (let i = 0; i< 6; i++)
+        				columns.push(<Column key={'percent-columns-' + i} field='percent' style={{width:'10%'}} />)
+            		namePercent = 80 - 6 * 10
+        			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			footerColumnGroup={footer} className='biggernogroup-sub-header'>
 							<Column style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' body={this.candidatesTemplate} style={{width:'20%'}} />
-							<Column field='percent' style={{width:'10%'}} />
-							<Column field='percent' style={{width:'10%'}} />
-							<Column field='percent' style={{width:'10%'}} />
-							<Column field='percent' style={{width:'10%'}} />
-							<Column field='percent' style={{width:'10%'}} />
-							<Column field='percent' style={{width:'10%'}} />
+							<Column field='name' body={this.candidatesTemplate} style={{width: namePercent + '%'}} />
+							{columns}
 						</DataTable>
+            }
         }
         return dataTable
     }
@@ -191,7 +193,13 @@ export class Biggerpartygroup extends Component {
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
-        	else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+        	else {
+    			let columns = []
+    			let namePercent = 0
+    			for (let i = 0; i< 6; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+    			namePercent = 80 - 6 * 10
+    			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
             			scrollable={true} scrollHeight='450px' footer={footer}
 			 			expandedRows={this.state.expandedRows} 
 			 			onRowToggle={(e) => this.setState({expandedRows:e.data})}
@@ -199,14 +207,10 @@ export class Biggerpartygroup extends Component {
 			 			className='biggernogroup-table'>
 							<Column field='id' expander style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' header={lists} className='padding-name' style={{width: '20%' }} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
+							<Column field='name' header={lists} className='padding-name' style={{width: namePercent + '%' }} />
+							{columns}
 						</DataTable>
+        	}
         }
     	return dataTable
 	}

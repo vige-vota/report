@@ -101,17 +101,17 @@ export class Littlenogroup extends Component {
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
     					</DataTable>
-    		else dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+    		else {
+    			let columns = []
+    			for (let i = 0; i< 6; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+    			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			scrollable={true} scrollHeight='450px' footer={footer}>
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
 							<Column field='name' header={lists} body={this.candidatesTemplate} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
-							<Column field='percent' header='%' style={{width:'10%'}} />
+							{columns}
 						</DataTable>
+    		}
     	}
         return (
         	<div className='tableContent'>
