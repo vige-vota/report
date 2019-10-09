@@ -66,7 +66,7 @@ class App extends Component {
     		subtitle = <FormattedMessage
 							id='app.subtitle'
 							values = {{0: new Date(history).toLocaleDateString(language, options)}}
-							defaultMessage=' for' />
+							defaultMessage=' for {0}' />
 			ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
             		this.setState({ activeTabVote: e.value })
             		this.refs.voteMap.reset()

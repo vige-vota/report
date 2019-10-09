@@ -9,7 +9,7 @@ import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
-import {history} from '../index'
+import {history, language} from '../index'
 
 export class Littlenogroup extends Component {
 
@@ -104,8 +104,11 @@ export class Littlenogroup extends Component {
     					</DataTable>
     		else {
     			let columns = []
-    			for (let i = 0; i< this.state.votes.length; i++)
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+    			for (let i = 0; i< this.state.votes.length; i++) {
+    				let options = { hour: 'numeric', minute: 'numeric' }
+    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' header={header} style={{width:'10%'}} />)
+    			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			scrollable={true} scrollHeight='450px' footer={footer}>
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />

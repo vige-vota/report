@@ -11,7 +11,7 @@ import './Results.css'
 import './Biggerpartygroup.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
-import {history} from '../index'
+import {history, language} from '../index'
 
 export class Biggerpartygroup extends Component {
 
@@ -93,7 +93,7 @@ export class Biggerpartygroup extends Component {
         			let columns = []
         			for (let i = 0; i< this.state.votes.length; i++)
         				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
-            		footer = <ColumnGroup>
+        			footer = <ColumnGroup>
 									<Row>
 										<Column colSpan={2} />
 										<Column footer={votings} />
@@ -198,8 +198,11 @@ export class Biggerpartygroup extends Component {
         	else {
     			let columns = []
     			let namePercent = 0
-    			for (let i = 0; i< this.state.votes.length; i++)
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+    			for (let i = 0; i< this.state.votes.length; i++) {
+    				let options = { hour: 'numeric', minute: 'numeric' }
+					let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' header={header} style={{width:'10%'}} />)
+        		}
     			namePercent = 80 - this.state.votes.length * 10
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
             			scrollable={true} scrollHeight='450px' footer={footer}

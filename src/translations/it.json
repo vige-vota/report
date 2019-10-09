@@ -30,5 +30,6 @@
     "app.table.updatedate": "Dato aggiornato al:",
     "app.error": "Errore",
     "app.tab.ballots": "SCRUTINI",
+    "app.tab.ballots.hours": "% ore {0}",
     "app.tab.voters": "VOTANTI"
 }

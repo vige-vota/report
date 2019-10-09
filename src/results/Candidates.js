@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Candidates.css'
 import { getVotesById } from '../Utilities';
+import { language } from '../index'
 
 export class Candidates extends Component {
 
@@ -39,9 +40,12 @@ export class Candidates extends Component {
         				</DataTable>
         	else {
     			let columns = []
-    			for (let i = 0; i< this.props.votes.length; i++)
-    				columns.push(<Column key={'percent-columns-' + i} field='votes' header='%' />)
-        		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
+    			for (let i = 0; i< this.props.votes.length; i++) {
+    				let options = { hour: 'numeric', minute: 'numeric' }
+    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.props.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				columns.push(<Column key={'percent-columns-' + i} field='votes' header={header} />)
+    			}
+    			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 				scrollable={true} scrollHeight='450px'
 			 				className='candidates-table'>
 								<Column field='image' body={this.candidateTemplate} style={{width:'14%'}} />
