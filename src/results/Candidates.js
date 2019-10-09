@@ -20,7 +20,7 @@ export class Candidates extends Component {
         if (this.props.party) {
         	let values = this.props.party.candidates
         	let value = values.map((e) => {
-        		let numberVotes = getVotesById(e.id, this.props.vote)
+        		let numberVotes = getVotesById(e.id, this.props.votes[this.props.votes.length -1])
         		return {
         			id: e.id,
         			name: e.name,
@@ -39,8 +39,7 @@ export class Candidates extends Component {
         				</DataTable>
         	else {
     			let columns = []
-    			const maxSize = 6
-    			for (let i = 0; i< maxSize; i++)
+    			for (let i = 0; i< this.props.votes.length; i++)
     				columns.push(<Column key={'percent-columns-' + i} field='votes' header='%' />)
         		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 				scrollable={true} scrollHeight='450px'

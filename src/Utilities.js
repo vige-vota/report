@@ -103,7 +103,7 @@ export const getBlankPapers = (value, votes) => {
 export const getUpdateDate = (votes) => {
 	let options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }
 	if (votes.affluence)
-		return new Date(votes.affluence.$date).toLocaleDateString(language, options)
+		return new Date(votes.affluence).toLocaleDateString(language, options)
 	else return new Date().toLocaleDateString(language, options)
 }
 
