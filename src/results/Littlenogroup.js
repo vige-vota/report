@@ -27,11 +27,11 @@ export class Littlenogroup extends Component {
         axios
     	.get(voting_url)
     	.then(response => {
-    	    this.setState({vote: response.data})
+    	    this.setState({vote: response.data.votings[response.data.votings.length -1]})
     	})
     	.catch(function(error) {
     	    console.log(error)
-    	});
+    	})
         this.partyTemplate = this.partyTemplate.bind(this);
         this.candidatesTemplate = this.candidatesTemplate.bind(this);
     }
