@@ -85,13 +85,17 @@ export class Littlenogroup extends Component {
     		let value = values.map((e) => {
     				let numberVotes = getVotesById(e.id, vote)
                 	let percent = getPercent(e.id, vote)
-    				return {
-    					id: e.id,
-    					name: e.name,
-    					image: e.image,
-    					votes: numberVotes,
-    					percent: percent
-    		}})
+            		let jsonValue = {
+            			id: e.id,
+            			name: e.name,
+            			image: e.image,
+            			votes: numberVotes,
+            			percent: percent
+            		}
+            		for (let i = 0; i< this.state.votes.length; i++)
+            			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+            		return jsonValue
+    		})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
             if (this.props.app.state.activeTabVote.id === 0)
@@ -107,7 +111,7 @@ export class Littlenogroup extends Component {
     			for (let i = 0; i< this.state.votes.length; i++) {
     				let options = { hour: 'numeric', minute: 'numeric' }
     				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' header={header} style={{width:'10%'}} />)
+    				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
     			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			scrollable={true} scrollHeight='450px' footer={footer}>

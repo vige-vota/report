@@ -65,18 +65,25 @@ export class Biggerpartygroup extends Component {
             let values = getComponentById(data.id, this.props.app.state.votingPaper).parties
             let sumValue = 0
             let sumPercent = 0
+            let sumPercentBallots = []
             let value = values.map((e) => {
                 let numberVotes = getVotesById(e.id, vote)
                 sumValue += numberVotes
             	let percent = getPercent(e.id, vote)
                 sumPercent += percent
-                return {
-                	id: e.id,
-                	name: e.name,
-                	image: e.image,
-                	votes: numberVotes,
-                	percent: percent
-            }})
+        		let jsonValue = {
+        			id: e.id,
+        			name: e.name,
+        			image: e.image,
+        			votes: numberVotes,
+        			percent: percent
+        		}
+        		for (let i = 0; i< this.state.votes.length; i++) {
+        			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+        			sumPercentBallots += jsonValue['percent'+i]
+        		}
+        		return jsonValue
+            })
             let footer = ''
             if (values.length > 1) {
         		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
@@ -92,7 +99,7 @@ export class Biggerpartygroup extends Component {
             	else {
         			let columns = []
         			for (let i = 0; i< this.state.votes.length; i++)
-        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
+        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercentBallots[i]} />)
         			footer = <ColumnGroup>
 									<Row>
 										<Column colSpan={2} />
@@ -115,7 +122,7 @@ export class Biggerpartygroup extends Component {
         			let columns = []
         			let namePercent = 0
         			for (let i = 0; i< this.state.votes.length; i++)
-        				columns.push(<Column key={'percent-columns-' + i} field='percent' style={{width:'10%'}} />)
+        				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} style={{width:'10%'}} />)
             		namePercent = 80 - this.state.votes.length * 10
         			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			footerColumnGroup={footer} className='biggernogroup-sub-header'>
@@ -163,13 +170,17 @@ export class Biggerpartygroup extends Component {
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, vote)
             	let percent = getPercent(e.id, vote)
-        		return {
+        		let jsonValue = {
         			id: e.id,
         			name: e.name,
         			image: e.image,
         			votes: numberVotes,
         			percent: percent
-        	}})
+        		}
+        		for (let i = 0; i< this.state.votes.length; i++)
+        			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+        		return jsonValue
+        	})
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
 			let votingValues = getVotesById(this.props.app.state.votingPaper.id, vote)
@@ -201,7 +212,7 @@ export class Biggerpartygroup extends Component {
     			for (let i = 0; i< this.state.votes.length; i++) {
     				let options = { hour: 'numeric', minute: 'numeric' }
 					let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' header={header} style={{width:'10%'}} />)
+    				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
         		}
     			namePercent = 80 - this.state.votes.length * 10
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}

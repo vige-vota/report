@@ -22,12 +22,16 @@ export class Candidates extends Component {
         	let values = this.props.party.candidates
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, this.props.votes[this.props.votes.length -1])
-        		return {
+        		let jsonValue = {
         			id: e.id,
         			name: e.name,
         			image: e.image,
         			votes: numberVotes
-        	}})
+        		}
+        		for (let i = 0; i< this.props.votes.length; i++)
+        			jsonValue['votes'+i] = getVotesById(e.id, this.props.votes[i])
+        		return jsonValue
+        	})
             let lists = <FormattedMessage id='app.table.candidate' defaultMessage='Candidate' />
             let votes = <FormattedMessage id='app.table.preferences' defaultMessage='Preferences' />
             if (this.props.app.state.activeTabVote.id === 0)
@@ -43,7 +47,7 @@ export class Candidates extends Component {
     			for (let i = 0; i< this.props.votes.length; i++) {
     				let options = { hour: 'numeric', minute: 'numeric' }
     				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.props.votes[i].affluence).toLocaleTimeString(language, options)}} />
-    				columns.push(<Column key={'percent-columns-' + i} field='votes' header={header} />)
+    				columns.push(<Column key={'percent-columns-' + i} field={'votes'+i} header={header} />)
     			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 				scrollable={true} scrollHeight='450px'
