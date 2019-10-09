@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom'
 import { language } from './index'
 import { FormattedMessage } from 'react-intl'
 
-export const getTabs = (component) => {
-    return ReactDOM.findDOMNode(component).querySelectorAll('.p-menuitem-link')
+export const getTabs = (component, style) => {
+    return ReactDOM.findDOMNode(component).querySelectorAll(style + ' .p-menuitem-link')
 }
 
 export const getVotingPaperById = (value) => {

@@ -27,12 +27,11 @@ export class Littlenogroup extends Component {
         axios
     	.get(voting_url)
     	.then(response => {
-    	    this.setState({vote: response.data})
-    	    console.log(response.data)
+    	    this.setState({vote: response.data.votings[response.data.votings.length -1]})
     	})
     	.catch(function(error) {
     	    console.log(error)
-    	});
+    	})
         this.partyTemplate = this.partyTemplate.bind(this);
         this.candidatesTemplate = this.candidatesTemplate.bind(this);
     }
@@ -94,13 +93,26 @@ export class Littlenogroup extends Component {
     		}})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-    		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            if (this.props.app.state.activeTabVote.id === 0)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
     					 scrollable={true} scrollHeight='450px' footer={footer}>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-    						<Column field='name' header={lists} style={{width: '70%' }} body={this.candidatesTemplate} />
+    						<Column field='name' header={lists} body={this.candidatesTemplate} style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
     					</DataTable>
+    		else {
+    			let columns = []
+    			const maxSize = 6
+    			for (let i = 0; i< maxSize; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+    			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
+			 			scrollable={true} scrollHeight='450px' footer={footer}>
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' header={lists} body={this.candidatesTemplate} />
+							{columns}
+						</DataTable>
+    		}
     	}
         return (
         	<div className='tableContent'>
@@ -112,7 +124,7 @@ export class Littlenogroup extends Component {
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
         			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
-        				vote={this.state.vote} />
+        				vote={this.state.vote} app={this.props.app} />
         		</Dialog>
             </div>
         )

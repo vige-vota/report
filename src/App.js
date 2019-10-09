@@ -26,8 +26,12 @@ class App extends Component {
         this.state = {
             items: [
                 ],
+            tabvotes: [
+            	{ id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
+            	{ id: 1, label: <FormattedMessage id='app.tab.voters' defaultMessage='VOTERS' /> }
+                ],
             activeItem: { id: config.votingPapers[0].id, label: config.votingPapers[0].name },
-            visible: true
+            activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
         }
         config.votingPapers.map((votingPaper) => 
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
@@ -35,12 +39,17 @@ class App extends Component {
     }
 
     componentDidMount() {
-		const tabs = getTabs(this)
+		const tabs = getTabs(this, '.vote-tabmenu')
         tabs[0].click()
+        if (history) {
+        	const tabvotes = getTabs(this, '.vote-tabvotes')
+        	tabvotes[0].click()
+        }
     }
 
     render() {
     	let results = ''
+    	let ballots = ''
         if (this.state.votingPaper) {
         	if (this.state.votingPaper.type === 'bigger-partygroup')
         		results = <Biggerpartygroup ref='results' votingPaper={this.state.votingPaper} app={this} />
@@ -58,6 +67,13 @@ class App extends Component {
 							id='app.subtitle'
 							values = {{0: new Date(history).toLocaleDateString(language, options)}}
 							defaultMessage=' for' />
+			ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
+            		this.setState({ activeTabVote: e.value })
+            		this.refs.voteMap.reset()
+            		if (this.refs.results)
+            			this.refs.results.reset()
+            		}
+            	} />
     	}
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
@@ -84,16 +100,17 @@ class App extends Component {
          					</div>
                      	</div>
                     </div>
-                	<TabMenu ref='tabMenu' className={this.state.visible ? '' : 'disabled'}  model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
-                		if (this.state.visible) {
-                			this.setState({ activeItem: e.value,
-                						    votingPaper: getVotingPaperById(e.value) })
-                			this.refs.voteMap.reset()
-                			if (this.refs.results)
-                				this.refs.results.reset()
-                		}}
+                	<TabMenu ref='tabMenu' className='vote-tabmenu' model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
+                		this.setState({ activeItem: e.value,
+                					votingPaper: getVotingPaperById(e.value) })
+                		this.refs.voteMap.reset()
+                		if (this.refs.results)
+                			this.refs.results.reset()
+                		}
                 	} />
                 
+                	{ballots}
+                	
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
                         	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />

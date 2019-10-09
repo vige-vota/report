@@ -30,11 +30,11 @@ export class Bigger extends Component {
         axios
     	.get(voting_url)
     	.then(response => {
-    	    this.setState({vote: response.data})
+    	    this.setState({vote: response.data.votings[response.data.votings.length -1]})
     	})
     	.catch(function(error) {
     	    console.log(error)
-    	});
+    	})
         this.partyTemplate = this.partyTemplate.bind(this);
         this.listsTemplate = this.listsTemplate.bind(this);
         this.rowExpansionTemplate = this.rowExpansionTemplate.bind(this);
@@ -78,17 +78,32 @@ export class Bigger extends Component {
             }})
             let footer = ''
             if (values.length > 1) {
-            	let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
-            	footer = <ColumnGroup>
-            					<Row>
-            						<Column colSpan={2} />
-            						<Column footer={votings} />
-            						<Column footer={sumValue} />
-            						<Column footer={sumPercent} />
-            					</Row>
-            			 </ColumnGroup>
+        		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
+            	if (this.props.app.state.activeTabVote.id === 0)
+            		footer = <ColumnGroup>
+            						<Row>
+            							<Column colSpan={2} />
+            							<Column footer={votings} />
+            							<Column footer={sumValue} />
+            							<Column footer={sumPercent} />
+            							</Row>
+            					 </ColumnGroup>
+            	else {
+        			let columns = []
+        			const maxSize = 6
+        			for (let i = 0; i< maxSize; i++)
+        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
+            		footer = <ColumnGroup>
+									<Row>
+										<Column colSpan={2} />
+										<Column footer={votings} />
+										{columns}
+									</Row>
+							 </ColumnGroup>
+            	}
             }
-            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            if (this.props.app.state.activeTabVote.id === 0)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='bigger-sub-header'>
             				<Column />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
@@ -96,6 +111,19 @@ export class Bigger extends Component {
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
         				</DataTable>
+            else {
+    			let columns = []
+    			const maxSize = 6
+    			for (let i = 0; i< maxSize; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' style={{width:'10%'}} />)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
+			 			 footerColumnGroup={footer} className='bigger-sub-header'>
+							<Column style={{width: '6%' }} />
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' body={this.candidatesTemplate} />
+							{columns}
+						</DataTable>
+            }
         }
         return dataTable
     }
@@ -152,7 +180,8 @@ export class Bigger extends Component {
 						 </div>
             let lists = <FormattedMessage id='app.table.governersandlists' defaultMessage='Candidates and Lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-            dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
+            if (this.props.app.state.activeTabVote.id === 0)
+            	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px' footer={footer}
         				 expandedRows={this.state.expandedRows} 
         				 onRowToggle={(e) => this.setState({expandedRows:e.data})}
@@ -164,6 +193,23 @@ export class Bigger extends Component {
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
+        	else {
+    			let columns = []
+    			const maxSize = 6
+    			for (let i = 0; i< maxSize; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+        		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
+			 			scrollable={true} scrollHeight='450px' footer={footer}
+			 			expandedRows={this.state.expandedRows} 
+			 			onRowToggle={(e) => this.setState({expandedRows:e.data})}
+			 			rowExpansionTemplate={this.rowExpansionTemplate}
+            			className='bigger-table'>
+							<Column field='id' expander style={{width:'6%'}} />
+							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='name' header={lists} />
+							{columns}
+						</DataTable>
+        	}
         }
     	return dataTable
 	}
@@ -179,7 +225,7 @@ export class Bigger extends Component {
             		modal={true} onHide={() => this.setState({showCandidates: false})}
             		style={{width: '50vw'}} header={this.renderModalHeader()}>
             		<Candidates zone={this.state.zone} party={this.state.selectedParty} 
-            			vote={this.state.vote} />
+            			vote={this.state.vote} app={this.props.app} />
             	</Dialog>
             </div>
         )
