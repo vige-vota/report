@@ -9,7 +9,7 @@ import './Results.css'
 import './Littlenogroup.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
-import {history} from '../index'
+import {history, language} from '../index'
 
 export class Littlenogroup extends Component {
 
@@ -27,7 +27,7 @@ export class Littlenogroup extends Component {
         axios
     	.get(voting_url)
     	.then(response => {
-    	    this.setState({vote: response.data.votings[response.data.votings.length -1]})
+    	    this.setState({votes: response.data.votings})
     	})
     	.catch(function(error) {
     	    console.log(error)
@@ -69,28 +69,33 @@ export class Littlenogroup extends Component {
 
     render() {
     	let dataTable = ''
-    	if (this.state.vote && this.props.app.state.votingPaper) {
+    	if (this.state.votes && this.props.app.state.votingPaper) {
+    		let vote = this.state.votes[this.state.votes.length -1]
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
-    		let votingValues = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
-    		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)
+    		let votingValues = getVotesById(this.props.app.state.votingPaper.id, vote)
+    		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, vote)
             let updateDate = <FormattedMessage id='app.table.updatedate' defaultMessage='Data updated to:' />
-    		let updateDateValues = getUpdateDate(this.state.vote)
+    		let updateDateValues = getUpdateDate(vote)
     		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp; 
     						{blankPapers} <span className='footer-value'>{blankPapersValues}</span> &nbsp;
     						{updateDate} <span className='footer-value'>{updateDateValues}</span>
     					 </div>
     		let values = this.props.app.state.votingPaper.parties
     		let value = values.map((e) => {
-    				let numberVotes = getVotesById(e.id, this.state.vote)
-                	let percent = getPercent(e.id, this.state.vote)
-    				return {
-    					id: e.id,
-    					name: e.name,
-    					image: e.image,
-    					votes: numberVotes,
-    					percent: percent
-    		}})
+    				let numberVotes = getVotesById(e.id, vote)
+                	let percent = getPercent(e.id, vote)
+            		let jsonValue = {
+            			id: e.id,
+            			name: e.name,
+            			image: e.image,
+            			votes: numberVotes,
+            			percent: percent
+            		}
+            		for (let i = 0; i< this.state.votes.length; i++)
+            			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+            		return jsonValue
+    		})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
             if (this.props.app.state.activeTabVote.id === 0)
@@ -103,9 +108,11 @@ export class Littlenogroup extends Component {
     					</DataTable>
     		else {
     			let columns = []
-    			const maxSize = 6
-    			for (let i = 0; i< maxSize; i++)
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
+    			for (let i = 0; i< this.state.votes.length; i++) {
+    				let options = { hour: 'numeric', minute: 'numeric' }
+    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
+    			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			scrollable={true} scrollHeight='450px' footer={footer}>
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
@@ -124,7 +131,7 @@ export class Littlenogroup extends Component {
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
         			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
-        				vote={this.state.vote} app={this.props.app} />
+        				votes={this.state.votes} app={this.props.app} />
         		</Dialog>
             </div>
         )

@@ -11,7 +11,7 @@ import './Results.css'
 import './Little.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
-import {history} from '../index'
+import {history, language} from '../index'
 
 export class Little extends Component {
 
@@ -30,7 +30,7 @@ export class Little extends Component {
         axios
     	.get(voting_url)
     	.then(response => {
-    	    this.setState({vote: response.data.votings[response.data.votings.length -1]})
+    	    this.setState({votes: response.data.votings})
     	})
     	.catch(function(error) {
     	    console.log(error)
@@ -60,22 +60,30 @@ export class Little extends Component {
     
     rowExpansionTemplate(data) {
     	let dataTable = ''
-        if (this.state.vote && this.props.app.state.votingPaper) {
+        if (this.state.votes && this.props.app.state.votingPaper) {
+        	let vote = this.state.votes[this.state.votes.length -1]
             let values = getComponentById(data.id, this.props.app.state.votingPaper).parties
             let sumValue = 0
             let sumPercent = 0
+            let sumPercentBallots = []
             let value = values.map((e) => {
-                let numberVotes = getVotesById(e.id, this.state.vote)
+                let numberVotes = getVotesById(e.id, vote)
                 sumValue += numberVotes
-            	let percent = getPercent(e.id, this.state.vote)
+            	let percent = getPercent(e.id, vote)
                 sumPercent += percent
-                return {
-                	id: e.id,
-                	name: e.name,
-                	image: e.image,
-                	votes: numberVotes,
-                	percent: percent
-            }})
+        		let jsonValue = {
+        			id: e.id,
+        			name: e.name,
+        			image: e.image,
+        			votes: numberVotes,
+        			percent: percent
+        		}
+        		for (let i = 0; i< this.state.votes.length; i++) {
+        			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+        			sumPercentBallots += jsonValue['percent'+i]
+        		}
+        		return jsonValue
+            })
             let footer = ''
             if (values.length > 1) {
         		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
@@ -87,19 +95,18 @@ export class Little extends Component {
             							<Column footer={sumValue} />
             							<Column footer={sumPercent} />
             						</Row>
-            					 </ColumnGroup>
+            				 </ColumnGroup>
             	else {
         			let columns = []
-        			const maxSize = 6
-        			for (let i = 0; i< maxSize; i++)
-        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercent} />)
+        			for (let i = 0; i< this.state.votes.length; i++)
+        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercentBallots[i]} />)
             		footer = <ColumnGroup>
 									<Row>
 										<Column colSpan={2} />
 										<Column footer={votings} />
 										{columns}
 									</Row>
-								</ColumnGroup>
+							 </ColumnGroup>
             	}
             }
             if (this.props.app.state.activeTabVote.id === 0)
@@ -113,14 +120,13 @@ export class Little extends Component {
         				</DataTable>
             else {
     			let columns = []
-    			const maxSize = 6
-    			for (let i = 0; i< maxSize; i++)
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' style={{width:'10%'}} />)
+    			for (let i = 0; i< this.state.votes.length; i++)
+    				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} style={{width:'10%'}} />)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			 footerColumnGroup={footer} className='little-sub-header'>
 							<Column style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' style={{width: '20%' }} body={this.candidatesTemplate} />
+							<Column field='name' style={{width: '50%' }} body={this.candidatesTemplate} />
 							{columns}
 						</DataTable>
             }
@@ -156,24 +162,29 @@ export class Little extends Component {
 	
 	renderDataTable() {
     	let dataTable = ''
-        if (this.state.vote && this.props.app.state.votingPaper) {
+        if (this.state.votes && this.props.app.state.votingPaper) {
+        	let vote = this.state.votes[this.state.votes.length -1]
         	let values = this.props.app.state.votingPaper.groups
         	let value = values.map((e) => {
-        		let numberVotes = getVotesById(e.id, this.state.vote)
-            	let percent = getPercent(e.id, this.state.vote)
-        		return {
+        		let numberVotes = getVotesById(e.id, vote)
+            	let percent = getPercent(e.id, vote)
+        		let jsonValue = {
         			id: e.id,
         			name: e.name,
         			image: e.image,
         			votes: numberVotes,
         			percent: percent
-        	}})
+        		}
+        		for (let i = 0; i< this.state.votes.length; i++)
+        			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+        		return jsonValue
+        	})
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
-			let votingValues = getVotesById(this.props.app.state.votingPaper.id, this.state.vote)
-			let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, this.state.vote)
+			let votingValues = getVotesById(this.props.app.state.votingPaper.id, vote)
+			let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, vote)
             let updateDate = <FormattedMessage id='app.table.updatedate' defaultMessage='Data updated to:' />
-        	let updateDateValues = getUpdateDate(this.state.vote)
+        	let updateDateValues = getUpdateDate(vote)
 			let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp;
 							  {blankPapers} <span className='footer-value'>{blankPapersValues}</span> &nbsp;
 	    					  {updateDate} <span className='footer-value'>{updateDateValues}</span>
@@ -195,10 +206,12 @@ export class Little extends Component {
         				</DataTable>
         	else {
     			let columns = []
-    			const maxSize = 6
-    			for (let i = 0; i< maxSize; i++)
-    				columns.push(<Column key={'percent-columns-' + i} field='percent' header='%' style={{width:'10%'}} />)
-        		dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
+    			for (let i = 0; i< this.state.votes.length; i++) {
+    				let options = { hour: 'numeric', minute: 'numeric' }
+    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
+    			}
+    			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			scrollable={true} scrollHeight='450px' footer={footer}
 			 			expandedRows={this.state.expandedRows} 
 			 			onRowToggle={(e) => this.setState({expandedRows:e.data})}
@@ -206,7 +219,7 @@ export class Little extends Component {
 			 			className='little-table'>
 							<Column field='id' expander style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' header={lists} style={{width: '20%' }} />
+							<Column field='name' header={lists} style={{width: '50%' }} />
 							{columns}
 						</DataTable>
         	}
@@ -225,7 +238,7 @@ export class Little extends Component {
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
         			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
-        				vote={this.state.vote} app={this.props.app} />
+        				votes={this.state.votes} app={this.props.app} />
         		</Dialog>
             </div>
         )
