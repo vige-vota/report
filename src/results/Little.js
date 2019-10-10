@@ -126,7 +126,7 @@ export class Little extends Component {
 			 			 footerColumnGroup={footer} className='little-sub-header'>
 							<Column style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' style={{width: '20%' }} body={this.candidatesTemplate} />
+							<Column field='name' style={{width: '50%' }} body={this.candidatesTemplate} />
 							{columns}
 						</DataTable>
             }
@@ -219,7 +219,7 @@ export class Little extends Component {
 			 			className='little-table'>
 							<Column field='id' expander style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-							<Column field='name' header={lists} style={{width: '20%' }} />
+							<Column field='name' header={lists} style={{width: '50%' }} />
 							{columns}
 						</DataTable>
         	}

@@ -31,5 +31,6 @@
     "app.error": "Errore",
     "app.tab.ballots": "SCRUTINI",
     "app.tab.ballots.hours": "% ore {0}",
+    "app.tab.ballots.numbers": "ore {0}",
     "app.tab.voters": "VOTANTI"
 }

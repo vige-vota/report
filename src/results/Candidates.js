@@ -46,14 +46,14 @@ export class Candidates extends Component {
     			let columns = []
     			for (let i = 0; i< this.props.votes.length; i++) {
     				let options = { hour: 'numeric', minute: 'numeric' }
-    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.props.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				let header = <FormattedMessage id='app.tab.ballots.numbers' defaultMessage='hours {0}' values={{0: new Date(this.props.votes[i].affluence).toLocaleTimeString(language, options)}} />
     				columns.push(<Column key={'percent-columns-' + i} field={'votes'+i} header={header} />)
     			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 				scrollable={true} scrollHeight='450px'
 			 				className='candidates-table'>
 								<Column field='image' body={this.candidateTemplate} style={{width:'14%'}} />
-								<Column field='name' header={lists} style={{width:'20%'}} />
+								<Column field='name' header={lists} style={{width:'50%'}} />
 								{columns}
 							</DataTable>
         	}
