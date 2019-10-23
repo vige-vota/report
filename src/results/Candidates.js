@@ -4,7 +4,8 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Candidates.css'
 import { getVotesById } from '../Utilities';
-import { language } from '../index'
+import { language, history } from '../index'
+import SockJsClient from '../SockJsClient'
 
 export class Candidates extends Component {
 
@@ -62,9 +63,18 @@ export class Candidates extends Component {
 	}
 
     render() {
-    		if (this.props.party)
+    		if (this.props.party) {
+    	    	let realTimeVotes = ''
+    	        if (!history)
+    	            realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
+    	            					onMessage={(msg) => { 
+    	            						this.setState({
+    	            							votes: msg.votings
+    	            						})
+    	            				}} />
     			return (
     				<div className='tableContent'>
+            			{realTimeVotes}
     					<div className='party-for-candidates'>
     						<img src={`data:image/jpeg;base64,${this.props.party.image}`}
             						alt={this.props.party.name} 
@@ -74,7 +84,7 @@ export class Candidates extends Component {
     					{this.renderDataTable()}
     				</div>
     			)
-    		else return ''
+    		} else return ''
     }
 }
 

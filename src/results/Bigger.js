@@ -12,6 +12,7 @@ import './Bigger.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
 import {history, language} from '../index'
+import SockJsClient from '../SockJsClient'
 
 export class Bigger extends Component {
 
@@ -228,8 +229,17 @@ export class Bigger extends Component {
 	}
 
     render() {
+    	let realTimeVotes = ''
+    	if (!history)
+    		realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
+    							onMessage={(msg) => { 
+    								this.setState({
+    									votes: msg.votings
+    								})
+    						}} />
         return (
         	<div className='tableContent'>
+        		{realTimeVotes}
         		<div id='headEnti'>
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>
