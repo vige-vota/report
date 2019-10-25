@@ -10,6 +10,7 @@ import './Littlenogroup.css'
 import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
 import {history, language} from '../index'
+import SockJsClient from '../SockJsClient'
 
 export class Littlenogroup extends Component {
 
@@ -68,8 +69,16 @@ export class Littlenogroup extends Component {
 	}
 
     render() {
+    	let realTimeVotes = ''
     	let dataTable = ''
     	if (this.state.votes && this.props.app.state.votingPaper) {
+        	if (!history)
+        	    realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
+        	            			onMessage={(msg) => { 
+        	            				this.setState({
+        	            					votes: msg.votings
+        	            				})
+        	            		}} />
     		let vote = this.state.votes[this.state.votes.length -1]
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
@@ -123,6 +132,7 @@ export class Littlenogroup extends Component {
     	}
         return (
         	<div className='tableContent'>
+    			{realTimeVotes}
         		<div id='headEnti'>
         			<h3>{getTitle(this.state.zone)}</h3>
         		</div>

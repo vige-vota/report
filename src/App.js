@@ -13,8 +13,7 @@ import 'primereact/resources/themes/nova-light/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import logo from './images/logo.ico'
-import {history} from './index'
-import {language} from './index'
+import {history, language} from './index'
 
 export var config
 
@@ -77,7 +76,7 @@ class App extends Component {
     	}
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
-            	<div className='content-section implementation'>
+				<div className='content-section implementation'>
                 	<div className='second-row'>
         				<div className='container container-live'>
                      		<div className='box-live'>
