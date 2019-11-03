@@ -22,6 +22,9 @@ class App extends Component {
     constructor(data) {
         super(data)
         config = data.config
+        let activeItem = {}
+        if (config.votingPapers && config.votingPapers[0])
+        	activeItem = { id: config.votingPapers[0].id, label: config.votingPapers[0].name }
         this.state = {
             items: [
                 ],
@@ -29,7 +32,7 @@ class App extends Component {
             	{ id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
             	{ id: 1, label: <FormattedMessage id='app.tab.voters' defaultMessage='VOTERS' /> }
                 ],
-            activeItem: { id: config.votingPapers[0].id, label: config.votingPapers[0].name },
+            activeItem: activeItem,
             activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
         }
         config.votingPapers.map((votingPaper) => 
@@ -39,11 +42,13 @@ class App extends Component {
 
     componentDidMount() {
 		const tabs = getTabs(this, '.vote-tabmenu')
-        tabs[0].click()
-        if (history) {
-        	const tabvotes = getTabs(this, '.vote-tabvotes')
-        	tabvotes[0].click()
-        }
+		if (tabs && tabs[0]) {
+			tabs[0].click()
+			if (history) {
+				const tabvotes = getTabs(this, '.vote-tabvotes')
+				tabvotes[0].click()
+			}
+		}
     }
 
     render() {
