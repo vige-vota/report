@@ -5,7 +5,7 @@ import { Button } from 'primereact/button'
 import { AutoComplete } from 'primereact/autocomplete'
 import { FormattedMessage } from 'react-intl'
 import { language } from '../index'
-import { setAllZones, findZonesByFather, findFatherByChild, getZoneById } from '../Utilities'
+import { setAllZones, findZonesByFather, findFatherByChild, getZoneById, alphabetic } from '../Utilities'
 
 let circumscriptions = []
 let regions = []
@@ -87,27 +87,32 @@ class VoteMap extends Component {
 				circumscriptions = objects.zones.map(city => {
 					return { label: city.name, value: city.id}})
 					
-			if (!this.state.circumscription)
+			if (this.state.circumscription === null || this.props.votingPaper.type !== 'little-nogroup')
 				regions = objects.zones.flatMap(city => city.zones).map(city => {
 					return { label: city.name, value: city.id}})
 			else 
 				findZonesByFather(this.state.circumscription, objects.zones, regions = [], provinces = [], cities = [])
 			
-			if (!this.state.circumscription || this.state.region)
-				if (!this.state.region)
+			if (this.state.circumscription === null || this.state.region !== null)
+				if (this.state.region === null)
 					provinces = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
 						return { label: city.name, value: city.id}})
 				else 
 					findZonesByFather(this.state.region, objects.zones, provinces = [], cities = [])
 			
-			if ((!this.state.circumscription && !this.state.region) || this.state.province)
-				if (!this.state.province)
+			if ((this.state.circumscription === null && this.state.region === null) || this.state.province !== null)
+				if (this.state.province === null)
 					cities = objects.zones.flatMap(city => city.zones).flatMap(city => city.zones).flatMap(city => city.zones).map(city => {
 						return { label: city.name, value: city.id}})
 				else findZonesByFather(this.state.province, objects.zones, cities = [])
 			
 			this.sites = []
 			setAllZones(objects, this.props.votingPaper, this.sites, 0)
+			alphabetic(this.sites)
+			alphabetic(cities)
+			alphabetic(provinces)
+			alphabetic(regions)
+			alphabetic(circumscriptions)
 		}
 	}
 	
@@ -165,7 +170,7 @@ class VoteMap extends Component {
 									let resultCircumscriptions = []
 									findFatherByChild(e.value, objects.zones, resultCircumscriptions)
 									let ci = resultCircumscriptions.pop()
-									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id,
+									this.setState({circumscription: this.state.circumscription !== null ? this.state.circumscription : ci.id,
 												   region: e.value, 
 												   province: null, 
 												   city: null,
@@ -192,8 +197,8 @@ class VoteMap extends Component {
 									let resultCircumscriptions = []
 									findFatherByChild(re.id, objects.zones, resultCircumscriptions)
 									let ci = resultCircumscriptions.pop()
-									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
-												   region: this.state.region ? this.state.region : re.id, 
+									this.setState({circumscription: this.state.circumscription !== null ? this.state.circumscription : ci.id, 
+												   region: this.state.region !== null ? this.state.region : re.id, 
 										   		   province: e.value, 
 												   city: null,
 												   site: null})
@@ -224,9 +229,9 @@ class VoteMap extends Component {
 									let resultCircumscriptions = []
 									findFatherByChild(re.id, objects.zones, resultCircumscriptions)
 									let ci = resultCircumscriptions.pop()
-									this.setState({circumscription: this.state.circumscription ? this.state.circumscription : ci.id, 
-												   region: this.state.region ? this.state.region : re.id, 
-												   province: this.state.province ? this.state.province : pr.id, 
+									this.setState({circumscription: this.state.circumscription !== null ? this.state.circumscription : ci.id, 
+												   region: this.state.region !== null ? this.state.region : re.id, 
+												   province: this.state.province !== null ? this.state.province : pr.id, 
 												   city: e.value,
 												   site: null})
 									this.props.app.refs.results.setState({zone: getZoneById(e.value, this.sites)})
