@@ -128,7 +128,7 @@ export const setAllZones = (value, votingPaper, list, counter) => {
 export const findZonesByFather = (value, zones, list, list2, list3) => {
 	zones.forEach(zone => {
 		if (zone.id === value)
-			zone.zones.forEach( e => { 
+			zone.zones.forEach( e => {
 				list.push( { label: e.name, value: e.id})
 				if (list2)
 					e.zones.forEach( f => {
@@ -140,6 +140,14 @@ export const findZonesByFather = (value, zones, list, list2, list3) => {
 					})
 			})
 		else findZonesByFather(value, zone.zones, list, list2, list3)
+	})
+}
+
+export const alphabetic = (list) => {
+	list.sort(function(a, b){
+		if(a.label < b.label || a.name < b.name) { return -1; }
+		if(a.label > b.label || a.name > b.name) { return 1; }
+		return 0;
 	})
 }
 
