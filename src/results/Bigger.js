@@ -232,7 +232,8 @@ export class Bigger extends Component {
     	let realTimeVotes = ''
     	if (!history)
     		realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
-    							onMessage={(msg) => { 
+    							onMessage={(msg) => {
+									console.log(msg)
     								this.setState({
     									votes: msg.votings
     								})
