@@ -38,7 +38,7 @@ $IP_ADDRESS  vota-voting.vige.it
 
 where in $IP_ADDRESS you must choose the ip address where is located the server
 
-Now you can connect in the application going to: open `https://vota-report.vige.it`
+Now you can connect in the application going to: open https://vota-report.vige.it
 
 ## Eclipse
 
@@ -58,4 +58,4 @@ To run the image use the command:
 ```
 docker run -d --name vota-report -p543:443 vige/vota-report
 ```
-Then open `https://vota-report.vige.it:543` to connect to the vote application.
+Then open https://vota-report.vige.it:543 to connect to the vote application.
