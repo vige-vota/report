@@ -20,8 +20,10 @@ const messages = {
 
 export const language = navigator.language.split(/[-_]/)[0]  // language without region code
 export var history = ''
+export var locations = ''
 
 let voting_papers_url = process.env.REACT_APP_VOTING_PAPERS_URL
+let cities_generator_url = process.env.REACT_APP_CITIES_GENERATOR_URL
 if (window.location.pathname !== '/') {
 	voting_papers_url = process.env.REACT_APP_HISTORY_VOTING_PAPERS_URL + window.location.pathname
 	history = window.location.pathname.substring(1)
@@ -30,12 +32,17 @@ if (window.location.pathname !== '/') {
 ReactDOM.render(<ProgressSpinner/>, document.getElementById('root'))
 axios
 	.get(voting_papers_url)
-	.then(function(response) {
-	    ReactDOM.render(<IntlProvider locale={language} messages={messages[language]}><App config={response.data} /></IntlProvider>, document.getElementById('root'))
-	    // If you want your app to work offline and load faster, you can change
-	    // unregister() to register() below. Note this comes with some pitfalls.
-	    // Learn more about service workers: http://bit.ly/CRA-PWA
-	    serviceWorker.register()
+	.then(function(papers) {
+		axios
+			.get(cities_generator_url)
+			.then(function (cities) {
+				locations = cities.data
+	    		ReactDOM.render(<IntlProvider locale={language} messages={messages[language]}><App config={papers.data} /></IntlProvider>, document.getElementById('root'))
+	    		// If you want your app to work offline and load faster, you can change
+	    		// unregister() to register() below. Note this comes with some pitfalls.
+	    		// Learn more about service workers: http://bit.ly/CRA-PWA
+				serviceWorker.register()
+			})
 	})
 	.catch(function(error) {
 		ReactDOM.render(<IntlProvider locale={language} messages={messages[language]}><ErrorBoundary error={error} errorInfo={error}/></IntlProvider>, document.getElementById('root'))
