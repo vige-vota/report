@@ -32,6 +32,7 @@ https-serve -s build
 
 Add the following DNS in your /etc/hosts file:
 ```
+$IP_ADDRESS  cities-generator-service.vige.it
 $IP_ADDRESS  vota-votingpapers.vige.it
 $IP_ADDRESS  vota-voting.vige.it
 ```
