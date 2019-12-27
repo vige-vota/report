@@ -55,7 +55,7 @@ export class Little extends Component {
     	let component = getComponentById(data.id, this.props.app.state.votingPaper)
     	if (component.candidates)
     		return <Button label={data.name} className='candidates-button' 
-    			onClick={(e) => this.setState({showCandidates: true, selectedParty: component})} />
+    			onClick={() => this.setState({showCandidates: true, selectedParty: component})} />
     		else return data.name
     }
     
@@ -135,7 +135,7 @@ export class Little extends Component {
         return dataTable
     }
 
-    partyTemplate(rowData, column) {
+    partyTemplate(rowData) {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 
@@ -143,7 +143,7 @@ export class Little extends Component {
     	else return ''
     }
 
-    listsTemplate(rowData, column) {
+    listsTemplate(rowData) {
     	let images = ''
     	let component = getComponentById(rowData.id, this.props.app.state.votingPaper)
     	images = component.parties.map(e => e.image ? <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 

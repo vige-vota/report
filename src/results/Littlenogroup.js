@@ -50,11 +50,11 @@ export class Littlenogroup extends Component {
     	let component = getComponentById(data.id, this.props.app.state.votingPaper)
     	if (component.candidates)
     		return <Button label={data.name} className='candidates-button' 
-    			onClick={(e) => this.setState({showCandidates: true, selectedParty: component})} />
+    			onClick={() => this.setState({showCandidates: true, selectedParty: component})} />
     		else return data.name
     }
 
-    partyTemplate(rowData, column) {
+    partyTemplate(rowData) {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 
