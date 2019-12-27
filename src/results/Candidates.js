@@ -9,7 +9,7 @@ import SockJsClient from '../SockJsClient'
 
 export class Candidates extends Component {
 
-    candidateTemplate(rowData, column) {
+    candidateTemplate(rowData) {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 

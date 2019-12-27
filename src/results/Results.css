@@ -1,7 +1,7 @@
 .my-content {
-	position: relative;
-	left: 4%;
-	top: 30px;
+	position: absolute;
+	margin-left: 5%;
+	margin-top: 30px;
 	width: 90%;
 }
 

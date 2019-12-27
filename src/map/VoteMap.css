@@ -47,3 +47,8 @@ label {
 .p-dropdown .p-inputtext {
     font-size: 11px !important;
 }
+
+.p-autocomplete .p-autocomplete-input {
+	padding: 0.429em;
+	width: 280px;
+}
