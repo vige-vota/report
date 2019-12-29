@@ -26,7 +26,7 @@ export class Little extends Component {
         }
         let voting_url = process.env.REACT_APP_VOTING_URL
         if (history) {
-        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + window.location.pathname
+        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + '/' + history
         }
         axios
     	.get(voting_url)

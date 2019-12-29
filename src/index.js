@@ -28,7 +28,7 @@ if (window.location.search.startsWith('?date=')) {
 	history = window.location.search.split('=')[1]
 	voting_papers_url = process.env.REACT_APP_HISTORY_VOTING_PAPERS_URL + '/' + history
 }
-
+console.log(voting_papers_url)
 ReactDOM.render(<ProgressSpinner/>, document.getElementById('root'))
 axios
 	.get(voting_papers_url)
