@@ -24,9 +24,9 @@ export var locations = ''
 
 let voting_papers_url = process.env.REACT_APP_VOTING_PAPERS_URL
 let cities_generator_url = process.env.REACT_APP_CITIES_GENERATOR_URL
-if (window.location.pathname !== '/') {
-	voting_papers_url = process.env.REACT_APP_HISTORY_VOTING_PAPERS_URL + window.location.pathname
-	history = window.location.pathname.substring(1)
+if (window.location.search.startsWith('?date=')) {
+	history = window.location.search.split('=')[1]
+	voting_papers_url = process.env.REACT_APP_HISTORY_VOTING_PAPERS_URL + '/' + history
 }
 
 ReactDOM.render(<ProgressSpinner/>, document.getElementById('root'))
