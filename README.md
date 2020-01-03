@@ -49,17 +49,12 @@ npm install nodeclipse
 nodeclipse -p
 ```
 
-## Docker
+## Online application
 
-If you need a complete environment you can download docker and import the application through the command:
-```
-docker pull vige/vota-report
-```
-To run the image use the command:
-```
-docker run -d --name vota-report -p543:443 vige/vota-report
-```
-Then open https://vota-report.vige.it:543 to connect to the daily runtime vote application, else you can choose the date of the elections so:
-https://vota-report.vige.it:543?date=${MM-dd-yyyy}.
+You can see the updated online application simply connecting to:
+Then open https://vige-vota.github.io/report
+
+else you can choose the date of the elections so:
+https://vige-vota.github.io/report?date=${MM-dd-yyyy}.
 For example:
-29 December 2019 - https://vota-report.vige.it:543?date=12-29-2019
+29 December 2019 - https://vige-vota.github.io/report?date=12-29-2019
