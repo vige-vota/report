@@ -28,7 +28,10 @@ export class Littlenogroup extends Component {
         axios
     	.get(voting_url)
     	.then(response => {
-    	    this.setState({votes: response.data.votings})
+    	    this.setState({
+    	    		votes: response.data.votings,
+    	    		votingPaper: this.props.app.state.votingPaper
+    	    	})
     	})
     	.catch(function(error) {
     	    console.log(error)
@@ -47,7 +50,7 @@ export class Littlenogroup extends Component {
     }
     
     candidatesTemplate(data) {
-    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
+    	let component = getComponentById(data.id, this.state.votingPaper)
     	if (component.candidates)
     		return <Button label={data.name} className='candidates-button' 
     			onClick={() => this.setState({showCandidates: true, selectedParty: component})} />
@@ -69,28 +72,36 @@ export class Littlenogroup extends Component {
 	}
 
     render() {
+    	let realTimeVotingPapers = ''
     	let realTimeVotes = ''
     	let dataTable = ''
-    	if (this.state.votes && this.props.app.state.votingPaper) {
-        	if (!history)
+    	if (this.state.votes && this.state.votingPaper) {
+        	if (!history) {
+    			realTimeVotingPapers = <SockJsClient url={process.env.REACT_APP_VOTING_PAPERS_REALTIME_URL} topics={['/topic/votingpaper']}
+    										onMessage={(msg) => {
+        	            					this.setState({
+        	            						votingPaper: msg.votingPapers.filter(((e) => e.id === this.state.votingPaper.id))[0]
+        	            					})
+    								   }} />
         	    realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
         	            			onMessage={(msg) => { 
         	            				this.setState({
         	            					votes: msg.votings
         	            				})
         	            		}} />
+        	}
     		let vote = this.state.votes[this.state.votes.length -1]
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
-    		let votingValues = getVotesById(this.props.app.state.votingPaper.id, vote)
-    		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, vote)
+    		let votingValues = getVotesById(this.state.votingPaper.id, vote)
+    		let blankPapersValues = getBlankPapers(this.state.votingPaper.id, vote)
             let updateDate = <FormattedMessage id='app.table.updatedate' defaultMessage='Data updated to:' />
     		let updateDateValues = getUpdateDate(vote)
     		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp; 
     						{blankPapers} <span className='footer-value'>{blankPapersValues}</span> &nbsp;
     						{updateDate} <span className='footer-value'>{updateDateValues}</span>
     					 </div>
-    		let values = this.props.app.state.votingPaper.parties
+    		let values = this.state.votingPaper.parties
     		let value = values.map((e) => {
     				let numberVotes = getVotesById(e.id, vote)
                 	let percent = getPercent(e.id, vote)
@@ -132,6 +143,7 @@ export class Littlenogroup extends Component {
     	}
         return (
         	<div className='tableContent'>
+        		{realTimeVotingPapers}
     			{realTimeVotes}
         		<div id='headEnti'>
         			<h3>{getTitle(this.state.zone)}</h3>
