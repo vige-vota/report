@@ -13,6 +13,7 @@ import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
 import {history, language} from '../index'
 import SockJsClient from '../SockJsClient'
+import {ProgressSpinner} from 'primereact/progressspinner'
 
 export class Bigger extends Component {
 
@@ -234,6 +235,9 @@ export class Bigger extends Component {
     render() {
     	let realTimeVotingPapers = ''
     	let realTimeVotes = ''
+    	let progressSpinner = ''
+    	if (!this.state.votes)
+    		progressSpinner = <ProgressSpinner/>
     	if (!history) {
     		realTimeVotingPapers = <SockJsClient url={process.env.REACT_APP_VOTING_PAPERS_REALTIME_URL} topics={['/topic/votingpaper']}
     									onMessage={(msg) => {
@@ -250,6 +254,7 @@ export class Bigger extends Component {
     	}
         return (
         	<div className='tableContent'>
+        		{progressSpinner}
         		{realTimeVotingPapers}
         		{realTimeVotes}
         		<div id='headEnti'>
