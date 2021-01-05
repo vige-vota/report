@@ -60,6 +60,6 @@ You can see the updated online application simply connecting to:
 Then open https://vige-vota.github.io/report
 
 else you can choose the date of the elections so:
-https://vige-vota.github.io/report?date=${MM-dd-yyyy}.
+https://vige-vota.github.io/report?date=${yyyy-MM-dd}.
 For example:
-29 December 2019 - https://vige-vota.github.io/report?date=12-29-2019
+29 December 2019 - https://vige-vota.github.io/report?date=2019-12-29
