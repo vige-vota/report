@@ -81,7 +81,7 @@ class App extends Component {
     	}
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
-				<div className='content-section implementation'>
+            	<div className='content-section implementation'>
                 	<div className='second-row'>
         				<div className='container container-live'>
                      		<div className='box-live'>
