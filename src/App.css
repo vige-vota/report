@@ -39,7 +39,7 @@ body, html {
     margin: 8px 1px 2px;
     height: 21px;
     width: 100px;
-    background-image: url(/icona_live.png);
+    background-image: url(/report/icona_live.png);
     background-repeat: no-repeat;
     transition: opacity, 0.4s, ease, 0.25s;
 }
