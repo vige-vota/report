@@ -9,7 +9,7 @@ npm start
 
 And connect to http://localhost:3000
 
-You would update the online application in https://vige-vota.github.io/report url. Simply digit in your report folder the command:
+You would update the online application in http://vota-report.vige.it url. Simply digit in your report folder the command:
 ```
 npm run deploy
 ```
@@ -57,9 +57,9 @@ nodeclipse -p
 ## Online application
 
 You can see the updated online application simply connecting to:
-Then open https://vige-vota.github.io/report
+Then open http://vota-report.vige.it
 
 else you can choose the date of the elections so:
-https://vige-vota.github.io/report?date=${yyyy-MM-dd}.
+http://vota-report.vige.it?date=${yyyy-MM-dd}.
 For example:
-29 December 2019 - https://vige-vota.github.io/report?date=2019-12-29
+29 December 2019 - http://vota-report.vige.it?date=2019-12-29
