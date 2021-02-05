@@ -25,7 +25,7 @@
     "build": "react-scripts --max-old-space-size=2048 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": ".env.production.local ../to.move && npm run build && mv ../to.move .env.production.local",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
@@ -37,7 +37,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://vige-vota.github.io/report",
+  "homepage": "http://vota-report.vige.it",
   "devDependencies": {
     "gh-pages": "^2.2.0"
   }
