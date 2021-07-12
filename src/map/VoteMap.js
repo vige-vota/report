@@ -41,7 +41,7 @@ class VoteMap extends Component {
 	}
 
 	selectComplete(value) {
-		this.props.app.refs.results.setState({ zone: value })
+		this.props.app.results.current.setState({ zone: value })
 		let value0 = locations.zones.filter(zone => {
 			return zone.id === value.id
 		})[0]
@@ -128,7 +128,7 @@ class VoteMap extends Component {
 					} onSelect={(e) => {
 						this.selectComplete(e.value)
 					}}
-						placeholder={placeholder}
+						placeholder={placeholder[0]}
 						suggestions={this.state.siteSuggestions}
 						completeMethod={this.suggestSites.bind(this)} size={38} />}
 				</FormattedMessage>
@@ -150,9 +150,9 @@ class VoteMap extends Component {
 										city: null,
 										site: null
 									})
-									this.props.app.refs.results.setState({ zone: getZoneById(e.value, this.sites) })
+									this.props.app.results.current.setState({ zone: getZoneById(e.value, this.sites) })
 								}}
-								placeholder={placeholder}
+								placeholder={placeholder[0]}
 								options={circumscriptions}
 							/>}
 						</FormattedMessage>
@@ -178,9 +178,9 @@ class VoteMap extends Component {
 										city: null,
 										site: null
 									})
-									this.props.app.refs.results.setState({ zone: getZoneById(e.value, this.sites) })
+									this.props.app.results.current.setState({ zone: getZoneById(e.value, this.sites) })
 								}}
-								placeholder={placeholder}
+								placeholder={placeholder[0]}
 								options={regions}
 							/>}
 						</FormattedMessage>
@@ -207,9 +207,9 @@ class VoteMap extends Component {
 										city: null,
 										site: null
 									})
-									this.props.app.refs.results.setState({ zone: getZoneById(e.value, this.sites) })
+									this.props.app.results.current.setState({ zone: getZoneById(e.value, this.sites) })
 								}}
-								placeholder={placeholder}
+								placeholder={placeholder[0]}
 								options={provinces}
 							/>}
 						</FormattedMessage>
@@ -241,9 +241,9 @@ class VoteMap extends Component {
 										city: e.value,
 										site: null
 									})
-									this.props.app.refs.results.setState({ zone: getZoneById(e.value, this.sites) })
+									this.props.app.results.current.setState({ zone: getZoneById(e.value, this.sites) })
 								}}
-								placeholder={placeholder}
+								placeholder={placeholder[0]}
 								options={cities}
 							/>}
 						</FormattedMessage>

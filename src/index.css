@@ -50,3 +50,9 @@ body .p-datatable .p-datatable-header, body .p-datatable .p-datatable-footer {
     text-align: center;
     font-weight: bold;
 }
+
+body .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    background: white;
+    border-color: white;
+    color: black;
+}
