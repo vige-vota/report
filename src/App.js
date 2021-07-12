@@ -9,7 +9,7 @@ import Biggerpartygroup from './results/Biggerpartygroup';
 import Bigger from './results/Bigger';
 import Little from './results/Little';
 import { getTabs, getVotingPaperById } from './Utilities';
-import 'primereact/resources/themes/nova-light/theme.css'
+import 'primereact/resources/themes/nova/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import logo from './images/logo.ico'
