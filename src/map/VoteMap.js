@@ -12,7 +12,7 @@ class VoteMap extends Component {
 		super()
 
 		this.state = {
-			bubbusettetes: null
+			sites: null
 		}
  		this.zoneSelect = React.createRef()
         this.zoneService = new ZoneService();
@@ -20,13 +20,13 @@ class VoteMap extends Component {
 
     componentDidMount() {
         this.zoneService.getTreeZones().then(data => {
-        	this.setState({ bubbusettetes: this.zoneService.convert(data.data.zones) })
+        	this.setState({ sites: this.zoneService.convert(data.data.zones) })
         })
     }
 
 	reset() {
 		this.setState({
-			bubbusettete: null
+			site: null
 		})
 	}
 
@@ -47,10 +47,10 @@ class VoteMap extends Component {
     				<FormattedMessage
             				id='app.choosezone'
             				defaultMessage='Choose zone'>
-							{(chooseZone) => <TreeSelect ref={this.zoneSelect} value={this.state.bubbusettete} 
-									options={this.state.bubbusettetes} onChange={(e) =>  { this.setState(
+							{(chooseZone) => <TreeSelect ref={this.zoneSelect} value={this.state.site} 
+									options={this.state.sites} onChange={(e) =>  { this.setState(
 								{
-									bubbusettete: e.value
+									site: e.value
 								})
 								this.props.app.results.current.setState({ zone: getZoneById(e.value, this.sites) })
 							}
