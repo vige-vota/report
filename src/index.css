@@ -18,3 +18,41 @@ code {
 .p-progress-spinner-svg {
 	width: 20% !important;
 }
+
+body .p-component {
+	font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+}
+body .p-datatable .p-datatable-thead > tr > th {
+    padding: 0.571em 0.857em;
+    border: 1px solid #c8c8c8;
+    font-weight: 700;
+    color: #333333;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+body .p-datatable .p-datatable-tbody > tr {
+    background: #ffffff;
+    color: #333333;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+body .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+body .p-datatable .p-datatable-header, body .p-datatable .p-datatable-footer {
+    background-color: #f4f4f4;
+    color: #333333;
+    border: 1px solid #c8c8c8;
+    padding: 0.571em 1em;
+    text-align: center;
+    font-weight: bold;
+}
+
+body .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    background: white;
+    border-color: white;
+    color: black;
+}

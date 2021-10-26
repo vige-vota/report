@@ -3,16 +3,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import {IntlProvider, addLocaleData} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 import * as serviceWorker from './serviceWorker'
-import locale_en from 'react-intl/locale-data/en'
-import locale_it from 'react-intl/locale-data/it'
 import messages_it from './translations/it.json'
 import axios from 'axios'
 import {ProgressSpinner} from 'primereact/progressspinner'
 import ErrorBoundary from './errors/ErrorBoundary'
-
-addLocaleData([...locale_en, ...locale_it])
 
 const messages = {
     'it': messages_it

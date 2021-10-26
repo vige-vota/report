@@ -9,7 +9,7 @@ import Biggerpartygroup from './results/Biggerpartygroup';
 import Bigger from './results/Bigger';
 import Little from './results/Little';
 import { getTabs, getVotingPaperById } from './Utilities';
-import 'primereact/resources/themes/nova-light/theme.css'
+import 'primereact/resources/themes/nova/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import logo from './images/logo.ico'
@@ -33,11 +33,15 @@ class App extends Component {
             	{ id: 1, label: <FormattedMessage id='app.tab.voters' defaultMessage='VOTERS' /> }
                 ],
             activeItem: activeItem,
+            activeItemIndex: 0,
             activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
+            activeTabVoteIndex: 0,
         }
         config.votingPapers.map((votingPaper) => 
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
         )
+ 	   this.voteMap = React.createRef();
+ 	   this.results = React.createRef();
     }
 
     componentDidMount() {
@@ -56,13 +60,13 @@ class App extends Component {
     	let ballots = ''
         if (this.state.votingPaper) {
         	if (this.state.votingPaper.type === 'bigger-partygroup')
-        		results = <Biggerpartygroup ref='results' votingPaper={this.state.votingPaper} app={this} />
+        		results = <Biggerpartygroup ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         	else if (this.state.votingPaper.type === 'little')
-        		results = <Little ref='results' votingPaper={this.state.votingPaper} app={this} />
+        		results = <Little ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         	else if (this.state.votingPaper.type === 'bigger')
-        		results = <Bigger ref='results' votingPaper={this.state.votingPaper} app={this} />
+        		results = <Bigger ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         	else if (this.state.votingPaper.type === 'little-nogroup')
-        		results = <Littlenogroup ref='results' votingPaper={this.state.votingPaper} app={this} />
+        		results = <Littlenogroup ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         }
     	let subtitle = ''
     	if (history) {
@@ -71,11 +75,11 @@ class App extends Component {
 							id='app.subtitle'
 							values = {{0: new Date(history).toLocaleDateString(language, options)}}
 							defaultMessage=' for {0}' />
-			ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeItem={this.state.activeTabVote} onTabChange={(e) => {
-            		this.setState({ activeTabVote: e.value })
-            		this.refs.voteMap.reset()
-            		if (this.refs.results)
-            			this.refs.results.reset()
+			ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeIndex={this.state.activeTabVoteIndex} onTabChange={(e) => {
+            		this.setState({ activeTabVote: e.value, activeTabVoteIndex: e.index })
+            		this.voteMap.current.reset()
+            		if (this.results.current)
+            			this.results.current.reset()
             		}
             	} />
     	}
@@ -104,12 +108,13 @@ class App extends Component {
          					</div>
                      	</div>
                     </div>
-                	<TabMenu ref='tabMenu' className='vote-tabmenu' model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => {
+                	<TabMenu ref='tabMenu' className='vote-tabmenu' model={this.state.items} activeIndex={this.state.activeItemIndex} onTabChange={(e) => {
                 		this.setState({ activeItem: e.value,
-                					votingPaper: getVotingPaperById(e.value) })
-                		this.refs.voteMap.reset()
-                		if (this.refs.results)
-                			this.refs.results.reset()
+                					votingPaper: getVotingPaperById(e.value),
+                						activeItemIndex: e.index })
+                		this.voteMap.current.reset()
+                		if (this.results.current)
+                			this.results.current.reset()
                 		}
                 	} />
                 
@@ -117,7 +122,7 @@ class App extends Component {
                 	
                     <div className='my-content p-grid'>
                         <div className='p-col-fixed' style={{ width: '360px', paddingRight: '40px' }}>
-                        	<VoteMap ref='voteMap' votingPaper={this.state.votingPaper} app={this} />
+                        	<VoteMap ref={this.voteMap} votingPaper={this.state.votingPaper} app={this} />
                         </div>
                         <div className='p-col'>
                             {results}
