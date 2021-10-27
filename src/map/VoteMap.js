@@ -5,6 +5,8 @@ import { setAllZones, getZoneById, alphabetic } from '../Utilities'
 import { locations } from '../index'
 import { TreeSelect } from 'primereact/treeselect'
 import { ZoneService } from '../services/ZoneService'
+import { history } from '../index'
+import { TabMenu } from 'primereact/tabmenu'
 
 class VoteMap extends Component {
 
@@ -12,7 +14,13 @@ class VoteMap extends Component {
 		super()
 
 		this.state = {
-			sites: null
+			sites: null,
+            tabvotes: [
+            	{ id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
+            	{ id: 1, label: <FormattedMessage id='app.tab.voters' defaultMessage='VOTERS' /> }
+                ],
+            activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
+            activeTabVoteIndex: 0,
 		}
  		this.zoneSelect = React.createRef()
         this.zoneService = new ZoneService();
@@ -39,7 +47,17 @@ class VoteMap extends Component {
 	}
 
 	render() {
+		let ballots = ''
 		this.renderLocations()
+    	if (history) {
+    		ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeIndex={this.state.activeTabVoteIndex} onTabChange={(e) => {
+            		this.setState({ activeTabVote: e.value, activeTabVoteIndex: e.index })
+            		this.reset()
+            		if (this.props.app.results.current)
+            			this.props.app.results.current.reset()
+            		}
+            	} />
+    	}
 		return (
 			<div>
 				<div className='p-grid'>
@@ -57,6 +75,7 @@ class VoteMap extends Component {
 						} filter placeholder={chooseZone[0]}>
 							</TreeSelect>}
 							</FormattedMessage>
+						{ballots}
 					</div>
 				</div>
 			</div>

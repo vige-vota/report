@@ -122,7 +122,7 @@ export class Littlenogroup extends Component {
     		})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-            if (this.props.app.state.activeTabVote.id === 0)
+            if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
     					 scrollable={true} scrollHeight='450px' footer={footer}>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
