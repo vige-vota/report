@@ -92,7 +92,7 @@ export class Bigger extends Component {
             let footer = ''
             if (values.length > 1) {
         		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
-            	if (this.props.app.state.activeTabVote.id === 0)
+            	if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
             		footer = <ColumnGroup>
             						<Row>
             							<Column colSpan={2} />
@@ -114,7 +114,7 @@ export class Bigger extends Component {
 							 </ColumnGroup>
             	}
             }
-            if (this.props.app.state.activeTabVote.id === 0)
+            if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='bigger-sub-header'>
             				<Column />
@@ -143,7 +143,7 @@ export class Bigger extends Component {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 
-        				style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+        				style={{ width:'50%', left:'10%', top:'2px', position:'relative' }} />
     	else return ''
     }
 
@@ -196,7 +196,7 @@ export class Bigger extends Component {
 						 </div>
             let lists = <FormattedMessage id='app.table.governersandlists' defaultMessage='Candidates and Lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-            if (this.props.app.state.activeTabVote.id === 0)
+            if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px' footer={footer}
         				 expandedRows={this.state.expandedRows} 
