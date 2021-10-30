@@ -143,7 +143,7 @@ export class Little extends Component {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 
-        				style={{ width:'66px', left:'10%', top:'2px', position:'relative' }} />
+        				style={{ width:'50%', left:'10%', top:'2px', position:'relative' }} />
     	else return ''
     }
 

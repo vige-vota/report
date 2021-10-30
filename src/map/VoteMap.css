@@ -52,3 +52,10 @@ label {
 	padding: 0.429em;
 	width: 280px;
 }
+
+.vote-tabvotes {
+	float: right;
+    position: relative;
+    bottom: 40px;
+    left: 300px;
+}

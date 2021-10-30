@@ -46,23 +46,17 @@ body, html {
 }
 
 .powered {
-    display: inline;
+    display: inline-flex;
 }
 
 .powered p {
-	margin-top: 6%;
+	margin-top: 20%;
 	font-size: 10px;
 	display: inline-flex;
 }
 
 .powered a {
     font-size: small;
-}
-
-.vote-tabvotes {
-	float: right;
-    position: relative;
-    bottom: 41px;
 }
 
 .disabled {
