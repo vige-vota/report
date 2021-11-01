@@ -19,6 +19,17 @@ export const getVotingPaperById = (value) => {
 	} else return ''
 }
 
+export const getVotingPaperByZone = (value) => {
+	if (value) {
+		let result = ''
+    	config.votingPapers.forEach(votingPaper => {
+			if (votingPaper.zone &&  votingPaper.zone === value)
+				result = votingPaper
+		})
+		return result
+	} else return ''
+}
+
 export const getZoneById = (value, sites) => {
 	if (value) {
 		let result = ''
@@ -118,7 +129,7 @@ export const getTitle = (value) => {
 export const setAllZones = (value, votingPaper, list, counter) => {
 		value.zones.forEach(zone => { 
 			if (zone.zones) {
-				if (votingPaper.type === 'little-nogroup' || counter > 0)
+				if (votingPaper.type !== 'little' && votingPaper.type !== 'little-nogroup' && counter > 0)
 					list.push(zone)
 				setAllZones(zone, votingPaper, list, counter + 1)
 			}

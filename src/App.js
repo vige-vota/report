@@ -31,9 +31,16 @@ class App extends Component {
             activeItem: activeItem,
             activeItemIndex: 0,
         }
-        config.votingPapers.map((votingPaper) => 
+        let i = 0
+        config.votingPapers.map((votingPaper) => {
+        	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup')
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
-        )
+        	else if (i === 0) {
+        		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
+        		i++;
+        	}
+        	return votingPaper
+        })
  	   this.voteMap = React.createRef();
  	   this.results = React.createRef();
     }

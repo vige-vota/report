@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './VoteMap.css'
 import { FormattedMessage } from 'react-intl'
-import { setAllZones, getZoneById, alphabetic } from '../Utilities'
+import { getVotingPaperByZone, setAllZones, getZoneById, alphabetic } from '../Utilities'
 import { locations } from '../index'
 import { TreeSelect } from 'primereact/treeselect'
 import { ZoneService } from '../services/ZoneService'
@@ -58,11 +58,9 @@ class VoteMap extends Component {
             		}
             	} />
     	}
-		return (
-			<div>
-				<div className='p-grid'>
-					<div className='p-col-2'>
-    				<FormattedMessage
+    	let chooseZone = ''
+    	if (this.props.votingPaper && (this.props.votingPaper.type === 'bigger' || this.props.votingPaper.type === 'bigger-partygroup'))
+    		chooseZone = <FormattedMessage
             				id='app.choosezone'
             				defaultMessage='Choose zone'>
 							{(chooseZone) => <TreeSelect ref={this.zoneSelect} value={this.state.site} 
@@ -71,10 +69,17 @@ class VoteMap extends Component {
 									site: e.value
 								})
 								this.props.app.results.current.setState({ zone: getZoneById(e.value, this.sites) })
+								this.props.app.setState({ votingPaper: getVotingPaperByZone(e.value) })
+								console.log(this.props.app.votingPaper)
 							}
 						} filter placeholder={chooseZone[0]}>
 							</TreeSelect>}
 							</FormattedMessage>
+		return (
+			<div>
+				<div className='p-grid'>
+					<div className='p-col-2'>
+    					{chooseZone}
 						{ballots}
 					</div>
 				</div>
