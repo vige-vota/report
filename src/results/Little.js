@@ -20,7 +20,6 @@ export class Little extends Component {
     constructor() {
         super()
         this.state = {
-        	zone: null,
             expandedRows: null,
             showCandidates: null,
             selectedParty: null
@@ -49,7 +48,7 @@ export class Little extends Component {
     renderModalHeader() {
     		return (
         		<div id='headEnti'>
-        			<h2>{getTitle(this.state.zone)}</h2>
+        			<h2>{getTitle()}</h2>
         			<h3><FormattedMessage id='app.table.candidatesandelected' defaultMessage='Candidates and Elected' /></h3>
         		</div>
         )
@@ -160,9 +159,6 @@ export class Little extends Component {
     }
 	
 	reset() {
-		this.setState({
-			zone: null
-		})
 	}
 	
 	renderDataTable() {
@@ -258,13 +254,13 @@ export class Little extends Component {
         		{realTimeVotingPapers}
     			{realTimeVotes}
         		<div id='headEnti'>
-        			<h3>{getTitle(this.state.zone)}</h3>
+        			<h3>{getTitle()}</h3>
         		</div>
             	{this.renderDataTable()}
             	<Dialog visible={this.state.showCandidates} 
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
-        			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        			<Candidates party={this.state.selectedParty} 
         				votes={this.state.votes} app={this.props.app} />
         		</Dialog>
             </div>
