@@ -33,7 +33,7 @@ export const getVotingPaperByZone = (value) => {
 export const getZoneById = (result, value, sites) => {
 	for (let i = 0; i < sites.length; i++) {
 		let site = sites[i]
-		if (site.id === value)
+		if (site.id === value || !value)
 			result[0] = site
 		else
 			getZoneById(result, value, site.zones)

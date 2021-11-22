@@ -64,9 +64,6 @@ export class Littlenogroup extends Component {
         				style={{ width:'50%', left:'10%', top:'2px', position:'relative' }} />
     	else return ''
     }
-	
-	reset() {
-	}
 
     render() {
     	let realTimeVotingPapers = ''

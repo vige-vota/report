@@ -20,7 +20,6 @@ export class Biggerpartygroup extends Component {
     constructor() {
         super()
         this.state = {
-        	zone: null,
             expandedRows: null,
             showCandidates: null,
             selectedParty: null
@@ -49,7 +48,7 @@ export class Biggerpartygroup extends Component {
     renderModalHeader() {
     		return (
         		<div id='headEnti'>
-        			<h2>{getTitle(this.state.zone)}</h2>
+        			<h2>{getTitle(this.props.app.state.zone)}</h2>
         			<h3><FormattedMessage id='app.table.candidatesandelected' defaultMessage='Candidates and Elected' /></h3>
         		</div>
         )
@@ -161,12 +160,6 @@ export class Biggerpartygroup extends Component {
         	   </div>
     }
 	
-	reset() {
-		this.setState({
-			zone: null
-		})
-	}
-	
 	renderDataTable() {
     	let dataTable = ''
         if (this.state.votes && this.state.votingPaper) {
@@ -262,13 +255,13 @@ export class Biggerpartygroup extends Component {
         		{realTimeVotingPapers}
     			{realTimeVotes}
         		<div id='headEnti'>
-        			<h3>{getTitle(this.state.zone)}</h3>
+        			<h3>{getTitle(this.props.app.state.zone)}</h3>
         		</div>
             	{this.renderDataTable()}
             	<Dialog visible={this.state.showCandidates} 
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
-        			<Candidates zone={this.state.zone} party={this.state.selectedParty} 
+        			<Candidates zone={this.props.app.state.zone} party={this.state.selectedParty} 
         				votes={this.state.votes} app={this.props.app} />
         		</Dialog>
             </div>

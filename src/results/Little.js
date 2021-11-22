@@ -158,9 +158,6 @@ export class Little extends Component {
         	   </div>
     }
 	
-	reset() {
-	}
-	
 	renderDataTable() {
     	let dataTable = ''
         if (this.state.votes && this.state.votingPaper) {

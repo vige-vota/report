@@ -30,6 +30,7 @@ class App extends Component {
                 ],
             activeItem: activeItem,
             activeItemIndex: 0,
+            zone: null,
         }
         let i = 0
         config.votingPapers.map((votingPaper) => {
@@ -105,8 +106,6 @@ class App extends Component {
                 					votingPaper: getVotingPaperById(e.value),
                 						activeItemIndex: e.index })
                 		this.voteMap.current.reset()
-                		if (this.results.current)
-                			this.results.current.reset()
                 		}
                 	} />
                 	
