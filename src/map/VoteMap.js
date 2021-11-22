@@ -32,18 +32,11 @@ class VoteMap extends Component {
         })
     }
 
-	reset() {
-		this.setState({
-			site: null
-		})
-	}
-
 	render() {
 		let ballots = ''
     	if (history) {
     		ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeIndex={this.state.activeTabVoteIndex} onTabChange={(e) => {
             		this.setState({ activeTabVote: e.value, activeTabVoteIndex: e.index })
-            		this.reset()
             		}
             	} />
     	}
@@ -59,8 +52,11 @@ class VoteMap extends Component {
 								})
 								let result = []
 								getZoneById(result, e.value, this.state.zones)
-								this.props.app.setState({ votingPaper: getVotingPaperByZone(e.value),
+								let votingPaperByZone = getVotingPaperByZone(e.value)
+								this.props.app.setState({ votingPaper: votingPaperByZone,
 														  zone: result[0] })
+								this.props.app.state.items[0].id = votingPaperByZone.id
+								this.props.app.state.items[0].label = votingPaperByZone.name
 							}
 						} filter placeholder={chooseZone[0]}>
 							</TreeSelect>}

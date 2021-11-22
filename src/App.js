@@ -105,7 +105,6 @@ class App extends Component {
                 		this.setState({ activeItem: e.value,
                 					votingPaper: getVotingPaperById(e.value),
                 						activeItemIndex: e.index })
-                		this.voteMap.current.reset()
                 		}
                 	} />
                 	
