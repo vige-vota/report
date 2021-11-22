@@ -30,15 +30,14 @@ export const getVotingPaperByZone = (value) => {
 	} else return ''
 }
 
-export const getZoneById = (value, sites) => {
-	if (value) {
-		let result = ''
-		sites.forEach(site => {
-			if (site.id === value)
-				result = site
-		})
-		return result
-	} else return ''
+export const getZoneById = (result, value, sites) => {
+	for (let i = 0; i < sites.length; i++) {
+		let site = sites[i]
+		if (site.id === value)
+			result[0] = site
+		else
+			getZoneById(result, value, site.zones)
+	}
 }
 
 export const getComponentById = (value, votingPaper) => {
@@ -124,22 +123,4 @@ export const getTitle = (value) => {
 					{e => e + ' ' + value.name}
 			   </FormattedMessage>
 	} else return <FormattedMessage id={language} defaultMessage='Great Britain' />
-}
-
-export const setAllZones = (value, votingPaper, list, counter) => {
-		value.zones.forEach(zone => { 
-			if (zone.zones) {
-				if (votingPaper.type !== 'little' && votingPaper.type !== 'little-nogroup' && counter > 0)
-					list.push(zone)
-				setAllZones(zone, votingPaper, list, counter + 1)
-			}
-		})
-}
-
-export const alphabetic = (list) => {
-	list.sort(function(a, b){
-		if(a.label < b.label || a.name < b.name) { return -1; }
-		if(a.label > b.label || a.name > b.name) { return 1; }
-		return 0;
-	})
 }
