@@ -54,6 +54,11 @@ class App extends Component {
     }
 
     render() {
+    	if (this.state.zone && (this.state.votingPaper.type === 'bigger-partygroup' || this.state.votingPaper.type === 'bigger')) {
+			let changedItem = this.state.items[0]
+			changedItem.id = this.state.votingPaper.id
+			changedItem.label = this.state.votingPaper.name
+		}
     	let results = ''
         if (this.state.votingPaper) {
         	if (this.state.votingPaper.type === 'bigger-partygroup')

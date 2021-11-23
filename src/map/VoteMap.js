@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './VoteMap.css'
 import { FormattedMessage } from 'react-intl'
-import { getVotingPaperByZone, getZoneById, getZoneIdsToExpand } from '../Utilities'
+import { getVotingPaperByZone, getZoneById, getZoneIdsToExpand, getFirstZoneId } from '../Utilities'
 import { TreeSelect } from 'primereact/treeselect'
 import { ZoneService } from '../services/ZoneService'
 import { history } from '../index'
@@ -28,9 +28,16 @@ class VoteMap extends Component {
     componentDidMount() {
     	let allVotingPapers = this.props.app.props.config.votingPapers
     	this.zoneService.getTreeZones(this.zoneService.zonesFrom(allVotingPapers)).then(data => {
-    		let result = {}
-    		getZoneIdsToExpand(result, data.data.zones)
-        	this.setState({ expandedKeys: result, zones: data.data.zones, sites: this.zoneService.convert(data.data.zones, allVotingPapers) })
+    		let expandedKeys = {}
+    		getZoneIdsToExpand(expandedKeys, data.data.zones)
+    		let site = getFirstZoneId(data.data.zones)
+        	this.setState({ site: site, expandedKeys: expandedKeys, zones: data.data.zones, sites: this.zoneService.convert(data.data.zones, allVotingPapers) })
+			
+			let result = []
+			getZoneById(result, site, data.data.zones)
+			let votingPaperByZone = getVotingPaperByZone(site)
+			this.props.app.setState({ votingPaper: votingPaperByZone,
+									  zone: result[0] })
         })
     }
 

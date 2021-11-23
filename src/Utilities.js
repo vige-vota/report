@@ -49,6 +49,16 @@ export const getZoneIdsToExpand = (result, sites) => {
 	}
 }
 
+export const getFirstZoneId = (sites) => {
+	for (let i = 0; i < sites.length; i++) {
+		let site = sites[i]
+		if (site.zones.length === 0)
+			return site.id
+		else
+			return getFirstZoneId(site.zones)
+	}
+}
+
 export const getComponentById = (value, votingPaper) => {
 	let result
 	if (votingPaper.id === value)
