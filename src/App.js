@@ -32,6 +32,11 @@ class App extends Component {
             activeItemIndex: 0,
             zone: null,
         }
+ 	   	this.voteMap = React.createRef();
+ 	   	this.results = React.createRef();
+    }
+
+    componentDidMount() {
         let i = 0
         config.votingPapers.map((votingPaper) => {
         	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup')
@@ -42,15 +47,11 @@ class App extends Component {
         	}
         	return votingPaper
         })
- 	   this.voteMap = React.createRef();
- 	   this.results = React.createRef();
-    }
-
-    componentDidMount() {
-		const tabs = getTabs(this, '.vote-tabmenu')
-		if (tabs && tabs[0]) {
+ 	   
+	   const tabs = getTabs(this, '.vote-tabmenu')
+	   if (tabs && tabs[0]) {
 			tabs[0].click()
-		}
+	   }
     }
 
     render() {
