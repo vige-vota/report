@@ -19,15 +19,44 @@ export const getVotingPaperById = (value) => {
 	} else return ''
 }
 
-export const getZoneById = (value, sites) => {
+export const getVotingPaperByZone = (value) => {
 	if (value) {
 		let result = ''
-		sites.forEach(site => {
-			if (site.id === value)
-				result = site
+    	config.votingPapers.forEach(votingPaper => {
+			if (votingPaper.zone &&  votingPaper.zone === value)
+				result = votingPaper
 		})
 		return result
 	} else return ''
+}
+
+export const getZoneById = (result, value, sites) => {
+	for (let i = 0; i < sites.length; i++) {
+		let site = sites[i]
+		if (site.id === value || !value)
+			result[0] = site
+		else
+			getZoneById(result, value, site.zones)
+	}
+}
+
+export const getZoneIdsToExpand = (result, sites) => {
+	for (let i = 0; i < sites.length; i++) {
+		let site = sites[i]
+		if (site.zones.length > 0)
+			result[site.id] = true
+		getZoneIdsToExpand(result, site.zones)
+	}
+}
+
+export const getFirstZoneId = (sites) => {
+	for (let i = 0; i < sites.length; i++) {
+		let site = sites[i]
+		if (site.zones.length === 0)
+			return site.id
+		else
+			return getFirstZoneId(site.zones)
+	}
 }
 
 export const getComponentById = (value, votingPaper) => {
@@ -113,22 +142,4 @@ export const getTitle = (value) => {
 					{e => e + ' ' + value.name}
 			   </FormattedMessage>
 	} else return <FormattedMessage id={language} defaultMessage='Great Britain' />
-}
-
-export const setAllZones = (value, votingPaper, list, counter) => {
-		value.zones.forEach(zone => { 
-			if (zone.zones) {
-				if (votingPaper.type === 'little-nogroup' || counter > 0)
-					list.push(zone)
-				setAllZones(zone, votingPaper, list, counter + 1)
-			}
-		})
-}
-
-export const alphabetic = (list) => {
-	list.sort(function(a, b){
-		if(a.label < b.label || a.name < b.name) { return -1; }
-		if(a.label > b.label || a.name > b.name) { return 1; }
-		return 0;
-	})
 }

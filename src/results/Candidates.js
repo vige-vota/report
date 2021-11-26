@@ -35,7 +35,7 @@ export class Candidates extends Component {
         	})
             let lists = <FormattedMessage id='app.table.candidate' defaultMessage='Candidate' />
             let votes = <FormattedMessage id='app.table.preferences' defaultMessage='Preferences' />
-            if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
+            if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px'
             			 className='candidates-table'>
