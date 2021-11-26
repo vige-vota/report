@@ -91,7 +91,7 @@ export class Biggerpartygroup extends Component {
             let footer = ''
             if (values.length > 1) {
         		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
-            	if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
+            	if (this.props.app.state.activeTabVote.id === 0)
             		footer = <ColumnGroup>
             						<Row>
             							<Column colSpan={2} />
@@ -113,7 +113,7 @@ export class Biggerpartygroup extends Component {
 								</ColumnGroup>
             	}
             }
-            if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
+            if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='biggernogroup-sub-header'>
             				<Column />
@@ -191,7 +191,7 @@ export class Biggerpartygroup extends Component {
 						 </div>
             let lists = <FormattedMessage id='app.table.candidatesandlists' defaultMessage='Candidates and Lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
-            if (this.props.app.voteMap.current.state.activeTabVote.id === 0)
+            if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
         				 scrollable={true} scrollHeight='450px' footer={footer}
         				 expandedRows={this.state.expandedRows} 

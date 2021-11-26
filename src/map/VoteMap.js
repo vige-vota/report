@@ -17,9 +17,7 @@ class VoteMap extends Component {
             tabvotes: [
             	{ id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
             	{ id: 1, label: <FormattedMessage id='app.tab.voters' defaultMessage='VOTERS' /> }
-                ],
-            activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
-            activeTabVoteIndex: 0,
+                ]
 		}
  		this.zoneSelect = React.createRef()
         this.zoneService = new ZoneService()
@@ -51,8 +49,8 @@ class VoteMap extends Component {
 	render() {
 		let ballots = ''
     	if (history) {
-    		ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeIndex={this.state.activeTabVoteIndex} onTabChange={(e) => {
-            		this.setState({ activeTabVote: e.value, activeTabVoteIndex: e.index })
+    		ballots = <TabMenu ref='tabVotes' className='vote-tabvotes' model={this.state.tabvotes} activeIndex={this.props.app.state.activeTabVoteIndex} onTabChange={(e) => {
+            		this.props.app.setState({ activeTabVote: e.value, activeTabVoteIndex: e.index })
             		}
             	} />
     	}

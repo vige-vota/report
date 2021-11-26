@@ -31,6 +31,8 @@ class App extends Component {
             activeItem: activeItem,
             activeItemIndex: 0,
             zone: null,
+            activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
+            activeTabVoteIndex: 0
         }
  	   	this.voteMap = React.createRef();
  	   	this.results = React.createRef();
