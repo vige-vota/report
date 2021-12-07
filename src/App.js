@@ -82,10 +82,12 @@ class App extends Component {
 							defaultMessage=' for {0}' />
     	}
     	let boxLive = ''
-    	if (!history)
+    	if (!history) {
+    		const imlive = './icona_live.png';
     		boxLive = <div className='box-live'>
-                     		<div className='img-responsive inmlive' />
+    						<img src={imlive} className='img-responsive,inmlive' />
                       </div>
+        }
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
             	<div className='content-section implementation'>
