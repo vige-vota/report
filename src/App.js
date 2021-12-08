@@ -84,8 +84,8 @@ class App extends Component {
     	let boxLive = ''
     	if (!history) {
     		const imlive = './icona_live.png';
-    		boxLive = <div className='box-live'>
-    						<img src={imlive} className='img-responsive,inmlive' />
+    		boxLive = <div className='box-live img-responsive inmlive'>
+    						<img alt='Online' src={imlive} />
                       </div>
         }
 		return (
