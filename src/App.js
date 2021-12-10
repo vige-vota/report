@@ -40,6 +40,19 @@ class App extends Component {
 
     componentDidMount() {
         let i = 0
+        if (config.votingPapers.length > 1)
+        	config.votingPapers.sort(function(a, b) {
+  				let nameA = a.type.toUpperCase();
+  				let nameB = b.type.toUpperCase();
+  				if (nameA < nameB) {
+    				return -1;
+  				}
+  				if (nameA > nameB) {
+    				return 1;
+  				}
+
+  				return 0;
+			})
         config.votingPapers.map((votingPaper) => {
         	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup')
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
