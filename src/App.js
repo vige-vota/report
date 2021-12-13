@@ -63,6 +63,9 @@ class App extends Component {
         	return votingPaper
         })
  	   
+ 	   this.setState({
+ 	   		votingPaper: config.votingPapers[0]
+ 	   })
 	   const tabs = getTabs(this, '.vote-tabmenu')
 	   if (tabs && tabs[0]) {
 			tabs[0].click()

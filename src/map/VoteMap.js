@@ -25,18 +25,20 @@ class VoteMap extends Component {
 
     componentDidMount() {
     	let allVotingPapers = this.props.app.props.config.votingPapers
-    	this.zoneService.getTreeZones(this.zoneService.zonesFrom(allVotingPapers)).then(data => {
-    		let expandedKeys = {}
-    		getZoneIdsToExpand(expandedKeys, data.data.zones)
-    		let site = getFirstZoneId(data.data.zones)
-        	this.setState({ site: site, expandedKeys: expandedKeys, zones: data.data.zones, sites: this.zoneService.convert(data.data.zones, allVotingPapers) })
+    	let zones = this.zoneService.zonesFrom(allVotingPapers)
+    	if (zones)
+    		this.zoneService.getTreeZones(zones).then(data => {
+    			let site = getFirstZoneId(data.data.zones)
 			
-			let result = []
-			getZoneById(result, site, data.data.zones)
-			let votingPaperByZone = getVotingPaperByZone(site)
-			this.props.app.setState({ votingPaper: votingPaperByZone,
+				let result = []
+				getZoneById(result, site, data.data.zones)
+				let votingPaperByZone = getVotingPaperByZone(site)
+				this.props.app.setState({ votingPaper: votingPaperByZone,
 									  zone: result[0] })
-        })
+    			let expandedKeys = {}
+    			getZoneIdsToExpand(expandedKeys, data.data.zones)
+        		this.setState({ site: site, expandedKeys: expandedKeys, zones: data.data.zones, sites: this.zoneService.convert(data.data.zones, allVotingPapers) })
+       	    })
     }
 
     componentDidUpdate() {
