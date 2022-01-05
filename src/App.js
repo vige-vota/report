@@ -134,11 +134,11 @@ class App extends Component {
                 		}
                 	} />
                 	
-                    <div className='my-content p-grid'>
-                        <div className='p-col-fixed' style={{ width: '100%', paddingRight: '40px' }}>
+                    <div className='my-content grid'>
+                        <div className='col-fixed' style={{ width: '100%', paddingRight: '40px' }}>
                         	<VoteMap ref={this.voteMap} votingPaper={this.state.votingPaper} app={this} />
                         </div>
-                        <div className='p-col'>
+                        <div className='col'>
                             {results}
                         </div>
                     </div>
