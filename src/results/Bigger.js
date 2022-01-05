@@ -9,10 +9,8 @@ import { Candidates } from './Candidates'
 import {Dialog} from 'primereact/dialog';
 import './Results.css'
 import './Bigger.css'
-import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
-import {history, language} from '../index'
-import SockJsClient from '../SockJsClient'
+import {language} from '../index'
 import {ProgressSpinner} from 'primereact/progressspinner'
 
 export class Bigger extends Component {
@@ -24,21 +22,6 @@ export class Bigger extends Component {
             showCandidates: null,
             selectedParty: null
         }
-        let voting_url = process.env.REACT_APP_VOTING_URL
-        if (history) {
-        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + '/' + history
-        }
-        axios
-    	.get(voting_url)
-    	.then(response => {
-    	    this.setState({
-    	    		votes: response.data.votings,
-    	    		votingPaper: this.props.app.state.votingPaper
-    	    	})
-    	})
-    	.catch(function(error) {
-    	    console.log(error)
-    	})
         this.partyTemplate = this.partyTemplate.bind(this);
         this.listsTemplate = this.listsTemplate.bind(this);
         this.rowExpansionTemplate = this.rowExpansionTemplate.bind(this);
@@ -55,7 +38,7 @@ export class Bigger extends Component {
     }
     
     candidatesTemplate(data) {
-    	let component = getComponentById(data.id, this.state.votingPaper)
+    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
     	if (component.candidates)
     		return <Button label={data.name} className='candidates-button' 
     			onClick={() => this.setState({showCandidates: true, selectedParty: component})} />
@@ -64,9 +47,9 @@ export class Bigger extends Component {
     
     rowExpansionTemplate(data) {
     	let dataTable = ''
-        if (this.state.votes && this.state.votingPaper) {
-        	let vote = this.state.votes[this.state.votes.length -1]
-            let values = getComponentById(data.id, this.state.votingPaper).parties
+        if (this.props.app.state.votes && this.props.app.state.votingPaper) {
+        	let vote = this.props.app.state.votes[this.props.app.state.votes.length -1]
+            let values = getComponentById(data.id, this.props.app.state.votingPaper).parties
             let sumValue = 0
             let sumPercent = 0
             let sumPercentBallots = []
@@ -82,8 +65,8 @@ export class Bigger extends Component {
                 	votes: numberVotes,
                 	percent: percent
                 }
-        		for (let i = 0; i< this.state.votes.length; i++) {
-        			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+        		for (let i = 0; i< this.props.app.state.votes.length; i++) {
+        			jsonValue['percent'+i] = getPercent(e.id, this.props.app.state.votes[i])
         			sumPercentBallots += jsonValue['percent'+i]
         		}
         		return jsonValue
@@ -102,7 +85,7 @@ export class Bigger extends Component {
             				 </ColumnGroup>
             	else {
         			let columns = []
-        			for (let i = 0; i< this.state.votes.length; i++)
+        			for (let i = 0; i< this.props.app.state.votes.length; i++)
         				columns.push(<Column key={'percent-columns-' + i} footer={sumPercentBallots[i]} />)
             		footer = <ColumnGroup>
 									<Row>
@@ -124,7 +107,7 @@ export class Bigger extends Component {
         				</DataTable>
             else {
     			let columns = []
-    			for (let i = 0; i< this.state.votes.length; i++)
+    			for (let i = 0; i< this.props.app.state.votes.length; i++)
     				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} style={{width:'10%'}} />)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
 			 			 footerColumnGroup={footer} className='bigger-sub-header'>
@@ -148,7 +131,7 @@ export class Bigger extends Component {
 
     listsTemplate(rowData) {
     	let images = ''
-    	let component = getComponentById(rowData.id, this.state.votingPaper)
+    	let component = getComponentById(rowData.id, this.props.app.state.votingPaper)
     	images = component.parties.map(e => e.image ? <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 
 								  alt={rowData.name} style={{ width:'10%' }} /> : '')
         return <div>{rowData.name} 
@@ -160,9 +143,9 @@ export class Bigger extends Component {
 	
 	renderDataTable() {
     	let dataTable = ''
-        if (this.state.votes && this.state.votingPaper) {
-        	let vote = this.state.votes[this.state.votes.length -1]
-        	let values = this.state.votingPaper.groups
+        if (this.props.app.state.votes && this.props.app.state.votingPaper) {
+        	let vote = this.props.app.state.votes[this.props.app.state.votes.length -1]
+        	let values = this.props.app.state.votingPaper.groups
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, vote)
             	let percent = getPercent(e.id, vote)
@@ -173,14 +156,14 @@ export class Bigger extends Component {
         			votes: numberVotes,
         			percent: percent
         		}
-        		for (let i = 0; i< this.state.votes.length; i++)
-        			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+        		for (let i = 0; i< this.props.app.state.votes.length; i++)
+        			jsonValue['percent'+i] = getPercent(e.id, this.props.app.state.votes[i])
         		return jsonValue
         	})
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
-			let votingValues = getVotesById(this.state.votingPaper.id, vote)
-			let blankPapersValues = getBlankPapers(this.state.votingPaper.id, vote)
+			let votingValues = getVotesById(this.props.app.state.votingPaper.id, vote)
+			let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, vote)
             let updateDate = <FormattedMessage id='app.table.updatedate' defaultMessage='Data updated to:' />
             let updateDateValues = getUpdateDate(vote)
 			let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp;
@@ -204,9 +187,9 @@ export class Bigger extends Component {
         				</DataTable>
         	else {
     			let columns = []
-    			for (let i = 0; i< this.state.votes.length; i++) {
+    			for (let i = 0; i< this.props.app.state.votes.length; i++) {
     				let options = { hour: 'numeric', minute: 'numeric' }
-    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.props.app.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
     				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
     			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
@@ -226,30 +209,12 @@ export class Bigger extends Component {
 	}
 
     render() {
-    	let realTimeVotingPapers = ''
-    	let realTimeVotes = ''
     	let progressSpinner = ''
-    	if (!this.state.votes)
+    	if (!this.props.app.state.votes)
     		progressSpinner = <ProgressSpinner/>
-    	if (!history) {
-    		realTimeVotingPapers = <SockJsClient url={process.env.REACT_APP_VOTING_PAPERS_REALTIME_URL} topics={['/topic/votingpaper']}
-    									onMessage={(msg) => {
-        	            					this.setState({
-        	            						votingPaper: msg.votingPapers.filter(((e) => e.id === this.state.votingPaper.id))[0]
-        	            					})
-    							   }} />
-        	realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
-        	            		onMessage={(msg) => { 
-        	            			this.setState({
-        	            				votes: msg.votings
-        	            			})
-        	            	}} />
-    	}
         return (
         	<div className='tableContent'>
         		{progressSpinner}
-        		{realTimeVotingPapers}
-        		{realTimeVotes}
         		<div id='headEnti'>
         			<h3>{getTitle(this.props.app.state.zone)}</h3>
         		</div>
@@ -258,7 +223,7 @@ export class Bigger extends Component {
             		modal={true} onHide={() => this.setState({showCandidates: false})}
             		style={{width: '50vw'}} header={this.renderModalHeader()}>
             		<Candidates zone={this.props.app.state.zone} party={this.state.selectedParty} 
-            			votes={this.state.votes} app={this.props.app} />
+            			votes={this.props.app.state.votes} app={this.props.app} />
             	</Dialog>
             </div>
         )

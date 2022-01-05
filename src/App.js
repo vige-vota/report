@@ -14,6 +14,8 @@ import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import logo from './images/logo.ico'
 import {history, language} from './index'
+import axios from 'axios'
+import SockJsClient from './SockJsClient'
 
 export var config
 
@@ -34,6 +36,20 @@ class App extends Component {
             activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
             activeTabVoteIndex: 0
         }
+        let voting_url = process.env.REACT_APP_VOTING_URL
+        if (history) {
+        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + '/' + history
+        }
+        axios
+    	.get(voting_url)
+    	.then(response => {
+    	    this.setState({
+    	    		votes: response.data.votings
+    	    	})
+    	})
+    	.catch(function(error) {
+    	    console.log(error)
+    	})
  	   	this.voteMap = React.createRef();
  	   	this.results = React.createRef();
     }
@@ -73,6 +89,22 @@ class App extends Component {
     }
 
     render() {
+    	let realTimeVotingPapers = ''
+    	let realTimeVotes = ''
+    	if (!history) {
+    		realTimeVotingPapers = <SockJsClient url={process.env.REACT_APP_VOTING_PAPERS_REALTIME_URL} topics={['/topic/votingpaper']}
+    									onMessage={(msg) => {
+        	            					this.setState({
+        	            						votingPaper: msg.votingPapers.filter(((e) => e.id === this.state.votingPaper.id))[0]
+        	            					})
+    							   }} />
+        	realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
+        	            		onMessage={(msg) => { 
+        	            			this.setState({
+        	            				votes: msg.votings
+        	            			})
+        	            	}} />
+    	}
     	if (this.state.zone && (this.state.votingPaper.type === 'bigger-partygroup' || this.state.votingPaper.type === 'bigger')) {
 			let changedItem = this.state.items[0]
 			changedItem.id = this.state.votingPaper.id
@@ -106,6 +138,8 @@ class App extends Component {
         }
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
+            	{realTimeVotingPapers}
+            	{realTimeVotes}
             	<div className='content-section implementation'>
                 	<div className='second-row'>
         				<div className='container container-live'>
