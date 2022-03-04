@@ -181,7 +181,7 @@ export class Little extends Component {
         				 rowExpansionTemplate={this.rowExpansionTemplate}
             			 className='little-table'>
             				<Column field='id' expander/>
-        					<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+        					<Column field='image' body={this.partyTemplate} style={{width:'10%', height:'68px'}} />
         					<Column field='name' header={lists} body={this.listsTemplate} style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
@@ -200,7 +200,7 @@ export class Little extends Component {
 			 			rowExpansionTemplate={this.rowExpansionTemplate}
 			 			className='little-table'>
 							<Column field='id' expander style={{width:'6%'}} />
-							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
+							<Column field='image' body={this.partyTemplate} style={{width:'10%', height:'68px'}} />
 							<Column field='name' header={lists} style={{width: '50%' }} />
 							{columns}
 						</DataTable>
