@@ -1,5 +1,9 @@
+.biggernogroup-sub-header {
+	width: 100%;
+}
+
 .biggernogroup-sub-header .p-datatable-thead {
-	display: none;
+	display: none !important;
 }
 
 .biggernogroup-sub-header .p-datatable-tfoot td {
@@ -11,7 +15,7 @@
 
 .biggernogroup-table .party-images {
 	position: absolute;
-	right: 1%;
+	left: 130%;
 	width: 50%;
 }
 

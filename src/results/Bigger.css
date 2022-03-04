@@ -1,5 +1,9 @@
+.bigger-sub-header {
+	width: 100%;
+}
+
 .bigger-sub-header .p-datatable-thead {
-	display: none;
+	display: none !important;
 }
 
 .bigger-sub-header .p-datatable-tfoot td {
@@ -11,7 +15,7 @@
 
 .bigger-table .party-images {
 	position: absolute;
-	right: 1%;
+	left: 130%;
 	width: 50%;
 }
 

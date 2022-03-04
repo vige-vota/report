@@ -1,5 +1,9 @@
+.little-sub-header {
+	width: 100%;
+}
+
 .little-sub-header .p-datatable-thead {
-	display: none;
+	display: none !important;
 }
 
 .little-sub-header .p-datatable-tfoot td {
@@ -11,8 +15,8 @@
 
 .little-table .party-images {
 	position: absolute;
-	right: 1%;
-	width: 50%;
+	left: 130%;
+	width: 100%;
 }
 
 .little-table .border-images {

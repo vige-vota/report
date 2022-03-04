@@ -77,7 +77,8 @@ export class Biggerpartygroup extends Component {
             	if (this.props.app.state.activeTabVote.id === 0)
             		footer = <ColumnGroup>
             						<Row>
-            							<Column colSpan={2} />
+            							<Column />
+            							<Column />
             							<Column footer={votings} />
             							<Column footer={sumValue} />
             							<Column footer={sumPercent} />
@@ -127,7 +128,7 @@ export class Biggerpartygroup extends Component {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 
-        				style={{ width:'50%', left:'10%', top:'2px', position:'relative' }} />
+        				style={{ width:'20%', left:'10%', top:'2px', position:'relative' }} />
     	else return ''
     }
 
@@ -135,7 +136,7 @@ export class Biggerpartygroup extends Component {
     	let images = ''
     	let component = getComponentById(rowData.id, this.props.app.state.votingPaper)
     	images = component.parties.map(e => e.image ? <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 
-								  alt={rowData.name} style={{ width:'10%' }} /> : '')
+								  alt={rowData.name} style={{ width:'25px' }} /> : '')
         return <div>{rowData.name} 
         		  <div className='border-images'>
         			 <span className='party-images'>{images}</span>
