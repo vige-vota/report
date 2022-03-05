@@ -90,7 +90,8 @@ export class Biggerpartygroup extends Component {
         				columns.push(<Column key={'percent-columns-' + i} footer={sumPercentBallots[i]} />)
         			footer = <ColumnGroup>
 									<Row>
-										<Column colSpan={2} />
+										<Column />
+										<Column />
 										<Column footer={votings} />
 										{columns}
 									</Row>
