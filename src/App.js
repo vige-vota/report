@@ -8,6 +8,7 @@ import Littlenogroup from './results/Littlenogroup';
 import Biggerpartygroup from './results/Biggerpartygroup';
 import Bigger from './results/Bigger';
 import Little from './results/Little';
+import Referendum from './results/Referendum';
 import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -120,6 +121,8 @@ class App extends Component {
         		results = <Bigger ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         	else if (this.state.votingPaper.type === 'little-nogroup')
         		results = <Littlenogroup ref={this.results} votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'referendum')
+        		results = <Referendum ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         }
     	let subtitle = ''
     	if (history) {

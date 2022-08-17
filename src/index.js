@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client';
 import './index.css'
 import App from './App'
 import {IntlProvider} from 'react-intl'
@@ -22,17 +22,18 @@ if (window.location.search.startsWith('?date=')) {
 	history = window.location.search.split('=')[1]
 	voting_papers_url = process.env.REACT_APP_HISTORY_VOTING_PAPERS_URL + '/' + history
 }
-ReactDOM.render(<ProgressSpinner/>, document.getElementById('root'))
+const root = createRoot(document.getElementById('root'));
+root.render(<ProgressSpinner/>)
 axios
 	.get(voting_papers_url)
 	.then(function(papers) {
-	    ReactDOM.render(<IntlProvider locale={language} messages={messages[language]}><App config={papers.data} /></IntlProvider>, document.getElementById('root'))
+	    root.render(<IntlProvider locale={language} messages={messages[language]}><App config={papers.data} /></IntlProvider>)
 	    // If you want your app to work offline and load faster, you can change
 	    // unregister() to register() below. Note this comes with some pitfalls.
 	    // Learn more about service workers: http://bit.ly/CRA-PWA
 		serviceWorker.register()
 	})
 	.catch(function(error) {
-		ReactDOM.render(<IntlProvider locale={language} messages={messages[language]}><ErrorBoundary error={error} errorInfo={error}/></IntlProvider>, document.getElementById('root'))
+		root.render(<IntlProvider locale={language} messages={messages[language]}><ErrorBoundary error={error} errorInfo={error}/></IntlProvider>)
 	    console.log(error)
 	})
