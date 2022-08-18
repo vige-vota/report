@@ -13,17 +13,6 @@
 	font-weight: 400 !important;
 }
 
-.biggernogroup-table .party-images {
-	position: absolute;
-	left: 130%;
-	width: 50%;
-}
-
-.biggernogroup-table .border-images {
-	position: relative;
-	bottom: 25px;
-}
-
 .biggernogroup-table .padding-name {
 	padding: 0.429em 1em !important;
 }

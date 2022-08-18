@@ -79,6 +79,7 @@ export class Biggerpartygroup extends Component {
             						<Row>
             							<Column />
             							<Column />
+            							<Column />
             							<Column footer={votings} />
             							<Column footer={sumValue} />
             							<Column footer={sumPercent} />
@@ -90,6 +91,7 @@ export class Biggerpartygroup extends Component {
         				columns.push(<Column key={'percent-columns-' + i} footer={sumPercentBallots[i]} />)
         			footer = <ColumnGroup>
 									<Row>
+										<Column />
 										<Column />
 										<Column />
 										<Column footer={votings} />
@@ -104,6 +106,7 @@ export class Biggerpartygroup extends Component {
             				<Column />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
         					<Column field='name' style={{width: '70%' }} body={this.candidatesTemplate} />
+        					<Column />
         					<Column field='votes' />
         					<Column field='percent' style={{width:'8%'}} />
         				</DataTable>
@@ -118,6 +121,7 @@ export class Biggerpartygroup extends Component {
 							<Column style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
 							<Column field='name' body={this.candidatesTemplate} style={{width: namePercent + '%'}} />
+							<Column />
 							{columns}
 						</DataTable>
             }
@@ -138,7 +142,7 @@ export class Biggerpartygroup extends Component {
     	let component = getComponentById(rowData.id, this.props.app.state.votingPaper)
     	images = component.parties.map(e => e.image ? <img key={e.id} src={`data:image/jpeg;base64,${e.image}`} 
 								  alt={rowData.name} style={{ width:'25px' }} /> : '')
-        return <div>{rowData.name} 
+        return <div>
         		  <div className='border-images'>
         			 <span className='party-images'>{images}</span>
         		  </div>
@@ -174,7 +178,9 @@ export class Biggerpartygroup extends Component {
 							  {blankPapers} <span className='footer-value'>{blankPapersValues}</span> &nbsp;
 	    					  {updateDate} <span className='footer-value'>{updateDateValues}</span>
 						 </div>
-            let lists = <FormattedMessage id='app.table.candidatesandlists' defaultMessage='Candidates and Lists' />
+            let list = <FormattedMessage id='app.table.ownerlists' defaultMessage='List' />
+            let candidates = <FormattedMessage id='app.table.candidates' defaultMessage='Candidates' />
+            let lists = <FormattedMessage id='app.table.candidateslists' defaultMessage='Lists' />
             let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
             if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
@@ -184,8 +190,9 @@ export class Biggerpartygroup extends Component {
         				 rowExpansionTemplate={this.rowExpansionTemplate}
             			 className='biggernogroup-table'>
             				<Column field='id' expander/>
-        					<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
-        					<Column field='name' header={lists} body={this.listsTemplate} className='padding-name' style={{width: '70%' }} />
+        					<Column field='image' header={list} body={this.partyTemplate} style={{width:'10%'}} />
+        					<Column field='name' header={candidates} className='padding-name' style={{width: '70%' }} />
+        					<Column header={lists} body={this.listsTemplate} />
         					<Column field='votes' header={votes} />
         					<Column field='percent' header='%' style={{width:'8%'}} />
         				</DataTable>
@@ -207,6 +214,7 @@ export class Biggerpartygroup extends Component {
 							<Column field='id' expander style={{width:'6%'}} />
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
 							<Column field='name' header={lists} className='padding-name' style={{width: namePercent + '%' }} />
+							<Column />
 							{columns}
 						</DataTable>
         	}

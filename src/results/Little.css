@@ -12,14 +12,3 @@
 	padding: 10px 0px 10px !important;
 	font-weight: 400 !important;
 }
-
-.little-table .party-images {
-	position: absolute;
-	left: 130%;
-	width: 100%;
-}
-
-.little-table .border-images {
-	position: relative;
-	bottom: 25px;
-}

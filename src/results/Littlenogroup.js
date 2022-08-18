@@ -84,7 +84,7 @@ export class Littlenogroup extends Component {
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
             if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
-    					 scrollable={true} scrollHeight='450px' footer={footer}>
+    					 scrollable={true} scrollHeight='450px' footer={footer} className='little-no-group-table'>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
     						<Column field='name' header={lists} body={this.candidatesTemplate} style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
@@ -98,7 +98,7 @@ export class Littlenogroup extends Component {
     				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
     			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
-			 			scrollable={true} scrollHeight='450px' footer={footer}>
+			 			scrollable={true} scrollHeight='450px' footer={footer} className='little-no-group-table'>
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
 							<Column field='name' header={lists} body={this.candidatesTemplate} />
 							{columns}
