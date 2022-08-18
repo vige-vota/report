@@ -60,7 +60,7 @@ export class Referendum extends Component {
             })
             let footer = ''
             if (values.length > 1) {
-        		let votings =  <FormattedMessage id='app.table.totallists' defaultMessage='Total lists' />
+        		let votings =  <FormattedMessage id='app.table.totalvotes' defaultMessage='Total votes' />
             	if (this.props.app.state.activeTabVote.id === 0)
             		footer = <ColumnGroup>
             						<Row>

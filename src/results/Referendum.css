@@ -23,3 +23,7 @@
 	position: relative;
 	bottom: 25px;
 }
+
+.referendum-sub-header .p-datatable-tbody > tr > td > .p-column-title {
+    display: contents !important;
+}

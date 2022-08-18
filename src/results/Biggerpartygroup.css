@@ -24,3 +24,7 @@
 .biggernogroup-table .p-datatable-tfoot > tr > td > span {
 	padding: 0em 0em 0.8em 1em !important;
 }
+
+.biggernogroup-sub-header .p-datatable-tbody > tr > td > .p-column-title {
+    display: contents !important;
+}
