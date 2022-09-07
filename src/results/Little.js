@@ -52,7 +52,6 @@ export class Little extends Component {
             let values = getComponentById(data.id, this.props.app.state.votingPaper).parties
             let sumValue = 0
             let sumPercent = 0
-            let sumPercentBallots = []
             let value = values.map((e) => {
                 let numberVotes = getVotesById(e.id, vote)
                 sumValue += numberVotes
@@ -67,7 +66,6 @@ export class Little extends Component {
         		}
         		for (let i = 0; i< this.props.app.state.votes.length; i++) {
         			jsonValue['percent'+i] = getPercent(e.id, this.props.app.state.votes[i])
-        			sumPercentBallots += jsonValue['percent'+i]
         		}
         		return jsonValue
             })
@@ -87,7 +85,7 @@ export class Little extends Component {
             	else {
         			let columns = []
         			for (let i = 0; i< this.props.app.state.votes.length; i++)
-        				columns.push(<Column key={'percent-columns-' + i} footer={sumPercentBallots[i]} />)
+        				columns.push(<Column key={'percent-columns-' + i} footer={getVotesById(data.id, vote)} />)
             		footer = <ColumnGroup>
 									<Row>
 										<Column />

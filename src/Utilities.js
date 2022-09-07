@@ -102,6 +102,16 @@ export const getVotesById = (value, votes) => {
 	return result
 }
 
+export const getVotesPartiesById = (value, votes, votingPapers) => {
+	let result = 0
+	votes.votingPapers.forEach(votingPaper => {
+		let component = getComponentById(value, votingPaper)
+		if (component)
+			result = component.electors
+	})
+	return result
+}
+
 export const getPercent = (value, votes) => {
 	let voteComponent
 	let voteVotingPaper
