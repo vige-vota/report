@@ -57,6 +57,7 @@ class App extends Component {
 
     componentDidMount() {
         let i = 0
+        let iR = 0
         if (config.votingPapers.length > 1)
         	config.votingPapers.sort(function(a, b) {
   				let nameA = a.type.toUpperCase();
@@ -71,9 +72,14 @@ class App extends Component {
   				return 0;
 			})
         config.votingPapers.map((votingPaper) => {
-        	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup')
-        		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
-        	else if (i === 0) {
+        	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup') {
+				if (votingPaper.type !== 'referendum')
+        			this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
+        		else if (iR === 0) {
+        			this.state.items.push({ id: votingPaper.id, label: <FormattedMessage id='app.table.referendum' defaultMessage='Referendum' /> })
+        			iR++;
+				}
+        	} else if (i === 0) {
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
         		i++;
         	}
