@@ -5,13 +5,13 @@ import { language } from './index'
 import { FormattedMessage } from 'react-intl'
 
 export const getTabs = (component, style) => {
-    return ReactDOM.findDOMNode(component).querySelectorAll(style + ' .p-menuitem-link')
+	return ReactDOM.findDOMNode(component).querySelectorAll(style + ' .p-menuitem-link')
 }
 
 export const getVotingPaperById = (value) => {
 	if (value) {
 		let result = ''
-    	config.votingPapers.forEach(votingPaper => {
+		config.votingPapers.forEach(votingPaper => {
 			if (votingPaper.id === value.id)
 				result = votingPaper
 		})
@@ -22,8 +22,8 @@ export const getVotingPaperById = (value) => {
 export const getVotingPaperByZone = (value) => {
 	if (value) {
 		let result = ''
-    	config.votingPapers.forEach(votingPaper => {
-			if (votingPaper.zone &&  votingPaper.zone === value)
+		config.votingPapers.forEach(votingPaper => {
+			if (votingPaper.zone && votingPaper.zone === value)
 				result = votingPaper
 		})
 		return result
@@ -68,41 +68,31 @@ export const getComponentById = (value, votingPaper) => {
 			votingPaper.groups.forEach(group => {
 				if (group.id === value)
 					result = group
-					else group.parties.forEach(party => {
-						if (party.id === value)
-							result = party
-						else if (party.candidates)
-							party.candidates.forEach(candidate => {
-								if (candidate.id === value)
-									result = candidate
-							})
-					})
+				else group.parties.forEach(party => {
+					if (party.id === value)
+						result = party
+					else if (party.candidates)
+						party.candidates.forEach(candidate => {
+							if (candidate.id === value)
+								result = candidate
+						})
+				})
 			})
 		if (votingPaper.parties)
 			votingPaper.parties.forEach(party => {
 				if (party.id === value)
 					result = party
-				else if (party.candidates) 
+				else if (party.candidates)
 					party.candidates.forEach(candidate => {
 						if (candidate.id === value)
 							result = candidate
 					})
 			})
-		}
+	}
 	return result
 }
 
 export const getVotesById = (value, votes) => {
-	let result = 0
-	votes.votingPapers.forEach(votingPaper => {
-		let component = getComponentById(value, votingPaper)
-		if (component)
-			result = component.electors
-	})
-	return result
-}
-
-export const getVotesPartiesById = (value, votes, votingPapers) => {
 	let result = 0
 	votes.votingPapers.forEach(votingPaper => {
 		let component = getComponentById(value, votingPaper)
@@ -117,7 +107,7 @@ export const getPercent = (value, votes) => {
 	let voteVotingPaper
 	let result = 0
 	votes.votingPapers.forEach(votingPaper => {
-		let component = getComponentById(value, votingPaper)
+		let component = getComponentById(value.id, votingPaper)
 		if (component) {
 			voteComponent = component
 			voteVotingPaper = votingPaper
@@ -129,6 +119,41 @@ export const getPercent = (value, votes) => {
 		if (isNaN(result))
 			result = 0
 	}
+	return parseFloat(result)
+}
+
+export const getPercentForGroups = (value, votes, groups) => {
+	let voteComponents = []
+	let result = 0
+	let groupFound = groups.filter(group =>
+		group.parties.filter(party =>
+			party.id === value.id
+		).length > 0
+	)[0]
+	groupFound.parties.forEach(party => {
+		let jsonValue = {
+			id: party.id,
+			electors: 0
+		}
+		voteComponents.push(jsonValue)
+		votes.votingPapers.forEach(votingPaper => {
+			let component = getComponentById(party.id, votingPaper)
+			if (component) {
+				jsonValue.electors = component.electors
+			}
+		})
+	})
+	console.log(voteComponents)
+	let totalElectors = 0
+	let currentElectors = 0
+	voteComponents.forEach((voteComponent) => {
+		if (voteComponent.id === value.id)
+			currentElectors = voteComponent.electors
+		totalElectors = totalElectors + voteComponent.electors
+	})
+	result = (currentElectors / totalElectors * 100).toFixed(2)
+	if (isNaN(result))
+		result = 0
 	return parseFloat(result)
 }
 
@@ -149,7 +174,7 @@ export const getUpdateDate = (votes) => {
 export const getTitle = (value) => {
 	if (value) {
 		return <FormattedMessage id={'level_' + value.level}>
-					{e => e + ' ' + value.name}
-			   </FormattedMessage>
+			{e => e + ' ' + value.name}
+		</FormattedMessage>
 	} else return <FormattedMessage id={language} defaultMessage='Great Britain' />
 }

@@ -68,7 +68,7 @@ export class Littlenogroup extends Component {
     		let values = this.props.app.state.votingPaper.parties
     		let value = values.map((e) => {
     				let numberVotes = getVotesById(e.id, vote)
-                	let percent = getPercent(e.id, vote)
+                	let percent = getPercent(e, vote)
             		let jsonValue = {
             			id: e.id,
             			name: e.name,
@@ -77,7 +77,7 @@ export class Littlenogroup extends Component {
             			percent: percent
             		}
             		for (let i = 0; i< this.props.app.state.votes.length; i++)
-            			jsonValue['percent'+i] = getPercent(e.id, this.props.app.state.votes[i])
+            			jsonValue['percent'+i] = getPercent(e, this.props.app.state.votes[i])
             		return jsonValue
     		})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />

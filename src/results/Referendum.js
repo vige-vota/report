@@ -4,7 +4,7 @@ import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import './Results.css'
 import './Referendum.css'
-import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
+import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercentForGroups, getUpdateDate } from '../Utilities';
 import { language } from '../index'
 import { ProgressSpinner } from 'primereact/progressspinner'
 import { config } from '../App'
@@ -46,15 +46,11 @@ export class Referendum extends Component {
 					let bigValues = currentVotingPaper.groups
 					let bigValue = bigValues.map((e) => {
 						let numberVotes = getVotesById(e.id, vote)
-						let percent = getPercent(e.id, vote)
 						let jsonValue = {
 							id: e.id,
 							name: e.name,
-							votes: numberVotes,
-							percent: percent
+							votes: numberVotes
 						}
-						for (let i = 0; i < currentVotes.length; i++)
-							jsonValue['percent' + i] = getPercent(e.id, currentVotes[i])
 						return jsonValue
 					})
 
@@ -82,7 +78,7 @@ export class Referendum extends Component {
 							let percentStr = percent.toFixed(2)
 							e.percent = percentStr
 							for (let i = 0; i < currentVotes.length; i++)
-								e['percent' + i] = getPercent(e.id, currentVotes[i])
+								e['percent' + i] = getPercentForGroups(e, currentVotes[i], bigValues)
 						})
 						let headerStyle = { display: 'none' }
 						if (key === bigValue.length - 1)

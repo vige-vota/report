@@ -55,7 +55,7 @@ export class Little extends Component {
             let value = values.map((e) => {
                 let numberVotes = getVotesById(e.id, vote)
                 sumValue += numberVotes
-            	let percent = getPercent(e.id, vote)
+            	let percent = getPercent(e, vote)
                 sumPercent += percent
         		let jsonValue = {
         			id: e.id,
@@ -65,7 +65,7 @@ export class Little extends Component {
         			percent: percent
         		}
         		for (let i = 0; i< this.props.app.state.votes.length; i++) {
-        			jsonValue['percent'+i] = getPercent(e.id, this.props.app.state.votes[i])
+        			jsonValue['percent'+i] = getPercent(e, this.props.app.state.votes[i])
         		}
         		return jsonValue
             })
@@ -148,7 +148,7 @@ export class Little extends Component {
         	let values = this.props.app.state.votingPaper.groups
         	let value = values.map((e) => {
         		let numberVotes = getVotesById(e.id, vote)
-            	let percent = getPercent(e.id, vote)
+            	let percent = getPercent(e, vote)
         		let jsonValue = {
         			id: e.id,
         			name: e.name,
@@ -157,7 +157,7 @@ export class Little extends Component {
         			percent: percent
         		}
         		for (let i = 0; i< this.props.app.state.votes.length; i++)
-        			jsonValue['percent'+i] = getPercent(e.id, this.props.app.state.votes[i])
+        			jsonValue['percent'+i] = getPercent(e, this.props.app.state.votes[i])
         		return jsonValue
         	})
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
