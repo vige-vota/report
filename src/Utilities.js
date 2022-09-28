@@ -143,7 +143,6 @@ export const getPercentForGroups = (value, votes, groups) => {
 			}
 		})
 	})
-	console.log(voteComponents)
 	let totalElectors = 0
 	let currentElectors = 0
 	voteComponents.forEach((voteComponent) => {
