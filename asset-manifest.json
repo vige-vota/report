@@ -1,25 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.1aca6fad.chunk.css",
-    "main.js": "/static/js/main.0dd9963d.chunk.js",
-    "main.js.map": "/static/js/main.0dd9963d.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.b2110587.js",
-    "runtime-main.js.map": "/static/js/runtime-main.b2110587.js.map",
-    "static/css/2.be9d54f8.chunk.css": "/static/css/2.be9d54f8.chunk.css",
-    "static/js/2.41b5e513.chunk.js": "/static/js/2.41b5e513.chunk.js",
-    "static/js/2.41b5e513.chunk.js.map": "/static/js/2.41b5e513.chunk.js.map",
+    "main.css": "/static/css/main.aa4dee98.css",
+    "main.js": "/static/js/main.463d3e4a.js",
+    "static/media/primeicons.svg": "/static/media/primeicons.c6e2053303524e39530c.svg",
+    "static/media/logo.ico": "/static/media/logo.11ab22ed726c8ddf1ce7.ico",
+    "static/media/primeicons.eot": "/static/media/primeicons.7fc4d8e224d1ff1b9c62.eot",
+    "static/media/primeicons.woff": "/static/media/primeicons.449aa8c65cdc5c2a8686.woff",
+    "static/media/primeicons.ttf": "/static/media/primeicons.91bacab1f083f2795272.ttf",
     "index.html": "/index.html",
-    "static/css/2.be9d54f8.chunk.css.map": "/static/css/2.be9d54f8.chunk.css.map",
-    "static/css/main.1aca6fad.chunk.css.map": "/static/css/main.1aca6fad.chunk.css.map",
-    "static/js/2.41b5e513.chunk.js.LICENSE.txt": "/static/js/2.41b5e513.chunk.js.LICENSE.txt",
-    "static/media/logo.11ab22ed.ico": "/static/media/logo.11ab22ed.ico",
-    "static/media/primeicons.css": "/static/media/primeicons.e61f3495.woff"
+    "main.aa4dee98.css.map": "/static/css/main.aa4dee98.css.map",
+    "main.463d3e4a.js.map": "/static/js/main.463d3e4a.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.b2110587.js",
-    "static/css/2.be9d54f8.chunk.css",
-    "static/js/2.41b5e513.chunk.js",
-    "static/css/main.1aca6fad.chunk.css",
-    "static/js/main.0dd9963d.chunk.js"
+    "static/css/main.aa4dee98.css",
+    "static/js/main.463d3e4a.js"
   ]
 }
