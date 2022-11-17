@@ -1,5 +1,9 @@
+.biggernogroup-sub-header {
+	width: 100%;
+}
+
 .biggernogroup-sub-header .p-datatable-thead {
-	display: none;
+	display: none !important;
 }
 
 .biggernogroup-sub-header .p-datatable-tfoot td {
@@ -7,17 +11,6 @@
 	text-align: left !important;
 	padding: 10px 0px 10px !important;
 	font-weight: 400 !important;
-}
-
-.biggernogroup-table .party-images {
-	position: absolute;
-	right: 1%;
-	width: 50%;
-}
-
-.biggernogroup-table .border-images {
-	position: relative;
-	bottom: 25px;
 }
 
 .biggernogroup-table .padding-name {
@@ -30,4 +23,8 @@
 
 .biggernogroup-table .p-datatable-tfoot > tr > td > span {
 	padding: 0em 0em 0.8em 1em !important;
+}
+
+.biggernogroup-sub-header .p-datatable-tbody > tr > td > .p-column-title {
+    display: contents !important;
 }

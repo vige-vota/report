@@ -79,8 +79,8 @@ class VoteMap extends Component {
 						 </FormattedMessage>
 		return (
 			<div>
-				<div className='p-grid'>
-					<div className='p-col-2'>
+				<div className='grid'>
+					<div className='col-2'>
     					{chooseZone}
 						{ballots}
 					</div>

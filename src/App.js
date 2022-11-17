@@ -8,12 +8,15 @@ import Littlenogroup from './results/Littlenogroup';
 import Biggerpartygroup from './results/Biggerpartygroup';
 import Bigger from './results/Bigger';
 import Little from './results/Little';
+import Referendum from './results/Referendum';
 import { getTabs, getVotingPaperById } from './Utilities';
 import 'primereact/resources/themes/nova/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 import logo from './images/logo.ico'
 import {history, language} from './index'
+import axios from 'axios'
+import SockJsClient from './SockJsClient'
 
 export var config
 
@@ -34,12 +37,27 @@ class App extends Component {
             activeTabVote: { id: 0, label: <FormattedMessage id='app.tab.ballots' defaultMessage='BALLOTS' /> },
             activeTabVoteIndex: 0
         }
+        let voting_url = process.env.REACT_APP_VOTING_URL
+        if (history) {
+        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + '/' + history
+        }
+        axios
+    	.get(voting_url)
+    	.then(response => {
+    	    this.setState({
+    	    		votes: response.data.votings
+    	    	})
+    	})
+    	.catch(function(error) {
+    	    console.log(error)
+    	})
  	   	this.voteMap = React.createRef();
  	   	this.results = React.createRef();
     }
 
     componentDidMount() {
         let i = 0
+        let iR = 0
         if (config.votingPapers.length > 1)
         	config.votingPapers.sort(function(a, b) {
   				let nameA = a.type.toUpperCase();
@@ -54,9 +72,14 @@ class App extends Component {
   				return 0;
 			})
         config.votingPapers.map((votingPaper) => {
-        	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup')
-        		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
-        	else if (i === 0) {
+        	if (votingPaper.type !== 'bigger' && votingPaper.type !== 'bigger-partygroup') {
+				if (votingPaper.type !== 'referendum')
+        			this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
+        		else if (iR === 0) {
+        			this.state.items.push({ id: votingPaper.id, label: <FormattedMessage id='app.table.referendum' defaultMessage='Referendum' /> })
+        			iR++;
+				}
+        	} else if (i === 0) {
         		this.state.items.push({ id: votingPaper.id, label: votingPaper.name })
         		i++;
         	}
@@ -73,6 +96,22 @@ class App extends Component {
     }
 
     render() {
+    	let realTimeVotingPapers = ''
+    	let realTimeVotes = ''
+    	if (!history) {
+    		realTimeVotingPapers = <SockJsClient url={process.env.REACT_APP_VOTING_PAPERS_REALTIME_URL} topics={['/topic/votingpaper']}
+    									onMessage={(msg) => {
+        	            					this.setState({
+        	            						votingPaper: msg.votingPapers.filter(((e) => e.id === this.state.votingPaper.id))[0]
+        	            					})
+    							   }} />
+        	realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
+        	            		onMessage={(msg) => { 
+        	            			this.setState({
+        	            				votes: msg.votings
+        	            			})
+        	            	}} />
+    	}
     	if (this.state.zone && (this.state.votingPaper.type === 'bigger-partygroup' || this.state.votingPaper.type === 'bigger')) {
 			let changedItem = this.state.items[0]
 			changedItem.id = this.state.votingPaper.id
@@ -88,6 +127,8 @@ class App extends Component {
         		results = <Bigger ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         	else if (this.state.votingPaper.type === 'little-nogroup')
         		results = <Littlenogroup ref={this.results} votingPaper={this.state.votingPaper} app={this} />
+        	else if (this.state.votingPaper.type === 'referendum')
+        		results = <Referendum ref={this.results} votingPaper={this.state.votingPaper} app={this} />
         }
     	let subtitle = ''
     	if (history) {
@@ -106,6 +147,8 @@ class App extends Component {
         }
 		return (
             <div className='html navbar-is-fixed-top cbp-spmenu-push excludeIE10 enhanced'>
+            	{realTimeVotingPapers}
+            	{realTimeVotes}
             	<div className='content-section implementation'>
                 	<div className='second-row'>
         				<div className='container container-live'>
@@ -134,11 +177,11 @@ class App extends Component {
                 		}
                 	} />
                 	
-                    <div className='my-content p-grid'>
-                        <div className='p-col-fixed' style={{ width: '100%', paddingRight: '40px' }}>
+                    <div className='my-content grid'>
+                        <div className='col-fixed' style={{ width: '100%', paddingRight: '40px' }}>
                         	<VoteMap ref={this.voteMap} votingPaper={this.state.votingPaper} app={this} />
                         </div>
-                        <div className='p-col'>
+                        <div className='col'>
                             {results}
                         </div>
                     </div>

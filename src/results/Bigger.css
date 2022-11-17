@@ -1,5 +1,9 @@
+.bigger-sub-header {
+	width: 100%;
+}
+
 .bigger-sub-header .p-datatable-thead {
-	display: none;
+	display: none !important;
 }
 
 .bigger-sub-header .p-datatable-tfoot td {
@@ -9,13 +13,6 @@
 	font-weight: 400 !important;
 }
 
-.bigger-table .party-images {
-	position: absolute;
-	right: 1%;
-	width: 50%;
-}
-
-.bigger-table .border-images {
-	position: relative;
-	bottom: 25px;
+.bigger-sub-header .p-datatable-tbody > tr > td > .p-column-title {
+    display: contents !important;
 }

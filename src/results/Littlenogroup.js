@@ -7,10 +7,8 @@ import { Candidates } from './Candidates'
 import {Dialog} from 'primereact/dialog';
 import './Results.css'
 import './Littlenogroup.css'
-import axios from 'axios'
 import { getTitle, getVotesById, getBlankPapers, getComponentById, getPercent, getUpdateDate } from '../Utilities';
-import {history, language} from '../index'
-import SockJsClient from '../SockJsClient'
+import {language} from '../index'
 import {ProgressSpinner} from 'primereact/progressspinner'
 
 export class Littlenogroup extends Component {
@@ -21,21 +19,6 @@ export class Littlenogroup extends Component {
         	showCandidates: null,
             selectedParty: null
         }
-        let voting_url = process.env.REACT_APP_VOTING_URL
-        if (history) {
-        	voting_url = process.env.REACT_APP_HISTORY_VOTING_URL + '/' + history
-        }
-        axios
-    	.get(voting_url)
-    	.then(response => {
-    	    this.setState({
-    	    		votes: response.data.votings,
-    	    		votingPaper: this.props.app.state.votingPaper
-    	    	})
-    	})
-    	.catch(function(error) {
-    	    console.log(error)
-    	})
         this.partyTemplate = this.partyTemplate.bind(this);
         this.candidatesTemplate = this.candidatesTemplate.bind(this);
     }
@@ -50,7 +33,7 @@ export class Littlenogroup extends Component {
     }
     
     candidatesTemplate(data) {
-    	let component = getComponentById(data.id, this.state.votingPaper)
+    	let component = getComponentById(data.id, this.props.app.state.votingPaper)
     	if (component.candidates)
     		return <Button label={data.name} className='candidates-button' 
     			onClick={() => this.setState({showCandidates: true, selectedParty: component})} />
@@ -61,47 +44,31 @@ export class Littlenogroup extends Component {
     	if (rowData.image)
     		return <img src={`data:image/jpeg;base64,${rowData.image}`} 
         				alt={rowData.name} 
-        				style={{ width:'50%', left:'10%', top:'2px', position:'relative' }} />
+        				style={{ width:'20%', left:'10%', top:'2px', position:'relative' }} />
     	else return ''
     }
 
     render() {
-    	let realTimeVotingPapers = ''
-    	let realTimeVotes = ''
     	let dataTable = ''
     	let progressSpinner = ''
-    	if (!this.state.votes)
+    	if (!this.props.app.state.votes)
     		progressSpinner = <ProgressSpinner/>
-    	if (this.state.votes && this.state.votingPaper) {
-        	if (!history) {
-    			realTimeVotingPapers = <SockJsClient url={process.env.REACT_APP_VOTING_PAPERS_REALTIME_URL} topics={['/topic/votingpaper']}
-    										onMessage={(msg) => {
-        	            					this.setState({
-        	            						votingPaper: msg.votingPapers.filter(((e) => e.id === this.state.votingPaper.id))[0]
-        	            					})
-    								   }} />
-        	    realTimeVotes = <SockJsClient url={process.env.REACT_APP_VOTING_REALTIME_URL} topics={['/topic/vote']}
-        	            			onMessage={(msg) => { 
-        	            				this.setState({
-        	            					votes: msg.votings
-        	            				})
-        	            		}} />
-        	}
-    		let vote = this.state.votes[this.state.votes.length -1]
+    	if (this.props.app.state.votes && this.props.app.state.votingPaper) {
+    		let vote = this.props.app.state.votes[this.props.app.state.votes.length -1]
             let votings = <FormattedMessage id='app.table.votings' defaultMessage='Votings:' />
             let blankPapers = <FormattedMessage id='app.table.blankpapers' defaultMessage='Blank papers:' />
-    		let votingValues = getVotesById(this.state.votingPaper.id, vote)
-    		let blankPapersValues = getBlankPapers(this.state.votingPaper.id, vote)
+    		let votingValues = getVotesById(this.props.app.state.votingPaper.id, vote)
+    		let blankPapersValues = getBlankPapers(this.props.app.state.votingPaper.id, vote)
             let updateDate = <FormattedMessage id='app.table.updatedate' defaultMessage='Data updated to:' />
     		let updateDateValues = getUpdateDate(vote)
     		let footer = <div>{votings} <span className='footer-value'>{votingValues}</span> &nbsp; 
     						{blankPapers} <span className='footer-value'>{blankPapersValues}</span> &nbsp;
     						{updateDate} <span className='footer-value'>{updateDateValues}</span>
     					 </div>
-    		let values = this.state.votingPaper.parties
+    		let values = this.props.app.state.votingPaper.parties
     		let value = values.map((e) => {
     				let numberVotes = getVotesById(e.id, vote)
-                	let percent = getPercent(e.id, vote)
+                	let percent = getPercent(e, vote)
             		let jsonValue = {
             			id: e.id,
             			name: e.name,
@@ -109,15 +76,15 @@ export class Littlenogroup extends Component {
             			votes: numberVotes,
             			percent: percent
             		}
-            		for (let i = 0; i< this.state.votes.length; i++)
-            			jsonValue['percent'+i] = getPercent(e.id, this.state.votes[i])
+            		for (let i = 0; i< this.props.app.state.votes.length; i++)
+            			jsonValue['percent'+i] = getPercent(e, this.props.app.state.votes[i])
             		return jsonValue
     		})
     		let lists = <FormattedMessage id='app.table.lists' defaultMessage='Lists' />
     		let votes = <FormattedMessage id='app.table.votes' defaultMessage='Votes' />
             if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
-    					 scrollable={true} scrollHeight='450px' footer={footer}>
+    					 scrollable={true} scrollHeight='450px' footer={footer} className='little-no-group-table'>
     						<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
     						<Column field='name' header={lists} body={this.candidatesTemplate} style={{width: '70%' }} />
         					<Column field='votes' header={votes} />
@@ -125,13 +92,13 @@ export class Littlenogroup extends Component {
     					</DataTable>
     		else {
     			let columns = []
-    			for (let i = 0; i< this.state.votes.length; i++) {
+    			for (let i = 0; i< this.props.app.state.votes.length; i++) {
     				let options = { hour: 'numeric', minute: 'numeric' }
-    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
+    				let header = <FormattedMessage id='app.tab.ballots.hours' defaultMessage='% hours {0}' values={{0: new Date(this.props.app.state.votes[i].affluence).toLocaleTimeString(language, options)}} />
     				columns.push(<Column key={'percent-columns-' + i} field={'percent'+i} header={header} style={{width:'10%'}} />)
     			}
     			dataTable = <DataTable value={value} sortField='votes' sortOrder={-1}
-			 			scrollable={true} scrollHeight='450px' footer={footer}>
+			 			scrollable={true} scrollHeight='450px' footer={footer} className='little-no-group-table'>
 							<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
 							<Column field='name' header={lists} body={this.candidatesTemplate} />
 							{columns}
@@ -141,8 +108,6 @@ export class Littlenogroup extends Component {
         return (
         	<div className='tableContent'>
         		{progressSpinner}
-        		{realTimeVotingPapers}
-    			{realTimeVotes}
         		<div id='headEnti'>
         			<h3>{getTitle()}</h3>
         		</div>
@@ -151,7 +116,7 @@ export class Littlenogroup extends Component {
         			modal={true} onHide={() => this.setState({showCandidates: false})}
         			style={{width: '50vw'}} header={this.renderModalHeader()}>
         			<Candidates party={this.state.selectedParty} 
-        				votes={this.state.votes} app={this.props.app} />
+        				votes={this.props.app.state.votes} app={this.props.app} />
         		</Dialog>
             </div>
         )
