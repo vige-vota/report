@@ -39,6 +39,6 @@
   ],
   "homepage": "http://vota-report.vige.it",
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^4.0.0"
   }
 }
