@@ -41,13 +41,6 @@ class VoteMap extends Component {
        	    })
     }
 
-    componentDidUpdate() {
-		if (this.zoneSelect.current)
-			this.zoneSelect.current.setState({
-				expandedKeys: this.state.expandedKeys
-			})
-    }
-
 	render() {
 		let ballots = ''
     	if (history) {
