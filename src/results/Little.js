@@ -99,7 +99,7 @@ export class Little extends Component {
             if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='little-sub-header'>
-            				<Column />
+            				<Column style={{width: '4%' }} />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
         					<Column field='name' style={{width: '70%' }} body={this.candidatesTemplate} />
         					<Column field='votes' />
