@@ -76,8 +76,8 @@ export class Biggerpartygroup extends Component {
             						<Row>
             							<Column />
             							<Column />
-            							<Column />
             							<Column footer={votings} />
+            							<Column />
             							<Column footer={sumValue} />
             							<Column footer={sumPercent} />
             						</Row>
@@ -90,8 +90,8 @@ export class Biggerpartygroup extends Component {
 									<Row>
 										<Column />
 										<Column />
-										<Column />
 										<Column footer={votings} />
+										<Column />
 										{columns}
 									</Row>
 								</ColumnGroup>
