@@ -100,7 +100,7 @@ export class Biggerpartygroup extends Component {
             if (this.props.app.state.activeTabVote.id === 0)
             	dataTable = <DataTable value={value} sortField='votes' sortOrder={-1} 
             			 footerColumnGroup={footer} className='biggernogroup-sub-header'>
-            				<Column />
+            				<Column style={{width: '8.4%' }} />
             				<Column field='image' body={this.partyTemplate} style={{width:'10%'}} />
         					<Column field='name' style={{width: '70%' }} body={this.candidatesTemplate} />
         					<Column />
